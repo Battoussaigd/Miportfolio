@@ -331,7 +331,7 @@ export default function App() {
       if (docSnap.exists()) {
         const data = docSnap.data();
         if (data.names && data.names.includes(name)) {
-          setPrivateData(data);
+          setPrivateData({ ...data, authorityName: accessForm.name.trim() });
           setIsModalOpen(false);
           setAccessForm({ name: '', key: '' });
           document.body.style.overflow = 'hidden';
