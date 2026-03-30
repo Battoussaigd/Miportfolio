@@ -1,0 +1,72 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    //
+    // Collection: municipalities
+    // Document ID: The access key
+    // Fields:
+    //   - names: list of strings (allowed names for login)
+    //   - key: string (the access key, matches doc ID)
+    //   - display: string (display name, e.g., 'Sr. Alcalde')
+    //   - subEs: string (Spanish subtitle)
+    //   - subEn: string (English subtitle)
+    //   - program: string (program name)
+    //   - docs: list of objects { n: string, d: string, f: string }
+    //
+    // ===============================================================
+
+    // Helper Functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && request.auth.token.email == "claudioegdiaz@gmail.com" && request.auth.token.email_verified == true;
+    }
+
+    function isValidMunicipality(data) {
+      return data.keys().hasAll(['names', 'key', 'display', 'subEs', 'subEn', 'program', 'docs']) &&
+             data.names is list &&
+             data.key is string && data.key.size() > 0 && data.key.size() < 100 &&
+             data.display is string && data.display.size() < 100 &&
+             data.subEs is string && data.subEs.size() < 500 &&
+             data.subEn is string && data.subEn.size() < 500 &&
+             data.program is string && data.program.size() < 200 &&
+             data.docs is list;
+    }
+
+    function isValidMessage(data) {
+      return data.keys().hasAll(['name', 'email', 'message', 'createdAt']) &&
+             data.name is string && data.name.size() > 0 && data.name.size() < 100 &&
+             data.email is string && data.email.size() > 0 && data.email.size() < 100 &&
+             data.message is string && data.message.size() > 0 && data.message.size() < 5000 &&
+             data.createdAt is timestamp;
+    }
+
+    match /municipalities/{municipalityId} {
+      // Anyone can get a specific municipality if they know the document ID (which is the secret key)
+      allow get: if true;
+      
+      // Only admin can list all municipalities
+      allow list: if isAdmin();
+      
+      // Only admin can create, update, or delete
+      allow create: if isAdmin() && isValidMunicipality(request.resource.data) && request.resource.data.key == municipalityId;
+      allow update: if isAdmin() && isValidMunicipality(request.resource.data) && request.resource.data.key == municipalityId;
+      allow delete: if isAdmin();
+    }
+
+    match /messages/{messageId} {
+      // Anyone can create a message
+      allow create: if isValidMessage(request.resource.data);
+      
+      // Only admin can read or delete messages
+      allow read, delete: if isAdmin();
+      allow update: if false;
+    }
+  }
+}

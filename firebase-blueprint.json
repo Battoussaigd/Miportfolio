@@ -1,0 +1,72 @@
+{
+  "entities": {
+    "Municipality": {
+      "title": "Municipality",
+      "description": "A municipality or client access profile.",
+      "type": "object",
+      "properties": {
+        "names": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Allowed names for login (lowercase)."
+        },
+        "key": {
+          "type": "string",
+          "description": "The secret access key."
+        },
+        "display": {
+          "type": "string",
+          "description": "Display name (e.g., Sr. Alcalde)."
+        },
+        "subEs": {
+          "type": "string",
+          "description": "Spanish subtitle."
+        },
+        "subEn": {
+          "type": "string",
+          "description": "English subtitle."
+        },
+        "program": {
+          "type": "string",
+          "description": "Program name."
+        },
+        "docs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "n": { "type": "string", "description": "Document name." },
+              "d": { "type": "string", "description": "Document description." },
+              "f": { "type": "string", "description": "Document URL (e.g., Google Drive link)." }
+            },
+            "required": ["n", "d", "f"]
+          },
+          "description": "List of available documents."
+        }
+      },
+      "required": ["names", "key", "display", "subEs", "subEn", "program", "docs"]
+    },
+    "Message": {
+      "title": "Message",
+      "description": "A contact form message.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "message": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "email", "message", "createdAt"]
+    }
+  },
+  "firestore": {
+    "municipalities": {
+      "schema": { "$ref": "#/entities/Municipality" },
+      "description": "Stores the access credentials and documents for each municipality/client."
+    },
+    "messages": {
+      "schema": { "$ref": "#/entities/Message" },
+      "description": "Stores contact form submissions."
+    }
+  }
+}
