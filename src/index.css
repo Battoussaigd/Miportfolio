@@ -59,15 +59,37 @@
   }
 
   .btn-primary {
-    @apply bg-cyan-400 text-neutral-950 font-semibold px-6 py-3 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-[0_8px_24px_rgba(0,212,255,0.3)];
+    @apply bg-cyan-400 text-neutral-950 font-semibold px-6 py-3 rounded-full transition-transform duration-200;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .btn-primary:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 24px rgba(0,212,255,0.3);
+    }
+  }
+  .btn-primary:active {
+    transform: scale(0.97);
+    transition: transform 100ms ease-out;
   }
   .light .btn-primary {
     @apply bg-cyan-500 text-white hover:shadow-[0_8px_24px_rgba(0,168,204,0.3)];
   }
 
   .btn-secondary {
-    @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] px-6 py-3 rounded-full font-medium transition-all duration-300 hover:text-cyan-400 hover:-translate-y-1;
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] px-6 py-3 rounded-full font-medium transition-colors duration-150;
   }
+  @media (hover: hover) and (pointer: fine) {
+    .btn-secondary:hover {
+      color: var(--color-cyan-400);
+      transform: translateY(-2px);
+      transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1), color 150ms ease-out;
+    }
+  }
+  .btn-secondary:active {
+    transform: scale(0.97);
+    transition: transform 100ms ease-out;
+  }
+
   .light .btn-secondary {
     @apply bg-black/5 border-black/10 shadow-[inset_0_1px_1px_rgba(0,0,0,0.05)] hover:text-cyan-600;
   }
@@ -118,4 +140,17 @@
   .light .text-red-400 { color: #dc2626; } /* red-600 */
   .light .bg-red-500\/10 { background-color: rgba(220, 38, 38, 0.1); }
   .light .border-red-500\/20 { border-color: rgba(220, 38, 38, 0.2); }
+}
+
+/* Accesibilidad — reduce movimiento */
+@media (prefers-reduced-motion: reduce) {
+  .animate-float-1,
+  .animate-float-2,
+  .animate-float-3 {
+    animation: none;
+  }
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
 }
