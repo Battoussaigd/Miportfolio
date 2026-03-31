@@ -611,7 +611,9 @@ export default function App() {
                   <motion.div 
                     key={i}
                     initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} transition={{ delay: i * 0.1 }}
-                    className={`p-6 rounded-2xl transition-all duration-300 ${isDark ? 'bg-white/5 border border-white/10 hover:bg-white/10' : 'bg-white border border-neutral-200 hover:border-cyan-400/30 hover:shadow-md'}`}
+                    className={`p-6 rounded-2xl transition-all duration-200 ${isDark 
+  ? 'bg-white/5 border border-white/10 hover:bg-cyan-400/10 hover:border-cyan-400/30 hover:shadow-[0_0_24px_rgba(0,212,255,0.15)] hover:-translate-y-0.5' 
+  : 'bg-white border border-neutral-200 hover:border-cyan-400/40 hover:shadow-lg hover:-translate-y-0.5'}`}
                   >
                     <div className="flex justify-between items-start mb-2">
                       <div className="text-sm font-bold text-cyan-400 bg-cyan-400/10 px-3 py-1 rounded-full inline-block">{cert.year}</div>
@@ -640,7 +642,10 @@ export default function App() {
                   {t.certs.kibernum.items.map((cert, i) => (
                     <div key={i} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
                       <div className={`flex items-center justify-center w-3 h-3 rounded-full border-2 border-cyan-400 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-[0_0_10px_rgba(34,211,238,0.5)] ${isDark ? 'bg-neutral-900' : 'bg-white'}`} />
-                      <div className={`w-[calc(100%-2rem)] md:w-[calc(50%-1.5rem)] p-4 rounded-xl transition-colors ${isDark ? 'hover:bg-white/5' : 'hover:bg-neutral-50'}`}>
+                      <div className={`w-[calc(100%-2rem)] md:w-[calc(50%-1.5rem)] p-4 rounded-xl transition-all duration-200 cursor-default
+  ${isDark 
+    ? 'hover:bg-cyan-400/10 hover:border hover:border-cyan-400/30 hover:shadow-[0_0_20px_rgba(0,212,255,0.15)] hover:-translate-y-0.5' 
+    : 'hover:bg-cyan-50 hover:border hover:border-cyan-400/40 hover:shadow-md hover:-translate-y-0.5'}`}>
                         <div className="flex items-center justify-between mb-1">
                           <span className="font-bold text-cyan-400 text-sm">{cert.year}</span>
                         </div>
@@ -669,7 +674,8 @@ export default function App() {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {t.projects.items.map((p, i) => (
             <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} transition={{ delay: i * 0.05 }} className="glass-panel p-8 rounded-[2rem] flex flex-col group relative overflow-hidden">
-              <div className="absolute inset-0 bg-cyan-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="absolute inset-0 bg-cyan-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
+              <div className="absolute inset-0 rounded-[2rem] opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-[inset_0_0_0_1px_rgba(0,212,255,0.3)]"></div>
               <div className="relative z-10">
                 <div className="mb-6">{p.icon}</div>
                 <h3 className="font-heading font-bold text-xl mb-3">{p.name}</h3>
