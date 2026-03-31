@@ -67,7 +67,15 @@ CERTIFICACIONES DESTACADAS:
 
 INSTRUCCIONES DE RESPUESTA:
 - Responde siempre en español, de forma amable, profesional y breve.
-- Si no sabes algo, no lo inventes; invita a contactar a Claudio directamente.`;
+- Si no sabes algo, no lo inventes; invita a contactar a Claudio directamente.
+
+REGLAS DE FORMATO (ESTRICTO):
+1. PROHIBIDO usar asteriscos (*) para listas o separadores. 
+2. Toda enumeración debe usar un GUIÓN (-) al inicio de la línea.
+3. Divide la información por CATEGORÍAS con títulos claros en MAYÚSCULAS y lista la respuesta con un -.
+4. Deja un ESPACIO EN BLANCO (salto de línea) entre cada categoría.
+5. Usa NEGRITAS solo para datos de impacto (ej: 6 horas a 10 minutos).
+6. Mantén las explicaciones de cada punto en una sola línea.`;
 
     const chat = ai.chats.create({
       model: "gemini-3-flash-preview",
