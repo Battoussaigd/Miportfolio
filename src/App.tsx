@@ -397,8 +397,8 @@ export default function App() {
   };
 
   const fadeUp = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+    hidden: { opacity: 0, y: 16 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: [0.23, 1, 0.32, 1] } }
   };
 
   return (
@@ -528,7 +528,7 @@ export default function App() {
       <section className="relative z-20 -mt-10 px-6 max-w-6xl mx-auto">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {t.stats.map((s, i) => (
-            <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} transition={{ delay: i * 0.1 }} className="glass-panel p-6 rounded-3xl text-center">
+            <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} transition={{ delay: i * 0.5 }} className="glass-panel p-6 rounded-3xl text-center">
               <div className="font-heading font-extrabold text-4xl text-cyan-400 mb-1">{s.n}</div>
               <div className="text-xs font-medium text-neutral-400 uppercase tracking-wider">{s.l}</div>
             </motion.div>
@@ -668,7 +668,7 @@ export default function App() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {t.projects.items.map((p, i) => (
-            <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} transition={{ delay: i * 0.1 }} className="glass-panel p-8 rounded-[2rem] flex flex-col group relative overflow-hidden">
+            <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} transition={{ delay: i * 0.05 }} className="glass-panel p-8 rounded-[2rem] flex flex-col group relative overflow-hidden">
               <div className="absolute inset-0 bg-cyan-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="relative z-10">
                 <div className="mb-6">{p.icon}</div>
@@ -809,9 +809,9 @@ export default function App() {
           <AnimatePresence>
             {isChatOpen && (
               <motion.div
-                initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                initial={{ opacity: 0, y: 8, scale: 0.98 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 20, scale: 0.9 }}
+                exit={{ opacity: 0, y: 8, scale: 0.98 }}
                 className={`mb-4 w-[calc(100vw-4rem)] sm:w-96 h-[500px] max-h-[70vh] flex flex-col rounded-2xl shadow-2xl overflow-hidden border ${isDark ? 'bg-neutral-900/95 border-white/10' : 'bg-white/95 border-neutral-200'} backdrop-blur-xl`}
               >
                 {/* Chat Header */}
@@ -914,9 +914,9 @@ export default function App() {
             onClick={() => setIsModalOpen(false)}
           >
             <motion.div 
-              initial={{ scale: 0.9, y: 20 }} 
-              animate={{ scale: 1, y: 0 }} 
-              exit={{ scale: 0.9, y: 20 }} 
+              initial={{ scale: 0.95, y: 10, opacity: 0 }} 
+              animate={{ scale: 1, y: 0, opacity: 1 }} 
+              exit={{ scale: 0.95, y: 10, opacity: 0 }} 
               className="glass-panel w-full max-w-md p-10 rounded-[2.5rem] relative"
               onClick={e => e.stopPropagation()}
             >
@@ -971,7 +971,7 @@ export default function App() {
             initial={{ opacity: 0, y: '100%' }} 
             animate={{ opacity: 1, y: 0 }} 
             exit={{ opacity: 0, y: '100%' }} 
-            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            transition={{ duration: 0.35, ease: [0.32, 0.72, 0, 1] }}
             className={`fixed inset-0 z-[150] overflow-y-auto p-6 md:p-12 ${isDark ? 'bg-black' : 'bg-neutral-50'}`}
           >
             <div className="max-w-5xl mx-auto pt-10 pb-20">
