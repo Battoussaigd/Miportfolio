@@ -1,6 +1,7 @@
 import { GoogleGenAI } from "@google/genai";
 
 export default async function handler(req: any, res: any) {
+  // Solo permitir peticiones POST
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
@@ -12,19 +13,18 @@ export default async function handler(req: any, res: any) {
       return res.status(400).json({ error: 'Message is required' });
     }
 
+    // En Vercel, esta variable se lee de forma segura desde el entorno del servidor
     const apiKey = process.env.GEMINI_API_KEY;
     
     if (!apiKey) {
-      return res.status(500).json({ error: 'API Key no configurada.' });
+      console.error('GEMINI_API_KEY is missing in Vercel environment');
+      return res.status(500).json({ error: 'La llave de inteligencia artificial no está configurada en el servidor.' });
     }
 
-    // Configuración correcta de la SDK de Google
-    const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ 
-      model: "gemini-1.5-flash", // Versión estable y rápida
-    });
+    const ai = new GoogleGenAI({ apiKey });
 
-    const systemInstruction = `Eres Demian, el asistente virtual de Claudio. Tu personalidad es amable, pero EXTREMADAMENTE concisa.
+    const systemInstruction = `Eres Demian, el asistente virtual amable, profesional y conciso de Claudio.
+Tu objetivo es ayudar a los visitantes de la página web de Claudio, un Técnico en Programación con +13 años de experiencia en logística y experto en IA Generativa.
 
 REGLAS DE FORMATO OBLIGATORIAS (PARA EVITAR TEXTO JUNTO):
 1. PROHIBIDO escribir listas en un solo párrafo. 
@@ -68,26 +68,19 @@ CURSOS QUE IMPARTE:
 
 Si preguntan por propuestas municipales o documentos oficiales, indica que usen el botón "Acceso Municipal".`;
 
-    // Iniciar chat con la instrucción de sistema
-    const chat = model.startChat({
+    const chat = ai.chats.create({
+      model: "gemini-3-flash-preview",
       history: history || [],
-      generationConfig: {
-        maxOutputTokens: 500,
+      config: {
+        systemInstruction: systemInstruction,
       },
     });
 
-    // Insertar la instrucción de sistema como un prefijo si es el primer mensaje o mediante el parámetro adecuado
-    // Para Gemini 1.5 en el SDK de Node, lo ideal es pasarle el systemInstruction al configurar el modelo (línea 22)
-    // Pero para asegurar que Demian siga las reglas, lo reforzamos aquí:
-    const fullMessage = `Instrucción: Sigue estrictamente el formato de guiones y brevedad. \n\n Usuario: ${message}`;
+    const response = await chat.sendMessage({ message });
 
-    const result = await chat.sendMessage(fullMessage);
-    const response = await result.response;
-    const text = response.text();
-
-    return res.status(200).json({ text: text });
+    return res.status(200).json({ text: response.text });
   } catch (error: any) {
-    console.error("Error en Gemini:", error);
-    return res.status(500).json({ error: "Lo siento, tuve un problema técnico. Por favor, intenta de nuevo o contacta a Claudio." });
+    console.error("Error in Gemini API:", error);
+    return res.status(500).json({ error: error.message || 'Internal server error' });
   }
 }
