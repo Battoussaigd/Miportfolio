@@ -487,7 +487,7 @@ export default function App() {
         <video key={isDark ? 'dark' : 'light'} className="absolute inset-0 w-full h-full object-cover z-0" autoPlay muted loop playsInline>
           <source src={isDark ? "https://res.cloudinary.com/dyejf2wmt/video/upload/v1774651181/01_gfbhc6.mp4" : "https://res.cloudinary.com/dyejf2wmt/video/upload/v1774679464/02_d%C3%ADa_final_zslffq.mp4"} type="video/mp4" />
         </video>
-        <div className={`absolute inset-0 z-10 ${isDark ? 'bg-gradient-to-b from-neutral-950/40 via-neutral-950/60 to-neutral-950' : 'bg-gradient-to-b from-neutral-50/40 via-neutral-50/60 to-neutral-50'}`}></div>
+        <div className={`absolute inset-0 z-10 ${isDark ? 'bg-gradient-to-b from-neutral-950/20 via-neutral-950/40 to-neutral-950' : 'bg-gradient-to-b from-neutral-50/20 via-neutral-50/40 to-neutral-50'}`}></div>
         
         <div className="relative z-20 max-w-4xl mx-auto px-6 text-center pb-32">
           <motion.h1 initial="hidden" animate="visible" variants={fadeUp} transition={{ delay: 0.1 }} className={`font-heading font-medium text-5xl md:text-7xl lg:text-8xl tracking-tight leading-none mb-6 ${isDark ? 'text-white' : 'text-neutral-900'}`}>
