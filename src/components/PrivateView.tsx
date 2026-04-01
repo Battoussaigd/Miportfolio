@@ -1,6 +1,6 @@
 /**
  * PrivateView — Landing personalizada para autoridades municipales y educativas
- * Lautaro Digital 2026 · Claudio González Díaz
+ * Digitales 2026 · Claudio González Díaz
  */
 
 import { useState } from 'react';
@@ -421,9 +421,8 @@ export default function PrivateView({
           </h1>
 
           <p className="text-lg md:text-xl text-neutral-300 max-w-2xl leading-relaxed">
-            Esta es la propuesta de{' '}
-            <strong className="text-white font-bold">Lautaro Digital 2026</strong>{' '}
-            — un programa de formación tecnológica diseñado para transformar{' '}
+            Esta es la propuesta de <strong className="text-white">{privateData.commune} Digital 2026</strong> —{' '}
+            - un programa de formación tecnológica diseñado para transformar{' '}
             <strong className="text-white font-bold">{privateData.commune}</strong>{' '}
             desde adentro.
           </p>
