@@ -1067,7 +1067,7 @@ export default function App() {
   <div className="flex flex-col items-center gap-4">
         {privateData.docs.map((d: any, i: number) => (
         <a key={i} href={d.url} target="_blank" rel="noopener noreferrer" download
-        className="inline-flex items-center gap-3 bg-cyan-400 text-neutral-950 px-8 py-4 rounded-full text-lg font-bold hover:scale-105 transition-transform shadow-[0_0_30px_rgba        (34,211,238,0.3)]">
+        className="inline-flex items-center gap-3 bg-cyan-400 text-neutral-950 px-8 py-4 rounded-full text-lg font-bold hover:scale-105 transition-transform shadow-[0_0_30px_rgba(34,211,238,0.3)]">
         <Download className="w-5 h-5" />
         {d.name}
         </a>
