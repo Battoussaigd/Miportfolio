@@ -1004,7 +1004,6 @@ export default function App() {
                       Esta es la hoja de ruta para transformar <strong className="text-neutral-200">{privateData.commune}</strong> con Inteligencia Artificial.
                     </p>
                   </div>
-
                   {/* 2. Pain Point */}
                   <div className="bg-cyan-500/10 border border-cyan-500/20 p-8 md:p-10 rounded-[2rem]">
                     <p className="text-xl md:text-2xl font-medium text-cyan-50 leading-relaxed text-center">
