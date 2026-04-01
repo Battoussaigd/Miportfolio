@@ -234,9 +234,7 @@ export default function App() {
 
   useEffect(() => {
     if (isChatOpen) {
-      setTimeout(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
+      setTimeout(() => { messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' }); }, 100);
     }
   }, [chatMessages, isBotTyping, isChatOpen]);
 
@@ -264,10 +262,7 @@ export default function App() {
       const data = await response.json();
       setChatMessages(prev => [...prev, { role: 'bot', text: data.text || 'Lo siento, tuve un problema al procesar tu mensaje.' }]);
     } catch (error: any) {
-      setChatMessages(prev => [...prev, {
-        role: 'bot',
-        text: `Demian dice: "Lo siento, tuve un problema técnico. Por favor, intenta de nuevo o contacta a Claudio."`
-      }]);
+      setChatMessages(prev => [...prev, { role: 'bot', text: 'Demian dice: "Lo siento, tuve un problema técnico. Por favor, intenta de nuevo o contacta a Claudio."' }]);
     } finally {
       setIsBotTyping(false);
     }
@@ -282,11 +277,8 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    if (isDark) {
-      document.body.classList.remove('light');
-    } else {
-      document.body.classList.add('light');
-    }
+    if (isDark) { document.body.classList.remove('light'); }
+    else { document.body.classList.add('light'); }
   }, [isDark]);
 
   const toggleTheme = () => setIsDark(!isDark);
@@ -308,15 +300,9 @@ export default function App() {
           setIsModalOpen(false);
           setAccessForm({ name: '', key: '' });
           document.body.style.overflow = 'hidden';
-        } else {
-          setModalErr(true);
-        }
-      } else {
-        setModalErr(true);
-      }
-    } catch (error) {
-      setModalErr(true);
-    }
+        } else { setModalErr(true); }
+      } else { setModalErr(true); }
+    } catch { setModalErr(true); }
     setIsLoadingAccess(false);
   };
 
@@ -330,27 +316,22 @@ export default function App() {
     setIsSending(true);
     try {
       addDoc(collection(db, 'messages'), {
-        name: contactForm.name,
-        email: contactForm.email,
-        message: contactForm.message,
-        createdAt: serverTimestamp()
+        name: contactForm.name, email: contactForm.email,
+        message: contactForm.message, createdAt: serverTimestamp()
       }).catch(err => console.error("Firestore backup failed:", err));
       const response = await fetch("https://formsubmit.co/ajax/claudioegdiaz@gmail.com", {
         method: "POST",
         headers: { "Content-Type": "application/json", "Accept": "application/json" },
         body: JSON.stringify({
-          name: contactForm.name,
-          email: contactForm.email,
-          message: contactForm.message,
-          _replyto: contactForm.email,
-          _subject: `Nuevo mensaje de portfolio de ${contactForm.name}`
+          name: contactForm.name, email: contactForm.email, message: contactForm.message,
+          _replyto: contactForm.email, _subject: `Nuevo mensaje de portfolio de ${contactForm.name}`
         })
       });
       if (!response.ok) throw new Error("Error sending email");
       setSendSuccess(true);
       setContactForm({ name: '', email: '', message: '' });
       setTimeout(() => setSendSuccess(false), 5000);
-    } catch (error) {
+    } catch {
       alert(lang === 'es' ? "Hubo un error al enviar el mensaje. Por favor intenta nuevamente." : "There was an error sending the message. Please try again.");
     }
     setIsSending(false);
@@ -363,32 +344,28 @@ export default function App() {
 
   return (
     <div className="min-h-screen font-sans selection:bg-cyan-500/30 relative">
+
       {/* Ambient Background Glows */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
         <div className={`absolute inset-0 transition-opacity duration-1000 ${isDark ? 'opacity-100' : 'opacity-0'}`}>
-          <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-cyan-600/30 blur-[100px] animate-float-1"></div>
-          <div className="absolute top-[40%] right-[-10%] w-[40vw] h-[40vw] rounded-full bg-blue-600/20 blur-[100px] animate-float-2"></div>
-          <div className="absolute bottom-[-10%] left-[20%] w-[50vw] h-[50vw] rounded-full bg-teal-600/20 blur-[100px] animate-float-3"></div>
+          <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-cyan-600/30 blur-[100px] animate-float-1" />
+          <div className="absolute top-[40%] right-[-10%] w-[40vw] h-[40vw] rounded-full bg-blue-600/20 blur-[100px] animate-float-2" />
+          <div className="absolute bottom-[-10%] left-[20%] w-[50vw] h-[50vw] rounded-full bg-teal-600/20 blur-[100px] animate-float-3" />
         </div>
       </div>
 
       {/* Navbar */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-6 py-4 md:px-12 flex items-center justify-between ${isScrolled ? 'bg-black/80 backdrop-blur-xl' : 'bg-transparent'} ${!isDark && isScrolled ? 'bg-white/80' : ''}`}>
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-6 py-4 md:px-12 flex items-center justify-between ${isScrolled ? 'bg-black/80 backdrop-blur-xl' : 'bg-transparent'} ${!isDark && isScrolled ? '!bg-white/90 shadow-sm' : ''}`}>
         <div className="md:hidden flex items-center">
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className={`p-2 -ml-2 rounded-lg transition-colors ${isDark ? 'text-neutral-300 hover:bg-white/10' : 'text-neutral-700 hover:bg-neutral-200'}`}
-          >
+          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className={`p-2 -ml-2 rounded-lg transition-colors ${isDark ? 'text-neutral-300 hover:bg-white/10' : 'text-neutral-700 hover:bg-neutral-200'}`}>
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
 
-        <div className={`hidden md:flex items-center gap-8 px-8 py-3 rounded-full transition-all duration-300 ${!isDark ? 'bg-white/80 backdrop-blur-xl border border-neutral-200 shadow-md' : 'bg-white/5 backdrop-blur-xl border border-white/10'}`}>
-          <a href="#sobre-mi" className="text-sm font-medium text-neutral-400 hover:text-neutral-50 transition-colors">{t.nav.about}</a>
-          <a href="#certificaciones" className="text-sm font-medium text-neutral-400 hover:text-neutral-50 transition-colors">{t.nav.certs}</a>
-          <a href="#proyectos" className="text-sm font-medium text-neutral-400 hover:text-neutral-50 transition-colors">{t.nav.projects}</a>
-          <a href="#tecnologia" className="text-sm font-medium text-neutral-400 hover:text-neutral-50 transition-colors">{t.nav.purpose}</a>
-          <a href="#contacto" className="text-sm font-medium text-neutral-400 hover:text-neutral-50 transition-colors">{t.nav.contact}</a>
+        <div className={`hidden md:flex items-center gap-8 px-8 py-3 rounded-full transition-all duration-300 ${!isDark ? 'bg-white/90 backdrop-blur-xl border border-neutral-200 shadow-md' : 'bg-white/5 backdrop-blur-xl border border-white/10'}`}>
+          {[['#sobre-mi', t.nav.about], ['#certificaciones', t.nav.certs], ['#proyectos', t.nav.projects], ['#tecnologia', t.nav.purpose], ['#contacto', t.nav.contact]].map(([href, label]) => (
+            <a key={href} href={href} className={`text-sm font-medium transition-colors ${isDark ? 'text-neutral-300 hover:text-white' : 'text-neutral-600 hover:text-neutral-900'}`}>{label}</a>
+          ))}
         </div>
 
         <div className="flex items-center gap-3">
@@ -407,27 +384,12 @@ export default function App() {
         <AnimatePresence>
           {isMobileMenuOpen && (
             <>
-              <motion.div
-                key="overlay"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="fixed inset-0 z-40 md:hidden bg-black/20 backdrop-blur-sm"
-              />
-              <motion.div
-                key="menu"
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                className={`absolute top-full left-6 w-64 mt-2 p-6 rounded-2xl border shadow-2xl flex flex-col gap-6 md:hidden z-50 ${isDark ? 'bg-neutral-900/95 border-white/10' : 'bg-white/95 border-neutral-200'} backdrop-blur-xl`}
-              >
-                <a href="#sobre-mi" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${isDark ? 'text-neutral-200 hover:text-cyan-400' : 'text-neutral-800 hover:text-cyan-600'}`}>{t.nav.about}</a>
-                <a href="#certificaciones" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${isDark ? 'text-neutral-200 hover:text-cyan-400' : 'text-neutral-800 hover:text-cyan-600'}`}>{t.nav.certs}</a>
-                <a href="#proyectos" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${isDark ? 'text-neutral-200 hover:text-cyan-400' : 'text-neutral-800 hover:text-cyan-600'}`}>{t.nav.projects}</a>
-                <a href="#tecnologia" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${isDark ? 'text-neutral-200 hover:text-cyan-400' : 'text-neutral-800 hover:text-cyan-600'}`}>{t.nav.purpose}</a>
-                <a href="#contacto" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${isDark ? 'text-neutral-200 hover:text-cyan-400' : 'text-neutral-800 hover:text-cyan-600'}`}>{t.nav.contact}</a>
-                <div className={`h-px w-full ${isDark ? 'bg-neutral-700' : 'bg-neutral-200'}`}></div>
+              <motion.div key="overlay" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setIsMobileMenuOpen(false)} className="fixed inset-0 z-40 md:hidden bg-black/20 backdrop-blur-sm" />
+              <motion.div key="menu" initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className={`absolute top-full left-6 w-64 mt-2 p-6 rounded-2xl border shadow-2xl flex flex-col gap-6 md:hidden z-50 ${isDark ? 'bg-neutral-900/95 border-white/10' : 'bg-white border-neutral-200'} backdrop-blur-xl`}>
+                {[['#sobre-mi', t.nav.about], ['#certificaciones', t.nav.certs], ['#proyectos', t.nav.projects], ['#tecnologia', t.nav.purpose], ['#contacto', t.nav.contact]].map(([href, label]) => (
+                  <a key={href} href={href} onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${isDark ? 'text-neutral-200 hover:text-cyan-400' : 'text-neutral-800 hover:text-cyan-600'}`}>{label}</a>
+                ))}
+                <div className={`h-px w-full ${isDark ? 'bg-neutral-700' : 'bg-neutral-200'}`} />
                 <button onClick={() => { setIsMobileMenuOpen(false); setIsModalOpen(true); }} className="text-lg font-medium text-cyan-500 flex items-center gap-2">
                   <Lock className="w-5 h-5" /> {t.nav.municipal}
                 </button>
@@ -442,26 +404,34 @@ export default function App() {
         <video key={isDark ? 'dark' : 'light'} className="absolute inset-0 w-full h-full object-cover z-0" autoPlay muted loop playsInline>
           <source src={isDark ? "https://res.cloudinary.com/dyejf2wmt/video/upload/v1774651181/01_gfbhc6.mp4" : "https://res.cloudinary.com/dyejf2wmt/video/upload/v1774679464/02_d%C3%ADa_final_zslffq.mp4"} type="video/mp4" />
         </video>
-        <div className={`absolute inset-0 z-10 ${isDark ? 'bg-gradient-to-b from-neutral-950/20 via-neutral-950/40 to-neutral-950' : 'bg-gradient-to-b from-neutral-50/20 via-neutral-50/40 to-neutral-50'}`}></div>
+        <div className={`absolute inset-0 z-10 ${isDark ? 'bg-gradient-to-b from-neutral-950/20 via-neutral-950/40 to-neutral-950' : 'bg-gradient-to-b from-white/30 via-white/50 to-white'}`} />
 
         <div className="relative z-20 max-w-4xl mx-auto px-6 text-center pb-32">
           <motion.h1 initial="hidden" animate="visible" variants={fadeUp} transition={{ delay: 0.1 }} className={`font-heading font-medium text-5xl md:text-7xl lg:text-8xl tracking-tight leading-none mb-6 ${isDark ? 'text-white' : 'text-neutral-900'}`}>
             Claudio<br />González Díaz
           </motion.h1>
-          <motion.p initial="hidden" animate="visible" variants={fadeUp} transition={{ delay: 0.2 }} className="text-lg md:text-xl text-neutral-300 font-light max-w-2xl mx-auto mb-4">
+          <motion.p initial="hidden" animate="visible" variants={fadeUp} transition={{ delay: 0.2 }} className={`text-lg md:text-xl font-light max-w-2xl mx-auto mb-4 ${isDark ? 'text-neutral-300' : 'text-neutral-700'}`}>
             {t.hero.role}
           </motion.p>
-          <motion.p initial="hidden" animate="visible" variants={fadeUp} transition={{ delay: 0.3 }} className="font-serif italic text-xl md:text-2xl text-neutral-200 mb-8">
+          <motion.p initial="hidden" animate="visible" variants={fadeUp} transition={{ delay: 0.3 }} className={`font-serif italic text-xl md:text-2xl mb-8 ${isDark ? 'text-neutral-200' : 'text-neutral-800'}`}>
             {t.hero.phrase}
           </motion.p>
-          <motion.div initial="hidden" animate="visible" variants={fadeUp} transition={{ delay: 0.4 }} className="inline-flex items-center gap-2 glass-panel px-5 py-2 rounded-full mb-4">
-            <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
-            <span className="text-sm font-medium text-cyan-400">{t.hero.badge}</span>
+
+          {/* Badge CCHIA — destacado */}
+          <motion.div initial="hidden" animate="visible" variants={fadeUp} transition={{ delay: 0.4 }}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full mb-4 border border-cyan-400/50"
+            style={{ background: isDark ? 'rgba(0,212,255,0.12)' : 'rgba(0,119,170,0.1)', backdropFilter: 'blur(12px)' }}
+          >
+            <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" style={{ boxShadow: '0 0 8px rgba(0,212,255,0.8)' }} />
+            <span className={`text-sm font-semibold tracking-wide ${isDark ? 'text-cyan-300' : 'text-cyan-700'}`}>{t.hero.badge}</span>
           </motion.div>
-          <motion.div initial="hidden" animate="visible" variants={fadeUp} transition={{ delay: 0.5 }} className="flex items-center justify-center gap-2 text-cyan-400/80 text-sm mb-12">
-            <MapPin className="w-4 h-4" />
-            Pillanlelbún, Lautaro · La Araucanía
+
+          {/* Pillanlelbún — destacado */}
+          <motion.div initial="hidden" animate="visible" variants={fadeUp} transition={{ delay: 0.5 }} className="flex items-center justify-center gap-2 text-sm mb-12">
+            <MapPin className={`w-4 h-4 ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`} />
+            <span className={`font-semibold ${isDark ? 'text-cyan-300' : 'text-cyan-700'}`}>Pillanlelbún, Lautaro · La Araucanía</span>
           </motion.div>
+
           <motion.div initial="hidden" animate="visible" variants={fadeUp} transition={{ delay: 0.6 }} className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a href="#proyectos" className="btn-primary flex items-center gap-2 w-full sm:w-auto justify-center">
               {t.hero.viewProjects} <ArrowRight className="w-4 h-4" />
@@ -477,9 +447,10 @@ export default function App() {
       <section className="relative z-20 -mt-10 px-6 max-w-6xl mx-auto">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {t.stats.map((s, i) => (
-            <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} transition={{ delay: i * 0.05 }} className="glass-panel p-6 rounded-3xl text-center">
+            <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} transition={{ delay: i * 0.05 }}
+              className={`p-6 rounded-3xl text-center border ${isDark ? 'bg-white/5 border-white/10 backdrop-blur-xl' : 'bg-white border-neutral-200 shadow-sm'}`}>
               <div className="font-heading font-extrabold text-4xl text-cyan-400 mb-1">{s.n}</div>
-              <div className="text-xs font-medium text-neutral-400 uppercase tracking-wider">{s.l}</div>
+              <div className={`text-xs font-medium uppercase tracking-wider ${isDark ? 'text-neutral-400' : 'text-neutral-500'}`}>{s.l}</div>
             </motion.div>
           ))}
         </div>
@@ -489,27 +460,37 @@ export default function App() {
       <section id="sobre-mi" className="py-24 px-6 max-w-6xl mx-auto">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
           <div className="text-xs font-bold tracking-[0.2em] uppercase text-cyan-400 mb-4">{t.about.label}</div>
-          <h2 className="font-heading font-extrabold text-4xl md:text-5xl tracking-tight mb-4">
+          <h2 className={`font-heading font-extrabold text-4xl md:text-5xl tracking-tight mb-4 ${isDark ? 'text-white' : 'text-neutral-900'}`}>
             {t.about.title}<em className="font-serif font-normal italic text-gradient">{t.about.titleEm}</em>
           </h2>
-          <p className="text-neutral-400 text-lg max-w-2xl mb-12 leading-relaxed">{t.about.sub}</p>
+          <p className={`text-lg max-w-2xl mb-12 leading-relaxed ${isDark ? 'text-neutral-400' : 'text-neutral-600'}`}>{t.about.sub}</p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="glass-panel p-8 rounded-[2rem]">
-            <h3 className="font-heading font-bold text-xl mb-4">{t.about.cards.profile.title}</h3>
-            <p className="text-neutral-400 leading-relaxed text-sm">{t.about.cards.profile.desc}</p>
+            <h3 className={`font-heading font-bold text-xl mb-4 ${isDark ? 'text-white' : 'text-neutral-900'}`}>{t.about.cards.profile.title}</h3>
+            <p className={`leading-relaxed text-sm ${isDark ? 'text-neutral-300' : 'text-neutral-600'}`}>{t.about.cards.profile.desc}</p>
           </motion.div>
 
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} transition={{ delay: 0.1 }} className="glass-panel p-8 rounded-[2rem]">
-            <h3 className="font-heading font-bold text-xl mb-4">{t.about.cards.certs.title}</h3>
+            <h3 className={`font-heading font-bold text-xl mb-4 ${isDark ? 'text-white' : 'text-neutral-900'}`}>{t.about.cards.certs.title}</h3>
             <div className="space-y-4">
-              <div className="flex gap-3"><div className="w-1.5 h-1.5 rounded-full bg-cyan-400 mt-2 shrink-0" /><div><div className="font-medium text-sm">CENIA — Hazlo con IA</div><div className="text-xs text-neutral-400 mt-1">7 cursos · IA Generativa para mipymes · 2026</div></div></div>
-              <div className="flex gap-3"><div className="w-1.5 h-1.5 rounded-full bg-cyan-400 mt-2 shrink-0" /><div><div className="font-medium text-sm">Google Skills Boost</div><div className="text-xs text-neutral-400 mt-1">Líder IA Generativa · 30 hrs · 2025</div></div></div>
-              <div className="flex gap-3"><div className="w-1.5 h-1.5 rounded-full bg-cyan-400 mt-2 shrink-0" /><div><div className="font-medium text-sm">Alura Latam — Inmersión IA</div><div className="text-xs text-neutral-400 mt-1">Gemini · Prompt Engineering · 2025</div></div></div>
-              <div className="flex gap-3"><div className="w-1.5 h-1.5 rounded-full bg-cyan-400 mt-2 shrink-0" /><div><div className="font-medium text-sm">BIG school — IA Workflow</div><div className="text-xs text-neutral-400 mt-1">6 horas · 2025</div></div></div>
-              <div className="flex gap-3"><div className="w-1.5 h-1.5 rounded-full bg-cyan-400 mt-2 shrink-0" /><div><div className="font-medium text-sm">Udemy — Microsoft Excel Completo</div><div className="text-xs text-neutral-400 mt-1">12 horas · 2025</div></div></div>
-              <div className="flex gap-3"><div className="w-1.5 h-1.5 rounded-full bg-cyan-400 mt-2 shrink-0" /><div><div className="font-medium text-sm">Santander Open Academy</div><div className="text-xs text-neutral-400 mt-1">Google: IA y productividad · 2024</div></div></div>
+              {[
+                { title: "CENIA — Hazlo con IA", sub: "7 cursos · IA Generativa para mipymes · 2026" },
+                { title: "Google Skills Boost", sub: "Líder IA Generativa · 30 hrs · 2025" },
+                { title: "Alura Latam — Inmersión IA", sub: "Gemini · Prompt Engineering · 2025" },
+                { title: "BIG school — IA Workflow", sub: "6 horas · 2025" },
+                { title: "Udemy — Microsoft Excel Completo", sub: "12 horas · 2025" },
+                { title: "Santander Open Academy", sub: "Google: IA y productividad · 2024" },
+              ].map((item, i) => (
+                <div key={i} className="flex gap-3">
+                  <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 mt-2 shrink-0" />
+                  <div>
+                    <div className={`font-medium text-sm ${isDark ? 'text-neutral-200' : 'text-neutral-800'}`}>{item.title}</div>
+                    <div className={`text-xs mt-1 ${isDark ? 'text-neutral-400' : 'text-neutral-500'}`}>{item.sub}</div>
+                  </div>
+                </div>
+              ))}
               <div className="pt-2">
                 <a href="#certificaciones" className="inline-flex items-center gap-2 text-sm font-medium text-cyan-400 hover:text-cyan-300 transition-colors">
                   {lang === 'es' ? 'Ver detalle completo' : 'View full details'} <ArrowRight className="w-4 h-4" />
@@ -519,21 +500,31 @@ export default function App() {
           </motion.div>
 
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="glass-panel p-8 rounded-[2rem]">
-            <h3 className="font-heading font-bold text-xl mb-4">{t.about.cards.tech.title}</h3>
+            <h3 className={`font-heading font-bold text-xl mb-4 ${isDark ? 'text-white' : 'text-neutral-900'}`}>{t.about.cards.tech.title}</h3>
             <div className="flex flex-wrap gap-2">
               {["Google AI Studio", "Gemini API", "Claude", "NotebookLM", "RAG", "Prompt Engineering", "HTML/CSS/JS", "PWA", "Apps Script", "Web Crypto API", "Firebase", "SAP R/3", "Roadnet"].map(tag => (
-                <span key={tag} className="text-xs font-medium px-3 py-1.5 rounded-lg bg-cyan-400/10 text-cyan-400 border border-cyan-400/20">{tag}</span>
+                <span key={tag} className={`text-xs font-medium px-3 py-1.5 rounded-lg border ${isDark ? 'bg-cyan-400/10 text-cyan-400 border-cyan-400/20' : 'bg-cyan-50 text-cyan-700 border-cyan-200'}`}>{tag}</span>
               ))}
             </div>
           </motion.div>
 
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} transition={{ delay: 0.1 }} className="glass-panel p-8 rounded-[2rem]">
-            <h3 className="font-heading font-bold text-xl mb-4">{t.about.cards.teaching.title}</h3>
+            <h3 className={`font-heading font-bold text-xl mb-4 ${isDark ? 'text-white' : 'text-neutral-900'}`}>{t.about.cards.teaching.title}</h3>
             <div className="space-y-4">
-              <div className="flex gap-3"><div className="w-1.5 h-1.5 rounded-full bg-cyan-400 mt-2 shrink-0" /><div><div className="font-medium text-sm">CCU</div><div className="text-xs text-neutral-400 mt-1">{lang === 'es' ? 'Formación tecnológica para nuevos ingresos' : 'Tech onboarding for new hires'}</div></div></div>
-              <div className="flex gap-3"><div className="w-1.5 h-1.5 rounded-full bg-cyan-400 mt-2 shrink-0" /><div><div className="font-medium text-sm">AXXON Chile</div><div className="text-xs text-neutral-400 mt-1">Windows · Office · 15 alumnos · 2007</div></div></div>
-              <div className="flex gap-3"><div className="w-1.5 h-1.5 rounded-full bg-cyan-400 mt-2 shrink-0" /><div><div className="font-medium text-sm">Centro E-MEC</div><div className="text-xs text-neutral-400 mt-1">{lang === 'es' ? 'Ofimática · Armado PCs · 16 alumnos · 2001–03' : 'Office · PC Assembly · 16 students · 2001–03'}</div></div></div>
-              <div className="flex gap-3"><div className="w-1.5 h-1.5 rounded-full bg-cyan-400 mt-2 shrink-0" /><div><div className="font-medium text-sm">{lang === 'es' ? 'Hogar Aldea Mis Amigos' : 'Aldea Mis Amigos Home'}</div><div className="text-xs text-neutral-400 mt-1">{lang === 'es' ? 'Relatoría voluntaria · 2003' : 'Volunteer instructor · 2003'}</div></div></div>
+              {[
+                { title: "CCU", sub: lang === 'es' ? 'Formación tecnológica para nuevos ingresos' : 'Tech onboarding for new hires' },
+                { title: "AXXON Chile", sub: "Windows · Office · 15 alumnos · 2007" },
+                { title: "Centro E-MEC", sub: lang === 'es' ? 'Ofimática · Armado PCs · 16 alumnos · 2001–03' : 'Office · PC Assembly · 16 students · 2001–03' },
+                { title: lang === 'es' ? 'Hogar Aldea Mis Amigos' : 'Aldea Mis Amigos Home', sub: lang === 'es' ? 'Relatoría voluntaria · 2003' : 'Volunteer instructor · 2003' },
+              ].map((item, i) => (
+                <div key={i} className="flex gap-3">
+                  <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 mt-2 shrink-0" />
+                  <div>
+                    <div className={`font-medium text-sm ${isDark ? 'text-neutral-200' : 'text-neutral-800'}`}>{item.title}</div>
+                    <div className={`text-xs mt-1 ${isDark ? 'text-neutral-400' : 'text-neutral-500'}`}>{item.sub}</div>
+                  </div>
+                </div>
+              ))}
             </div>
           </motion.div>
         </div>
@@ -543,12 +534,13 @@ export default function App() {
       <section id="certificaciones" className="py-24 px-6 max-w-6xl mx-auto">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
           <div className="text-xs font-bold tracking-[0.2em] uppercase text-cyan-400 mb-4">{t.certs.label}</div>
-          <h2 className="font-heading font-extrabold text-3xl md:text-4xl tracking-tight mb-4 flex flex-col sm:flex-row sm:items-baseline gap-2">
+          <h2 className={`font-heading font-extrabold text-3xl md:text-4xl tracking-tight mb-4 flex flex-col sm:flex-row sm:items-baseline gap-2 ${isDark ? 'text-white' : 'text-neutral-900'}`}>
             <span>{t.certs.title}</span><span className="text-5xl md:text-7xl text-gradient uppercase tracking-tighter">{t.certs.titleEm}</span>
           </h2>
-          <p className="text-neutral-400 text-lg max-w-2xl mb-16 leading-relaxed">{t.certs.sub}</p>
+          <p className={`text-lg max-w-2xl mb-16 leading-relaxed ${isDark ? 'text-neutral-400' : 'text-neutral-600'}`}>{t.certs.sub}</p>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* IA Column */}
             <div className="space-y-6">
               <h3 className={`font-heading font-bold text-2xl mb-8 flex items-center gap-3 ${isDark ? 'text-white' : 'text-neutral-900'}`}>
                 <BadgeCheck className="w-6 h-6 text-cyan-400" />
@@ -556,79 +548,57 @@ export default function App() {
               </h3>
               <div className="space-y-4">
                 {t.certs.ai.items.map((cert, i) => (
-                  <motion.div
-                    key={i}
-                    initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} transition={{ delay: i * 0.1 }}
-                    className={`p-6 rounded-2xl transition-all duration-200 ${isDark ? 'bg-white/5 border border-white/10 hover:bg-cyan-400/10 hover:border-cyan-400/30 hover:shadow-[0_0_24px_rgba(0,212,255,0.15)] hover:-translate-y-0.5' : 'bg-white border border-neutral-200 hover:border-cyan-400/40 hover:shadow-lg hover:-translate-y-0.5'}`}
-                  >
+                  <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} transition={{ delay: i * 0.08 }}
+                    className={`p-6 rounded-2xl transition-all duration-200 ${isDark ? 'bg-white/5 border border-white/10 hover:bg-cyan-400/10 hover:border-cyan-400/30 hover:shadow-[0_0_24px_rgba(0,212,255,0.15)] hover:-translate-y-0.5' : 'bg-white border border-neutral-200 hover:border-cyan-400/40 hover:shadow-lg hover:-translate-y-0.5'}`}>
                     <div className="flex justify-between items-start mb-2">
-                      <div className="text-sm font-bold text-cyan-400 bg-cyan-400/10 px-3 py-1 rounded-full inline-block">{cert.year}</div>
+                      <div className={`text-sm font-bold px-3 py-1 rounded-full inline-block ${isDark ? 'bg-cyan-400/10 text-cyan-400' : 'bg-cyan-50 text-cyan-700'}`}>{cert.year}</div>
                       {cert.link && (
-                        <a href={cert.link} target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-cyan-400 transition-colors" title="Ver credencial">
+                        <a href={cert.link} target="_blank" rel="noopener noreferrer" className={`hover:text-cyan-400 transition-colors ${isDark ? 'text-neutral-400' : 'text-neutral-400'}`} title="Ver credencial">
                           <ExternalLink className="w-5 h-5" />
                         </a>
                       )}
                     </div>
                     <h4 className={`font-bold text-lg mb-1 mt-3 ${isDark ? 'text-white' : 'text-neutral-900'}`}>{cert.title}</h4>
-                    <div className="text-sm font-medium text-neutral-500 mb-2">{cert.issuer}</div>
-                    {cert.desc && <p className="text-sm text-neutral-400 leading-relaxed">{cert.desc}</p>}
+                    <div className={`text-sm font-medium mb-2 ${isDark ? 'text-neutral-400' : 'text-neutral-500'}`}>{cert.issuer}</div>
+                    {cert.desc && <p className={`text-sm leading-relaxed ${isDark ? 'text-neutral-400' : 'text-neutral-600'}`}>{cert.desc}</p>}
                   </motion.div>
                 ))}
               </div>
             </div>
 
+            {/* Kibernum Column */}
             <div className="space-y-6">
               <h3 className={`font-heading font-bold text-2xl mb-8 flex items-center gap-3 ${isDark ? 'text-white' : 'text-neutral-900'}`}>
                 <Award className="w-6 h-6 text-cyan-400" />
                 {t.certs.kibernum.title}
               </h3>
-              <div className={`p-8 rounded-[2rem] ${isDark ? 'bg-white/5 border border-white/10' : 'bg-white border border-neutral-200'}`}>
+              <div className={`p-8 rounded-[2rem] ${isDark ? 'bg-white/5 border border-white/10' : 'bg-white border border-neutral-200 shadow-sm'}`}>
                 <div className="relative">
                   <motion.div
                     className={`absolute left-1.5 md:left-1/2 top-0 w-0.5 origin-top ${isDark ? 'bg-gradient-to-b from-cyan-400 via-cyan-400/50 to-transparent' : 'bg-gradient-to-b from-cyan-500 via-cyan-500/50 to-transparent'}`}
-                    initial={{ scaleY: 0 }}
-                    whileInView={{ scaleY: 1 }}
-                    viewport={{ once: true, amount: 0.1 }}
-                    transition={{ duration: 1.5, ease: "easeOut" }}
-                    style={{ height: '100%' }}
+                    initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} viewport={{ once: true, amount: 0.1 }}
+                    transition={{ duration: 1.5, ease: "easeOut" }} style={{ height: '100%' }}
                   />
                   <div className="space-y-6">
                     {t.certs.kibernum.items.map((cert, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, amount: 0.3 }}
-                        transition={{ duration: 0.5, delay: i * 0.08 }}
-                        className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group"
-                      >
+                      <motion.div key={i} initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }} whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.5, delay: i * 0.08 }}
+                        className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
                         <div className="relative flex items-center justify-center shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">
-                          <motion.div
-                            className="absolute w-6 h-6 rounded-full bg-cyan-400/20"
-                            initial={{ scale: 0, opacity: 0 }}
-                            whileInView={{ scale: 1, opacity: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: i * 0.08 + 0.3, duration: 0.4 }}
-                            whileHover={{ scale: 1.8, opacity: 0 }}
-                          />
+                          <motion.div className="absolute w-6 h-6 rounded-full bg-cyan-400/20"
+                            initial={{ scale: 0, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true }}
+                            transition={{ delay: i * 0.08 + 0.3, duration: 0.4 }} whileHover={{ scale: 1.8, opacity: 0 }} />
                           <motion.div
                             className={`w-3 h-3 rounded-full border-2 border-cyan-400 z-10 relative transition-all duration-300 group-hover:scale-150 group-hover:bg-cyan-400 group-hover:shadow-[0_0_20px_rgba(34,211,238,0.8)] ${isDark ? 'bg-neutral-900' : 'bg-white'}`}
-                            initial={{ scale: 0 }}
-                            whileInView={{ scale: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: i * 0.08 + 0.2, type: "spring", stiffness: 300 }}
-                          />
+                            initial={{ scale: 0 }} whileInView={{ scale: 1 }} viewport={{ once: true }}
+                            transition={{ delay: i * 0.08 + 0.2, type: "spring", stiffness: 300 }} />
                         </div>
                         <motion.div
-                          className={`w-[calc(100%-2rem)] md:w-[calc(50%-1.5rem)] p-4 rounded-xl border transition-all duration-200 cursor-default ${isDark ? 'border-transparent hover:border-cyan-400/40 hover:bg-cyan-400/5 hover:shadow-[0_0_20px_rgba(34,211,238,0.1)]' : 'border-transparent hover:border-cyan-500/40 hover:bg-cyan-50 hover:shadow-md'}`}
-                          whileHover={{ y: -2 }}
-                          transition={{ duration: 0.2 }}
-                        >
-                          <span className={`inline-block font-bold text-xs px-2 py-0.5 rounded-full mb-2 ${isDark ? 'bg-cyan-400/10 text-cyan-400' : 'bg-cyan-100 text-cyan-700'}`}>
-                            {cert.year}
-                          </span>
+                          className={`w-[calc(100%-2rem)] md:w-[calc(50%-1.5rem)] p-4 rounded-xl border transition-all duration-200 cursor-default ${isDark ? 'border-transparent hover:border-cyan-400/40 hover:bg-cyan-400/5 hover:shadow-[0_0_20px_rgba(34,211,238,0.1)]' : 'border-transparent hover:border-cyan-500/30 hover:bg-cyan-50 hover:shadow-md'}`}
+                          whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
+                          <span className={`inline-block font-bold text-xs px-2 py-0.5 rounded-full mb-2 ${isDark ? 'bg-cyan-400/10 text-cyan-400' : 'bg-cyan-50 text-cyan-700'}`}>{cert.year}</span>
                           <h4 className={`font-medium text-sm mb-1 ${isDark ? 'text-neutral-200' : 'text-neutral-800'}`}>{cert.title}</h4>
-                          <p className="text-xs text-neutral-500">{cert.desc}</p>
+                          <p className={`text-xs ${isDark ? 'text-neutral-500' : 'text-neutral-500'}`}>{cert.desc}</p>
                         </motion.div>
                       </motion.div>
                     ))}
@@ -644,27 +614,26 @@ export default function App() {
       <section id="proyectos" className="py-24 px-6 max-w-6xl mx-auto">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
           <div className="text-xs font-bold tracking-[0.2em] uppercase text-cyan-400 mb-4">{t.projects.label}</div>
-          <h2 className="font-heading font-extrabold text-3xl md:text-4xl tracking-tight mb-4 flex flex-col sm:flex-row sm:items-baseline gap-2">
+          <h2 className={`font-heading font-extrabold text-3xl md:text-4xl tracking-tight mb-4 flex flex-col sm:flex-row sm:items-baseline gap-2 ${isDark ? 'text-white' : 'text-neutral-900'}`}>
             <span>{t.projects.title}</span><span className="text-5xl md:text-7xl text-gradient uppercase tracking-tighter">{t.projects.titleEm}</span>
           </h2>
-          <p className="text-neutral-400 text-lg max-w-2xl mb-12 leading-relaxed">{t.projects.sub}</p>
+          <p className={`text-lg max-w-2xl mb-12 leading-relaxed ${isDark ? 'text-neutral-400' : 'text-neutral-600'}`}>{t.projects.sub}</p>
         </motion.div>
-
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {t.projects.items.map((p, i) => (
-            <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} transition={{ delay: i * 0.05 }} className="glass-panel p-8 rounded-[2rem] flex flex-col group relative overflow-hidden">
-              <div className="absolute inset-0 bg-cyan-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
-              <div className="absolute inset-0 rounded-[2rem] opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-[inset_0_0_0_1px_rgba(0,212,255,0.3)]"></div>
+            <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} transition={{ delay: i * 0.05 }}
+              className={`p-8 rounded-[2rem] flex flex-col group relative overflow-hidden border transition-all duration-200 ${isDark ? 'bg-white/5 border-white/10 hover:border-cyan-400/30 hover:bg-cyan-400/5' : 'bg-white border-neutral-200 hover:border-cyan-400/40 hover:shadow-lg'}`}>
+              <div className="absolute inset-0 rounded-[2rem] opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-[inset_0_0_0_1px_rgba(0,212,255,0.2)]" />
               <div className="relative z-10">
                 <div className="mb-6">{p.icon}</div>
-                <h3 className="font-heading font-bold text-xl mb-3">{p.name}</h3>
-                <p className="text-sm text-neutral-400 leading-relaxed mb-6 flex-grow">{p.desc}</p>
+                <h3 className={`font-heading font-bold text-xl mb-3 ${isDark ? 'text-white' : 'text-neutral-900'}`}>{p.name}</h3>
+                <p className={`text-sm leading-relaxed mb-6 flex-grow ${isDark ? 'text-neutral-400' : 'text-neutral-600'}`}>{p.desc}</p>
                 <div className="flex flex-wrap gap-2 mb-6">
                   {p.tags.map(tag => (
-                    <span key={tag} className="text-[10px] font-medium px-2.5 py-1 rounded-md bg-cyan-400/10 text-cyan-400 border border-cyan-400/20">{tag}</span>
+                    <span key={tag} className={`text-[10px] font-medium px-2.5 py-1 rounded-md border ${isDark ? 'bg-cyan-400/10 text-cyan-400 border-cyan-400/20' : 'bg-cyan-50 text-cyan-700 border-cyan-200'}`}>{tag}</span>
                   ))}
                 </div>
-                <div className="pt-4 border-t border-white/10 text-xs font-semibold text-cyan-400 mt-auto">
+                <div className={`pt-4 border-t text-xs font-semibold text-cyan-400 mt-auto ${isDark ? 'border-white/10' : 'border-neutral-100'}`}>
                   {p.impact}
                 </div>
               </div>
@@ -673,14 +642,26 @@ export default function App() {
         </div>
       </section>
 
-      {/* CCHIA */}
+      {/* CCHIA — tarjeta premium */}
       <section className="py-12 px-6 max-w-4xl mx-auto">
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="glass-panel p-12 rounded-[2.5rem] text-center">
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
+          className="relative overflow-hidden rounded-[2.5rem] p-12 text-center"
+          style={{
+            background: isDark
+              ? 'linear-gradient(135deg, rgba(0,212,255,0.08) 0%, rgba(0,40,80,0.4) 50%, rgba(0,212,255,0.06) 100%)'
+              : 'linear-gradient(135deg, rgba(0,119,170,0.06) 0%, rgba(255,255,255,0.9) 50%, rgba(0,119,170,0.06) 100%)',
+            border: isDark ? '1px solid rgba(0,212,255,0.25)' : '1px solid rgba(0,119,170,0.2)',
+            boxShadow: isDark
+              ? '0 0 60px rgba(0,212,255,0.08), inset 0 1px 0 rgba(255,255,255,0.05)'
+              : '0 4px 32px rgba(0,119,170,0.1), inset 0 1px 0 rgba(255,255,255,0.9)',
+          }}>
+          {/* Línea superior shimmer */}
+          <div className="absolute top-0 left-0 right-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(0,212,255,0.6), transparent)' }} />
+
           <div className="flex justify-center mb-8">
-            <img
-              src="/cchia-logo.png"
-              alt="Logo CCHIA"
-              className="h-20 md:h-24 object-contain dark:brightness-0 dark:invert"
+            <img src="/cchia-logo.png" alt="Logo CCHIA"
+              className="h-20 md:h-24 object-contain"
+              style={{ filter: isDark ? 'brightness(0) invert(1)' : 'none' }}
               onError={(e) => {
                 e.currentTarget.style.display = 'none';
                 const fallback = e.currentTarget.nextElementSibling;
@@ -688,19 +669,17 @@ export default function App() {
               }}
             />
             <div className="hidden flex-col items-center justify-center">
-              <div className="text-5xl md:text-6xl font-black tracking-tighter flex items-center text-[#003366] dark:text-white">
-                <span>CC</span>
-                <span className="text-[#009999] -ml-1">H</span>
-                <span>I</span>
+              <div className={`text-5xl md:text-6xl font-black tracking-tighter flex items-center ${isDark ? 'text-white' : 'text-[#003366]'}`}>
+                <span>CC</span><span className="text-[#009999] -ml-1">H</span><span>I</span>
                 <span className="text-transparent" style={{ WebkitTextStroke: '2px currentColor' }}>A</span>
               </div>
-              <div className="text-[0.6rem] md:text-xs font-bold tracking-widest text-[#003366] dark:text-white mt-2">
+              <div className={`text-[0.6rem] md:text-xs font-bold tracking-widest mt-2 ${isDark ? 'text-white' : 'text-[#003366]'}`}>
                 CÁMARA CHILENA DE INTELIGENCIA ARTIFICIAL
               </div>
             </div>
           </div>
           <h3 className="font-heading font-bold text-2xl md:text-3xl text-cyan-400 mb-4">{t.cchia.title}</h3>
-          <p className="text-neutral-400 text-lg max-w-2xl mx-auto leading-relaxed">{t.cchia.desc}</p>
+          <p className={`text-lg max-w-2xl mx-auto leading-relaxed ${isDark ? 'text-neutral-300' : 'text-neutral-600'}`}>{t.cchia.desc}</p>
         </motion.div>
       </section>
 
@@ -708,13 +687,12 @@ export default function App() {
       <section id="tecnologia" className="py-24 px-6 max-w-6xl mx-auto">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
           <div className="text-xs font-bold tracking-[0.2em] uppercase text-cyan-400 mb-4">{t.purpose.label}</div>
-          <h2 className="font-heading font-extrabold text-4xl md:text-5xl tracking-tight mb-16 max-w-3xl leading-tight">
+          <h2 className={`font-heading font-extrabold text-4xl md:text-5xl tracking-tight mb-16 max-w-3xl leading-tight ${isDark ? 'text-white' : 'text-neutral-900'}`}>
             {t.purpose.title}<em className="font-serif font-normal italic text-gradient">{t.purpose.titleEm}</em>
           </h2>
         </motion.div>
-
         <div className="grid lg:grid-cols-[1.5fr_1fr] gap-16 items-start">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className={`space-y-6 text-lg leading-relaxed ${isDark ? 'text-neutral-400' : 'text-neutral-600'}`}>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className={`space-y-6 text-lg leading-relaxed ${isDark ? 'text-neutral-300' : 'text-neutral-700'}`}>
             <p>{t.purpose.p1}</p>
             <p>{t.purpose.p2}</p>
             <p>{t.purpose.p3}</p>
@@ -725,7 +703,7 @@ export default function App() {
             {t.purpose.cards.map((c, i) => (
               <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} transition={{ delay: i * 0.1 }} className="glass-panel p-6 rounded-[2rem] text-center">
                 <div className="text-3xl mb-3">{c.icon}</div>
-                <div className="text-xs font-medium text-neutral-400 uppercase tracking-wider mb-2">{c.title}</div>
+                <div className={`text-xs font-medium uppercase tracking-wider mb-2 ${isDark ? 'text-neutral-400' : 'text-neutral-500'}`}>{c.title}</div>
                 <div className="font-heading font-extrabold text-xl text-cyan-400">{c.val}</div>
               </motion.div>
             ))}
@@ -737,35 +715,28 @@ export default function App() {
       <section id="contacto" className="py-24 px-6 max-w-xl mx-auto">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-center mb-12">
           <div className="text-xs font-bold tracking-[0.2em] uppercase text-cyan-400 mb-4">{t.contact.label}</div>
-          <h2 className="font-heading font-extrabold text-5xl tracking-tight mb-4">{t.contact.title}</h2>
-          <p className="text-neutral-400 text-lg">{t.contact.sub}</p>
+          <h2 className={`font-heading font-extrabold text-5xl tracking-tight mb-4 ${isDark ? 'text-white' : 'text-neutral-900'}`}>{t.contact.title}</h2>
+          <p className={`text-lg ${isDark ? 'text-neutral-400' : 'text-neutral-600'}`}>{t.contact.sub}</p>
         </motion.div>
-
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="space-y-4">
           <input type="text" placeholder={t.contact.name} className="input-field" value={contactForm.name} onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })} />
           <input type="email" placeholder={t.contact.email} className="input-field" value={contactForm.email} onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })} />
           <textarea placeholder={t.contact.msg} className="input-field min-h-[160px] resize-y" value={contactForm.message} onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })} />
           <button onClick={sendContact} disabled={isSending || sendSuccess} className="btn-primary w-full flex items-center justify-center gap-2 mt-4 disabled:opacity-50 disabled:cursor-not-allowed">
-            {isSending ? (
-              <span className="animate-pulse">{lang === 'es' ? 'Enviando...' : 'Sending...'}</span>
-            ) : sendSuccess ? (
-              <span className="flex items-center gap-2 text-green-400"><CheckCircle2 className="w-4 h-4" /> {lang === 'es' ? '¡Mensaje enviado!' : 'Message sent!'}</span>
-            ) : (
-              <>{t.contact.send} <ArrowRight className="w-4 h-4" /></>
-            )}
+            {isSending ? <span className="animate-pulse">{lang === 'es' ? 'Enviando...' : 'Sending...'}</span>
+              : sendSuccess ? <span className="flex items-center gap-2 text-green-400"><CheckCircle2 className="w-4 h-4" /> {lang === 'es' ? '¡Mensaje enviado!' : 'Message sent!'}</span>
+              : <>{t.contact.send} <ArrowRight className="w-4 h-4" /></>}
           </button>
         </motion.div>
       </section>
 
       {/* Footer */}
-      <footer className="py-12 text-center border-t border-white/10 text-sm text-neutral-500 relative">
+      <footer className={`py-12 text-center border-t text-sm relative ${isDark ? 'border-white/10 text-neutral-500' : 'border-neutral-200 text-neutral-500'}`}>
         <p>© 2026 <span className="text-cyan-400 font-medium">Claudio González Díaz</span> · Pillanlelbún, La Araucanía · <span className="text-cyan-400">claudioegdiaz@gmail.com</span> · +56 9 5105 6018</p>
-        <button onClick={() => setIsAdminOpen(true)} className="absolute bottom-4 left-6 text-xs text-neutral-600 hover:text-cyan-400 transition-colors">
-          Admin
-        </button>
+        <button onClick={() => setIsAdminOpen(true)} className="absolute bottom-4 left-6 text-xs text-neutral-600 hover:text-cyan-400 transition-colors">Admin</button>
       </footer>
 
-      {/* WhatsApp Button */}
+      {/* WhatsApp */}
       <a href="https://wa.me/56951056018" target="_blank" rel="noopener noreferrer" className="fixed bottom-8 right-8 z-[160] w-14 h-14 bg-[#25d366] rounded-full flex items-center justify-center shadow-[0_4px_20px_rgba(37,211,102,0.5)] hover:scale-110 hover:shadow-[0_6px_30px_rgba(37,211,102,0.7)] transition-all duration-300">
         <MessageCircle className="w-7 h-7 text-white fill-white" />
       </a>
@@ -775,15 +746,11 @@ export default function App() {
         <div className="fixed bottom-28 right-8 z-[170] flex flex-col items-end">
           <AnimatePresence>
             {isChatOpen && (
-              <motion.div
-                initial={{ opacity: 0, y: 8, scale: 0.98 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 8, scale: 0.98 }}
-                className={`mb-4 w-[calc(100vw-4rem)] sm:w-96 h-[500px] max-h-[70vh] flex flex-col rounded-2xl shadow-2xl overflow-hidden border ${isDark ? 'bg-neutral-900/95 border-white/10' : 'bg-white/95 border-neutral-200'} backdrop-blur-xl`}
-              >
-                <div className={`p-4 flex items-center justify-between border-b ${isDark ? 'border-white/10 bg-neutral-800/50' : 'border-neutral-200 bg-neutral-50/50'}`}>
+              <motion.div initial={{ opacity: 0, y: 8, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                className={`mb-4 w-[calc(100vw-4rem)] sm:w-96 h-[500px] max-h-[70vh] flex flex-col rounded-2xl shadow-2xl overflow-hidden border ${isDark ? 'bg-neutral-900/95 border-white/10' : 'bg-white border-neutral-200'} backdrop-blur-xl`}>
+                <div className={`p-4 flex items-center justify-between border-b ${isDark ? 'border-white/10 bg-neutral-800/50' : 'border-neutral-200 bg-neutral-50'}`}>
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-transparent flex items-center justify-center shadow-lg overflow-hidden">
+                    <div className="w-10 h-10 rounded-full overflow-hidden">
                       <img src="/demian.png" alt="Demian" className="w-full h-full object-cover scale-110" onError={(e) => { e.currentTarget.src = 'https://api.dicebear.com/7.x/bottts/svg?seed=Demian&backgroundColor=transparent'; }} />
                     </div>
                     <div>
@@ -795,7 +762,6 @@ export default function App() {
                     <X className="w-5 h-5" />
                   </button>
                 </div>
-
                 <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-4 chat-scroll">
                   {chatMessages.map((msg, idx) => (
                     <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
@@ -806,27 +772,20 @@ export default function App() {
                   ))}
                   {isBotTyping && (
                     <div className="flex justify-start">
-                      <div className={`max-w-[85%] rounded-2xl p-3 text-sm shadow-sm flex gap-1 items-center ${isDark ? 'bg-neutral-800 text-neutral-200 rounded-tl-sm border border-white/5' : 'bg-neutral-100 text-neutral-800 rounded-tl-sm border border-neutral-200'}`}>
-                        <span className="w-2 h-2 bg-cyan-500 rounded-full animate-bounce"></span>
-                        <span className="w-2 h-2 bg-cyan-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></span>
-                        <span className="w-2 h-2 bg-cyan-500 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></span>
+                      <div className={`rounded-2xl p-3 text-sm flex gap-1 items-center ${isDark ? 'bg-neutral-800 border border-white/5' : 'bg-neutral-100 border border-neutral-200'}`}>
+                        <span className="w-2 h-2 bg-cyan-500 rounded-full animate-bounce" />
+                        <span className="w-2 h-2 bg-cyan-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
+                        <span className="w-2 h-2 bg-cyan-500 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }} />
                       </div>
                     </div>
                   )}
                   <div ref={messagesEndRef} />
                 </div>
-
-                <div className={`p-4 border-t ${isDark ? 'border-white/10 bg-neutral-800/50' : 'border-neutral-200 bg-neutral-50/50'}`}>
+                <div className={`p-4 border-t ${isDark ? 'border-white/10 bg-neutral-800/50' : 'border-neutral-200 bg-neutral-50'}`}>
                   <form onSubmit={handleSendMessage} className="flex gap-2">
-                    <input
-                      type="text"
-                      value={chatInput}
-                      onChange={(e) => setChatInput(e.target.value)}
-                      placeholder="Escribe un mensaje..."
-                      disabled={isBotTyping}
-                      className={`flex-1 px-4 py-2 rounded-full text-sm outline-none transition-all ${isDark ? 'bg-black border border-white/10 text-white focus:border-cyan-500/50 disabled:opacity-50' : 'bg-white border border-neutral-200 text-neutral-900 focus:border-cyan-500/50 disabled:opacity-50'}`}
-                    />
-                    <button type="submit" disabled={!chatInput.trim() || isBotTyping} className="w-10 h-10 rounded-full bg-cyan-500 flex items-center justify-center text-white disabled:opacity-50 disabled:cursor-not-allowed transition-transform hover:scale-105 active:scale-95 shadow-md">
+                    <input type="text" value={chatInput} onChange={(e) => setChatInput(e.target.value)} placeholder="Escribe un mensaje..." disabled={isBotTyping}
+                      className={`flex-1 px-4 py-2 rounded-full text-sm outline-none transition-all ${isDark ? 'bg-black border border-white/10 text-white focus:border-cyan-500/50 disabled:opacity-50' : 'bg-white border border-neutral-300 text-neutral-900 focus:border-cyan-500 disabled:opacity-50'}`} />
+                    <button type="submit" disabled={!chatInput.trim() || isBotTyping} className="w-10 h-10 rounded-full bg-cyan-500 flex items-center justify-center text-white disabled:opacity-50 transition-transform hover:scale-105 active:scale-95 shadow-md">
                       <Send className="w-4 h-4" />
                     </button>
                   </form>
@@ -834,14 +793,9 @@ export default function App() {
               </motion.div>
             )}
           </AnimatePresence>
-
-          <button
-            onClick={() => setIsChatOpen(!isChatOpen)}
-            className={`w-14 h-14 rounded-full flex items-center justify-center shadow-[0_4px_20px_rgba(6,182,212,0.4)] transition-all duration-300 hover:scale-110 hover:shadow-[0_6px_30px_rgba(6,182,212,0.6)] active:scale-95 overflow-hidden ${isChatOpen ? 'bg-neutral-800 text-white' : 'bg-transparent'}`}
-          >
-            {isChatOpen ? (
-              <X className="w-6 h-6 text-white" />
-            ) : (
+          <button onClick={() => setIsChatOpen(!isChatOpen)}
+            className={`w-14 h-14 rounded-full flex items-center justify-center shadow-[0_4px_20px_rgba(6,182,212,0.4)] transition-all duration-300 hover:scale-110 hover:shadow-[0_6px_30px_rgba(6,182,212,0.6)] active:scale-95 overflow-hidden ${isChatOpen ? 'bg-neutral-800 text-white' : 'bg-transparent'}`}>
+            {isChatOpen ? <X className="w-6 h-6 text-white" /> : (
               <img src="/demian.png" alt="Demian" className="w-full h-full object-cover scale-110" onError={(e) => { e.currentTarget.src = 'https://api.dicebear.com/7.x/bottts/svg?seed=Demian&backgroundColor=transparent'; }} />
             )}
           </button>
@@ -851,24 +805,15 @@ export default function App() {
       {/* Municipal Access Modal */}
       <AnimatePresence>
         {isModalOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-xl flex items-center justify-center p-4"
-            onClick={() => setIsModalOpen(false)}
-          >
-            <motion.div
-              initial={{ scale: 0.95, y: 10, opacity: 0 }}
-              animate={{ scale: 1, y: 0, opacity: 1 }}
-              exit={{ scale: 0.95, y: 10, opacity: 0 }}
-              className="glass-panel w-full max-w-md p-10 rounded-[2.5rem] relative"
-              onClick={e => e.stopPropagation()}
-            >
-              <h2 className="font-heading font-extrabold text-3xl mb-2">
+            onClick={() => setIsModalOpen(false)}>
+            <motion.div initial={{ scale: 0.95, y: 10, opacity: 0 }} animate={{ scale: 1, y: 0, opacity: 1 }} exit={{ scale: 0.95, y: 10, opacity: 0 }}
+              className="glass-panel w-full max-w-md p-10 rounded-[2.5rem] relative" onClick={e => e.stopPropagation()}>
+              <h2 className={`font-heading font-extrabold text-3xl mb-2 ${isDark ? 'text-white' : 'text-neutral-900'}`}>
                 {t.modal.title1}<span className="text-cyan-400">{t.modal.title2}</span>
               </h2>
-              <p className="text-neutral-400 text-sm mb-8 leading-relaxed">{t.modal.desc}</p>
+              <p className={`text-sm mb-8 leading-relaxed ${isDark ? 'text-neutral-400' : 'text-neutral-600'}`}>{t.modal.desc}</p>
               <div className="space-y-4 mb-8">
                 <input type="text" placeholder={t.modal.name} className="input-field py-3" value={accessForm.name} onChange={e => setAccessForm({ ...accessForm, name: e.target.value })} />
                 <input type="text" placeholder={t.modal.key} className="input-field py-3" value={accessForm.key} onChange={e => setAccessForm({ ...accessForm, key: e.target.value })} />
@@ -877,11 +822,7 @@ export default function App() {
               <div className="flex gap-3">
                 <button onClick={() => setIsModalOpen(false)} className="btn-secondary flex-1 text-sm py-3">{t.modal.cancel}</button>
                 <button onClick={handleAccess} disabled={isLoadingAccess} className="btn-primary flex-[2] text-sm py-3 disabled:opacity-50 flex items-center justify-center">
-                  {isLoadingAccess ? (
-                    <div className="w-4 h-4 border-2 border-neutral-900 border-t-transparent rounded-full animate-spin" />
-                  ) : (
-                    t.modal.enter
-                  )}
+                  {isLoadingAccess ? <div className="w-4 h-4 border-2 border-neutral-900 border-t-transparent rounded-full animate-spin" /> : t.modal.enter}
                 </button>
               </div>
             </motion.div>
@@ -891,13 +832,7 @@ export default function App() {
 
       {/* Private View */}
       <AnimatePresence>
-        {privateData && (
-          <PrivateView
-            privateData={privateData}
-            onClose={closePrivate}
-            isDark={isDark}
-          />
-        )}
+        {privateData && <PrivateView privateData={privateData} onClose={closePrivate} isDark={isDark} />}
       </AnimatePresence>
 
       {/* Admin Panel */}
