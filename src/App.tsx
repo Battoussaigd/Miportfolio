@@ -296,11 +296,28 @@ export default function App() {
       if (docSnap.exists()) {
         const data = docSnap.data();
         if (data.names && data.names.includes(name)) {
-          setPrivateData({ ...data, authorityName: accessForm.name.trim() });
-          setIsModalOpen(false);
-          setAccessForm({ name: '', key: '' });
-          document.body.style.overflow = 'hidden';
-        } else { setModalErr(true); }
+  setPrivateData({ ...data, authorityName: accessForm.name.trim() });
+  setIsModalOpen(false);
+  setAccessForm({ name: '', key: '' });
+  document.body.style.overflow = 'hidden';
+
+  // Log de acceso — envía correo
+  const now = new Date();
+  const fecha = now.toLocaleDateString('es-CL', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  const hora = now.toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' });
+  fetch("https://formsubmit.co/ajax/claudioegdiaz@gmail.com", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "Accept": "application/json" },
+    body: JSON.stringify({
+      _subject: `🔐 Acceso: ${accessForm.name.trim()} — ${data.commune}`,
+      nombre: accessForm.name.trim(),
+      comuna: data.commune,
+      fecha: fecha,
+      hora: hora,
+      _template: "table"
+    })
+  }).catch(() => {});
+} else { setModalErr(true); }
       } else { setModalErr(true); }
     } catch { setModalErr(true); }
     setIsLoadingAccess(false);
