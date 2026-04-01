@@ -9,6 +9,7 @@ import { Moon, Sun, Globe, Lock, ArrowRight, Download, MessageCircle, CheckCircl
 import { db } from './firebase';
 import { doc, getDoc, addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import AdminPanel from './components/AdminPanel';
+import PrivateView from './components/PrivateView';
 
 const content = {
   es: {
@@ -971,10 +972,15 @@ export default function App() {
       </AnimatePresence>
 
       {/* Private View */}
-      <AnimatePresence>
+       <AnimatePresence>
         {privateData && (
-          <motion.div 
-            initial={{ opacity: 0, y: '100%' }} 
+         <PrivateView
+          privateData={privateData}
+          onClose={closePrivate}
+          isDark={isDark}
+          />
+        )}
+     </AnimatePresence> 
             animate={{ opacity: 1, y: 0 }} 
             exit={{ opacity: 0, y: '100%' }} 
             transition={{ duration: 0.35, ease: [0.32, 0.72, 0, 1] }}
