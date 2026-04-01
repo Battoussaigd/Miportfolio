@@ -5,7 +5,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowRight, Download, ChevronDown, GraduationCap, Zap, Heart, Clock, CheckCircle } from 'lucide-react';
+import { ArrowLeft, Download, ChevronDown, GraduationCap, Zap, Heart, Clock, CheckCircle, Shield, Award, Cpu } from 'lucide-react';
 
 interface DocItem { name: string; url: string; }
 interface PrivateData {
@@ -16,13 +16,12 @@ interface PrivateData {
   painPointText?: string;
 }
 
+// ─── Datos de los tracks ──────────────────────────────────────────────────────
 const TRACKS = {
   escolar: {
     id: 'escolar',
     emoji: '🎓',
-    color: 'cyan',
-    bgGlow: 'rgba(6,182,212,0.15)',
-    borderColor: 'rgba(6,182,212,0.3)',
+    color: 'cyan' as const,
     icon: GraduationCap,
     title: 'Track Escolar',
     subtitle: 'Jóvenes Creadores de Tecnología',
@@ -33,7 +32,7 @@ const TRACKS = {
         nombre: 'Nivel I — Fundamentos',
         duracion: '12 sesiones · 75 min c/u',
         requisito: 'Sin requisitos previos',
-        descripcion: 'Desarrollo web con HTML/CSS/JS y creación de un chatbot inteligente con Gemini AI. El proyecto final es una PWA escolar real publicada en línea.',
+        descripcion: 'Desarrollo web con HTML, CSS y JavaScript más integración de un chatbot inteligente con Gemini AI. El proyecto final es una PWA escolar real publicada en línea.',
         logros: [
           'Crean su primera aplicación web desde cero',
           'Integran un chatbot con IA real',
@@ -46,11 +45,11 @@ const TRACKS = {
         nombre: 'Nivel II — Avanzado',
         duracion: '13 sesiones · 75 min c/u',
         requisito: 'Requiere Nivel I aprobado',
-        descripcion: 'PWA de Emprendimiento Juvenil con backend en la nube y agente de IA vía protocolo MCP que analiza datos de ventas e inventario en tiempo real.',
+        descripcion: 'PWA de Emprendimiento Juvenil con backend en la nube y agente de IA vía protocolo MCP que analiza datos de ventas e inventario en tiempo real, generando recomendaciones automáticas.',
         logros: [
           'Construyen un sistema completo con base de datos en la nube',
           'Integran un agente de IA que analiza datos del negocio',
-          'Implementan autenticación de usuarios y seguridad',
+          'Implementan autenticación de usuarios y seguridad avanzada',
           'Detectan tendencias con IA para hacer crecer su negocio',
         ],
         tecnologias: ['Antigravity Framework', 'Tailwind CSS', 'Firebase', 'MCP · Gemini'],
@@ -60,14 +59,12 @@ const TRACKS = {
   impulso: {
     id: 'impulso',
     emoji: '⚡',
-    color: 'violet',
-    bgGlow: 'rgba(139,92,246,0.15)',
-    borderColor: 'rgba(139,92,246,0.3)',
+    color: 'violet' as const,
     icon: Zap,
     title: 'Track Impulso',
-    subtitle: 'Jóvenes y Adultos al Siguiente Nivel',
+    subtitle: 'Adultos al Siguiente Nivel',
     audience: 'Adultos de 18 a 30 años',
-    description: 'Diseñado para adultos jóvenes sin conocimientos previos de programación. En 12 sesiones, construyen una aplicación web real con IA integrada, lista para usar y publicada en línea.',
+    description: 'Para adultos sin conocimientos previos de programación. En 12 sesiones construyen una aplicación web real con IA integrada, lista para usar y publicada en línea con enfoque profesional.',
     niveles: [
       {
         nombre: 'Nivel I — Fundamentos',
@@ -86,12 +83,12 @@ const TRACKS = {
         nombre: 'Nivel II — PWA Maternal',
         duracion: '13 sesiones · 75 min c/u',
         requisito: 'Requiere Nivel I aprobado',
-        descripcion: 'PWA Maternal Inteligente: app para acompañar a madres gestantes con seguimiento del embarazo, transcripción de citas médicas por voz y resúmenes automáticos con IA. Funciona sin señal permanente.',
+        descripcion: 'PWA Maternal Inteligente para acompañar a madres gestantes: seguimiento del embarazo, transcripción de citas médicas por voz y resúmenes con IA. Funciona sin señal permanente.',
         logros: [
           'Crean una solución tecnológica con impacto social real',
           'Implementan Speech-to-Text para transcribir citas médicas',
           'Diseñan para funcionar en zonas rurales sin señal estable',
-          'Protegen datos de salud con reglas de seguridad en Firebase',
+          'Protegen datos de salud con seguridad en Firebase',
         ],
         tecnologias: ['Antigravity Framework', 'Speech-to-Text API', 'Firebase', 'MCP · Gemini'],
       },
@@ -100,19 +97,17 @@ const TRACKS = {
   corazon: {
     id: 'corazon',
     emoji: '💖',
-    color: 'rose',
-    bgGlow: 'rgba(244,63,94,0.15)',
-    borderColor: 'rgba(244,63,94,0.3)',
+    color: 'rose' as const,
     icon: Heart,
     title: 'Track Corazón',
     subtitle: 'Mujeres con Superpoderes Digitales',
     audience: 'Mujeres adultas desde 18 años',
-    description: 'Un programa que nace de una realidad concreta: muchas mujeres nunca han tenido la oportunidad de aprender tecnología de forma guiada y sin presión. Track Corazón cambia eso.',
+    description: 'Un programa que nace de una realidad concreta: muchas mujeres nunca han tenido la oportunidad de aprender tecnología de forma guiada y sin presión. Track Corazón cambia eso desde cero.',
     niveles: [
       {
         nombre: 'Curso 0 — Fundamentos Digitales',
         duracion: '12 sesiones · 75 min c/u',
-        requisito: 'Sin requisitos previos · Desde cero absoluto',
+        requisito: 'Sin requisitos previos — desde cero absoluto',
         descripcion: 'Desde encender el computador hasta enviar correos y navegar con seguridad. Cada sesión produce un resultado concreto. La participante sale con algo aprendido y practicado, no solo escuchado.',
         logros: [
           'Manejan el computador con confianza desde la primera sesión',
@@ -126,7 +121,7 @@ const TRACKS = {
         nombre: 'Nivel I — Taller de Superpoderes',
         duracion: '13 sesiones · 75 min c/u',
         requisito: 'Requiere Curso 0 aprobado',
-        descripcion: 'La IA como aliada concreta para el hogar, la salud y el emprendimiento. Herramientas seleccionadas para entregar resultados reales desde la primera sesión.',
+        descripcion: 'La IA como aliada concreta para el hogar, la salud y el emprendimiento. Herramientas cuidadosamente seleccionadas para entregar resultados reales desde la primera sesión.',
         logros: [
           'Crean su propio chatbot personal con Gemini Gems',
           'Diseñan material para su negocio con Canva e IA',
@@ -139,102 +134,137 @@ const TRACKS = {
   },
 };
 
+// ─── Colores por track ────────────────────────────────────────────────────────
+const COLORS = {
+  cyan: {
+    text: 'text-cyan-300',
+    textBright: 'text-cyan-200',
+    bg: 'bg-cyan-500/15',
+    bgHover: 'bg-cyan-500/25',
+    border: 'border-cyan-500/40',
+    borderBright: 'border-cyan-400/60',
+    badge: 'bg-cyan-500/20 text-cyan-200 border border-cyan-500/30',
+    glow: 'rgba(6,182,212,0.2)',
+    glowBright: 'rgba(6,182,212,0.4)',
+    check: 'text-cyan-400',
+    dot: 'bg-cyan-400',
+  },
+  violet: {
+    text: 'text-violet-300',
+    textBright: 'text-violet-200',
+    bg: 'bg-violet-500/15',
+    bgHover: 'bg-violet-500/25',
+    border: 'border-violet-500/40',
+    borderBright: 'border-violet-400/60',
+    badge: 'bg-violet-500/20 text-violet-200 border border-violet-500/30',
+    glow: 'rgba(139,92,246,0.2)',
+    glowBright: 'rgba(139,92,246,0.4)',
+    check: 'text-violet-400',
+    dot: 'bg-violet-400',
+  },
+  rose: {
+    text: 'text-rose-300',
+    textBright: 'text-rose-200',
+    bg: 'bg-rose-500/15',
+    bgHover: 'bg-rose-500/25',
+    border: 'border-rose-500/40',
+    borderBright: 'border-rose-400/60',
+    badge: 'bg-rose-500/20 text-rose-200 border border-rose-500/30',
+    glow: 'rgba(244,63,94,0.2)',
+    glowBright: 'rgba(244,63,94,0.4)',
+    check: 'text-rose-400',
+    dot: 'bg-rose-400',
+  },
+};
+
 // ─── Tarjeta de Track ─────────────────────────────────────────────────────────
 function TrackCard({ track, index }: { track: typeof TRACKS.escolar; index: number }) {
   const [expanded, setExpanded] = useState<number | null>(null);
   const [hovered, setHovered] = useState(false);
-
-  const colorMap: Record<string, string> = {
-    cyan: 'text-cyan-400',
-    violet: 'text-violet-400',
-    rose: 'text-rose-400',
-  };
-  const bgMap: Record<string, string> = {
-    cyan: 'bg-cyan-500/10 border-cyan-500/20',
-    violet: 'bg-violet-500/10 border-violet-500/20',
-    rose: 'bg-rose-500/10 border-rose-500/20',
-  };
-  const badgeMap: Record<string, string> = {
-    cyan: 'bg-cyan-500/20 text-cyan-300',
-    violet: 'bg-violet-500/20 text-violet-300',
-    rose: 'bg-rose-500/20 text-rose-300',
-  };
+  const c = COLORS[track.color];
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.1, ease: [0.23, 1, 0.32, 1] }}
+      transition={{ duration: 0.5, delay: index * 0.12, ease: [0.23, 1, 0.32, 1] }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="relative rounded-[2rem] overflow-hidden border border-white/10 bg-neutral-900/80 backdrop-blur-xl"
+      className={`relative rounded-3xl border overflow-hidden transition-all duration-300 ${
+        hovered ? `${c.border} bg-neutral-800` : 'border-white/15 bg-neutral-850'
+      }`}
       style={{
+        background: hovered ? `linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)` : '#111827',
         boxShadow: hovered
-          ? `0 20px 60px ${track.bgGlow}, 0 0 0 1px ${track.borderColor}`
-          : '0 4px 24px rgba(0,0,0,0.4)',
-        transition: 'box-shadow 0.3s ease, transform 0.3s ease',
-        transform: hovered ? 'translateY(-4px)' : 'translateY(0)',
+          ? `0 24px 64px ${c.glow}, 0 0 0 1px ${c.glowBright}`
+          : '0 2px 16px rgba(0,0,0,0.5)',
+        transform: hovered ? 'translateY(-6px)' : 'translateY(0)',
+        transition: 'all 0.3s cubic-bezier(0.23, 1, 0.32, 1)',
       }}
     >
-      {/* Glow de fondo */}
+      {/* Glow superior */}
       <div
-        className="absolute inset-0 pointer-events-none transition-opacity duration-300"
+        className="absolute top-0 left-0 right-0 h-1 transition-opacity duration-300"
         style={{
-          background: `radial-gradient(ellipse at 30% 20%, ${track.bgGlow}, transparent 70%)`,
-          opacity: hovered ? 1 : 0,
+          background: `linear-gradient(90deg, transparent, ${c.glowBright}, transparent)`,
+          opacity: hovered ? 1 : 0.3,
         }}
       />
 
-      {/* Header del track */}
-      <div className="p-8 pb-6 relative">
-        <div className="flex items-start justify-between mb-4">
+      {/* Header */}
+      <div className="p-7 pb-5">
+        <div className="flex items-start justify-between mb-5">
           <div
-            className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl"
-            style={{ background: track.bgGlow, border: `1px solid ${track.borderColor}` }}
+            className={`w-14 h-14 rounded-2xl flex items-center justify-center text-2xl ${c.bg} border ${c.border}`}
           >
             {track.emoji}
           </div>
-          <span className={`text-xs font-medium px-3 py-1.5 rounded-full ${badgeMap[track.color]}`}>
+          <span className={`text-xs font-semibold px-3 py-1.5 rounded-full ${c.badge}`}>
             {track.audience}
           </span>
         </div>
-        <h3 className={`font-heading font-extrabold text-2xl mb-1 ${colorMap[track.color]}`}>
+
+        <h3 className={`font-heading font-extrabold text-2xl mb-1 ${c.textBright}`}>
           {track.title}
         </h3>
-        <p className="text-sm text-neutral-400 font-medium mb-4">{track.subtitle}</p>
-        <p className="text-sm text-neutral-300 leading-relaxed">{track.description}</p>
+        <p className="text-sm font-medium text-neutral-300 mb-3">{track.subtitle}</p>
+        <p className="text-sm text-neutral-400 leading-relaxed">{track.description}</p>
       </div>
 
+      {/* Separador */}
+      <div className={`mx-7 h-px ${c.bg} mb-4`} />
+
       {/* Niveles */}
-      <div className="px-8 pb-8 space-y-3">
+      <div className="px-7 pb-7 space-y-3">
         {track.niveles.map((nivel, i) => (
           <div
             key={i}
-            className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
+            className={`rounded-2xl border overflow-hidden transition-all duration-200 ${
               expanded === i
-                ? `${bgMap[track.color]}`
-                : 'bg-white/5 border-white/10'
+                ? `${c.bg} ${c.border}`
+                : 'bg-white/5 border-white/10 hover:bg-white/8 hover:border-white/20'
             }`}
           >
             <button
               type="button"
               onClick={() => setExpanded(expanded === i ? null : i)}
-              className="w-full p-4 flex items-center justify-between text-left cursor-pointer"
+              className="w-full p-4 flex items-center justify-between text-left cursor-pointer group"
             >
               <div className="flex-1 min-w-0">
-                <div className={`font-bold text-sm mb-0.5 ${expanded === i ? colorMap[track.color] : 'text-white'}`}>
+                <div className={`font-bold text-sm mb-1 ${expanded === i ? c.textBright : 'text-white'}`}>
                   {nivel.nombre}
                 </div>
-                <div className="flex items-center gap-1 text-xs text-neutral-500">
-                  <Clock className="w-3 h-3" /> {nivel.duracion}
+                <div className="flex items-center gap-1.5 text-xs text-neutral-400">
+                  <Clock className="w-3 h-3" />
+                  {nivel.duracion}
                 </div>
               </div>
               <div
-                className={`ml-3 shrink-0 transition-transform duration-200 ${expanded === i ? colorMap[track.color] : 'text-neutral-500'}`}
+                className={`ml-3 shrink-0 transition-all duration-200 ${expanded === i ? c.text : 'text-neutral-500 group-hover:text-neutral-300'}`}
                 style={{ transform: expanded === i ? 'rotate(180deg)' : 'rotate(0deg)' }}
               >
-                <ChevronDown className="w-4 h-4" />
+                <ChevronDown className="w-5 h-5" />
               </div>
             </button>
 
@@ -244,30 +274,44 @@ function TrackCard({ track, index }: { track: typeof TRACKS.escolar; index: numb
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: 'auto', opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
+                  transition={{ duration: 0.28, ease: [0.23, 1, 0.32, 1] }}
                   className="overflow-hidden"
                 >
-                  <div className="px-4 pb-4 space-y-4">
-                    <div className={`text-xs px-3 py-1.5 rounded-full inline-block ${badgeMap[track.color]}`}>
+                  <div className="px-4 pb-5 space-y-4">
+                    {/* Requisito */}
+                    <span className={`inline-block text-xs font-semibold px-3 py-1.5 rounded-full ${c.badge}`}>
                       {nivel.requisito}
-                    </div>
-                    <p className="text-sm text-neutral-300 leading-relaxed">{nivel.descripcion}</p>
+                    </span>
+
+                    {/* Descripción */}
+                    <p className="text-sm text-neutral-200 leading-relaxed">{nivel.descripcion}</p>
+
+                    {/* Logros */}
                     <div>
-                      <p className="text-xs font-bold text-neutral-400 uppercase tracking-wider mb-2">Al finalizar</p>
-                      <div className="space-y-1.5">
+                      <p className="text-xs font-bold text-neutral-300 uppercase tracking-widest mb-3">
+                        Al finalizar, los participantes:
+                      </p>
+                      <div className="space-y-2">
                         {nivel.logros.map((logro, j) => (
-                          <div key={j} className="flex items-start gap-2 text-xs text-neutral-300">
-                            <CheckCircle className={`w-3.5 h-3.5 shrink-0 mt-0.5 ${colorMap[track.color]}`} />
-                            {logro}
+                          <div key={j} className="flex items-start gap-2.5">
+                            <CheckCircle className={`w-4 h-4 shrink-0 mt-0.5 ${c.check}`} />
+                            <span className="text-sm text-neutral-200">{logro}</span>
                           </div>
                         ))}
                       </div>
                     </div>
+
+                    {/* Tecnologías */}
                     <div>
-                      <p className="text-xs font-bold text-neutral-400 uppercase tracking-wider mb-2">Tecnologías</p>
-                      <div className="flex flex-wrap gap-1.5">
+                      <p className="text-xs font-bold text-neutral-300 uppercase tracking-widest mb-2">
+                        Tecnologías
+                      </p>
+                      <div className="flex flex-wrap gap-2">
                         {nivel.tecnologias.map((tech, j) => (
-                          <span key={j} className="text-xs px-2 py-1 rounded-lg bg-white/5 border border-white/10 text-neutral-300">
+                          <span
+                            key={j}
+                            className="text-xs font-medium px-3 py-1.5 rounded-lg bg-white/8 border border-white/15 text-neutral-200"
+                          >
                             {tech}
                           </span>
                         ))}
@@ -304,64 +348,88 @@ export default function PrivateView({
       ? 'La tecnología ya no es el futuro — es el presente. Las comunas que actúan hoy forman a los profesionales, emprendedores y líderes que necesitan mañana.'
       : 'Preparar a los estudiantes para un mundo digital no es opcional. Es la responsabilidad más importante de la educación actual.');
 
+  const stats = [
+    { n: tracksToShow.length.toString(), l: 'Tracks disponibles', icon: '🎯' },
+    { n: (tracksToShow.length * 2).toString(), l: 'Niveles formativos', icon: '📚' },
+    { n: '75 min', l: 'Por sesión', icon: '⏱️' },
+    { n: '$0', l: 'En licencias', icon: '✅' },
+  ];
+
   return (
     <motion.div
       initial={{ opacity: 0, y: '100%' }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: '100%' }}
-      transition={{ duration: 0.35, ease: [0.32, 0.72, 0, 1] }}
-      className="fixed inset-0 z-[150] overflow-y-auto bg-neutral-950"
+      transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
+      className="fixed inset-0 z-[150] overflow-y-auto"
+      style={{ background: '#080c14' }}
     >
-      {/* Fondo */}
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full bg-cyan-600/10 blur-[120px]" />
-        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-violet-600/10 blur-[100px]" />
+      {/* Fondos ambientales */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-[-10%] left-[5%] w-[500px] h-[500px] rounded-full blur-[140px]" style={{ background: 'rgba(6,182,212,0.08)' }} />
+        <div className="absolute top-[30%] right-[-5%] w-[400px] h-[400px] rounded-full blur-[120px]" style={{ background: 'rgba(139,92,246,0.07)' }} />
+        <div className="absolute bottom-[10%] left-[30%] w-[300px] h-[300px] rounded-full blur-[100px]" style={{ background: 'rgba(244,63,94,0.06)' }} />
+        {/* Grid sutil */}
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: 'linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)',
+            backgroundSize: '60px 60px',
+          }}
+        />
       </div>
 
-      <div className="relative max-w-6xl mx-auto px-6 pt-8 pb-24">
+      <div className="relative max-w-6xl mx-auto px-6 pt-8 pb-28">
 
         {/* Botón volver */}
         <motion.button
-          initial={{ opacity: 0, x: -20 }}
+          initial={{ opacity: 0, x: -16 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.1 }}
+          transition={{ delay: 0.1, duration: 0.4 }}
           onClick={onClose}
-          className="flex items-center gap-2 text-sm text-neutral-400 hover:text-white transition-colors mb-12 group"
+          className="flex items-center gap-2 text-sm text-neutral-400 hover:text-white transition-colors mb-14 group"
         >
-          <ArrowRight className="w-4 h-4 rotate-180 group-hover:-translate-x-1 transition-transform" />
+          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-200" />
           Volver al portafolio
         </motion.button>
 
-        {/* HERO */}
+        {/* ── HERO ── */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.15, duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+          transition={{ delay: 0.15, duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
           className="mb-16"
         >
-          <div className="inline-flex items-center gap-2 bg-cyan-500/10 border border-cyan-500/20 px-4 py-2 rounded-full mb-6">
+          <div className="inline-flex items-center gap-2 bg-cyan-500/10 border border-cyan-500/25 px-4 py-2 rounded-full mb-8">
             <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-            <span className="text-xs font-medium text-cyan-400 uppercase tracking-wider">
+            <span className="text-xs font-semibold text-cyan-300 uppercase tracking-widest">
               {isMunicipio ? '🏛️ Municipio' : '🎓 Establecimiento Educacional'} · {privateData.commune}
             </span>
           </div>
 
-          <h1 className="font-heading font-extrabold text-5xl md:text-7xl leading-none tracking-tight text-white mb-4">
+          <h1 className="font-heading font-extrabold leading-none tracking-tight text-white mb-6"
+            style={{ fontSize: 'clamp(2.8rem, 7vw, 5.5rem)' }}
+          >
             Bienvenido/a,
             <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-violet-400">
+            <span
+              className="text-transparent bg-clip-text"
+              style={{ backgroundImage: 'linear-gradient(135deg, #22d3ee, #a78bfa, #fb7185)' }}
+            >
               {privateData.authorityName}
             </span>
           </h1>
 
-          <p className="text-lg md:text-xl text-neutral-400 max-w-2xl leading-relaxed mt-6">
-            Esta es la propuesta de <strong className="text-white">Lautaro Digital 2026</strong> —{' '}
-            un programa de formación tecnológica diseñado para transformar{' '}
-            <strong className="text-white">{privateData.commune}</strong> desde adentro.
+          <p className="text-lg md:text-xl text-neutral-300 max-w-2xl leading-relaxed">
+            Esta es la propuesta de{' '}
+            <strong className="text-white font-bold">Lautaro Digital 2026</strong>{' '}
+            — un programa de formación tecnológica diseñado para transformar{' '}
+            <strong className="text-white font-bold">{privateData.commune}</strong>{' '}
+            desde adentro.
           </p>
         </motion.div>
 
-        {/* PAIN POINT */}
+        {/* ── PAIN POINT ── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -369,45 +437,57 @@ export default function PrivateView({
           transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
           className="mb-16"
         >
-          <div className="bg-gradient-to-r from-cyan-500/10 via-violet-500/10 to-rose-500/10 border border-white/10 p-8 md:p-12 rounded-[2rem]">
-            <div className="text-4xl mb-4">💡</div>
+          <div
+            className="p-8 md:p-12 rounded-3xl border border-white/10 relative overflow-hidden"
+            style={{ background: 'linear-gradient(135deg, rgba(6,182,212,0.08), rgba(139,92,246,0.08), rgba(244,63,94,0.08))' }}
+          >
+            <div className="absolute top-0 left-0 right-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(6,182,212,0.5), rgba(139,92,246,0.5), transparent)' }} />
+            <div className="text-4xl mb-5">💡</div>
             <p className="text-xl md:text-2xl font-medium text-white leading-relaxed">
               "{painPoint}"
             </p>
           </div>
         </motion.div>
 
-        {/* STATS */}
+        {/* ── STATS ── */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
-          {[
-            { n: tracksToShow.length.toString(), l: 'Tracks disponibles' },
-            { n: (tracksToShow.length * 2).toString(), l: 'Niveles en total' },
-            { n: '75 min', l: 'Por sesión' },
-            { n: '$0', l: 'En licencias de software' },
-          ].map((stat, i) => (
+          {stats.map((stat, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.05, duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
-              className="bg-white/5 border border-white/10 rounded-2xl p-5 text-center"
+              transition={{ delay: i * 0.07, duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
+              className="rounded-2xl border border-white/12 p-5 text-center relative overflow-hidden"
+              style={{ background: '#111827' }}
             >
-              <div className="font-heading font-extrabold text-3xl text-cyan-400 mb-1">{stat.n}</div>
-              <div className="text-xs text-neutral-400 uppercase tracking-wider">{stat.l}</div>
+              <div className="text-2xl mb-2">{stat.icon}</div>
+              <div className="font-heading font-extrabold text-3xl text-white mb-1">{stat.n}</div>
+              <div className="text-xs font-medium text-neutral-400 uppercase tracking-wider">{stat.l}</div>
             </motion.div>
           ))}
         </div>
 
-        {/* TRACKS */}
-        <div className="mb-6">
-          <div className="text-xs font-bold tracking-[0.2em] uppercase text-cyan-400 mb-2">Programa formativo</div>
-          <h2 className="font-heading font-extrabold text-4xl text-white mb-2">Los tracks</h2>
-          <p className="text-neutral-400 text-lg mb-10">Haz clic en cada nivel para ver el contenido completo.</p>
-        </div>
+        {/* ── TRACKS ── */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="mb-8"
+        >
+          <div className="text-xs font-bold tracking-widest uppercase text-cyan-400 mb-3">
+            Programa formativo
+          </div>
+          <h2 className="font-heading font-extrabold text-4xl text-white mb-3">
+            Los Tracks
+          </h2>
+          <p className="text-neutral-300 text-lg">
+            Presiona cada nivel para ver su contenido completo.
+          </p>
+        </motion.div>
 
         <div className={`grid gap-6 mb-16 ${
-          tracksToShow.length === 1 ? 'max-w-2xl' :
+          tracksToShow.length === 1 ? 'max-w-2xl mx-auto' :
           tracksToShow.length === 2 ? 'md:grid-cols-2' :
           'md:grid-cols-2 lg:grid-cols-3'
         }`}>
@@ -416,35 +496,74 @@ export default function PrivateView({
           ))}
         </div>
 
-        {/* RESPALDO */}
-        <div className="grid md:grid-cols-3 gap-4 mb-16">
-          {[
-            { emoji: '🏆', title: 'CCHIA', desc: 'Colaborador de la Cámara Chilena de Inteligencia Artificial' },
-            { emoji: '📜', title: 'CENIA · SOFOFA · SENCE', desc: 'Certificaciones avaladas por organismos nacionales de IA' },
-            { emoji: '⚙️', title: 'Infraestructura Google', desc: 'Herramientas profesionales. Sin costos de licencias.' },
-          ].map((item, i) => (
-            <div key={i} className="bg-white/5 border border-white/10 rounded-2xl p-6 flex items-start gap-4">
-              <div className="text-3xl shrink-0">{item.emoji}</div>
-              <div>
-                <div className="font-bold text-white text-sm mb-1">{item.title}</div>
-                <div className="text-xs text-neutral-400 leading-relaxed">{item.desc}</div>
+        {/* ── RESPALDO INSTITUCIONAL ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mb-16"
+        >
+          <div className="text-xs font-bold tracking-widest uppercase text-cyan-400 mb-6">
+            Respaldo y credenciales
+          </div>
+          <div className="grid md:grid-cols-3 gap-4">
+            {[
+              {
+                icon: <Award className="w-6 h-6 text-amber-400" />,
+                bg: 'rgba(251,191,36,0.1)',
+                border: 'rgba(251,191,36,0.25)',
+                title: 'CCHIA',
+                desc: 'Colaborador de la Cámara Chilena de Inteligencia Artificial — organismo rector del ecosistema IA en Chile.',
+              },
+              {
+                icon: <Shield className="w-6 h-6 text-cyan-400" />,
+                bg: 'rgba(6,182,212,0.1)',
+                border: 'rgba(6,182,212,0.25)',
+                title: 'CENIA · SOFOFA · SENCE',
+                desc: 'Certificaciones avaladas por los principales organismos nacionales de IA, empresa y trabajo.',
+              },
+              {
+                icon: <Cpu className="w-6 h-6 text-violet-400" />,
+                bg: 'rgba(139,92,246,0.1)',
+                border: 'rgba(139,92,246,0.25)',
+                title: 'Infraestructura Google',
+                desc: 'Todas las herramientas son profesionales y de uso libre. Sin costos de licencias para la institución.',
+              },
+            ].map((item, i) => (
+              <div
+                key={i}
+                className="rounded-2xl border p-6 flex items-start gap-4"
+                style={{ background: item.bg, borderColor: item.border }}
+              >
+                <div className="shrink-0 mt-0.5">{item.icon}</div>
+                <div>
+                  <div className="font-bold text-white text-sm mb-2">{item.title}</div>
+                  <div className="text-sm text-neutral-300 leading-relaxed">{item.desc}</div>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </motion.div>
 
-        {/* DOCUMENTOS */}
+        {/* ── DOCUMENTOS ── */}
         {(privateData.docs || []).length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
-            className="text-center mb-16"
+            transition={{ duration: 0.5 }}
+            className="mb-16 text-center"
           >
-            <div className="text-xs font-bold tracking-[0.2em] uppercase text-cyan-400 mb-2">Documentos</div>
-            <h2 className="font-heading font-extrabold text-3xl text-white mb-3">Propuesta técnica</h2>
-            <p className="text-neutral-400 mb-8">Documentación oficial preparada para {privateData.commune}.</p>
+            <div className="text-xs font-bold tracking-widest uppercase text-cyan-400 mb-3">
+              Documentos oficiales
+            </div>
+            <h2 className="font-heading font-extrabold text-3xl text-white mb-3">
+              Propuesta Técnica
+            </h2>
+            <p className="text-neutral-300 mb-8">
+              Documentación preparada específicamente para {privateData.commune}.
+            </p>
             <div className="flex flex-wrap justify-center gap-4">
               {privateData.docs.map((d, i) => (
                 <a
@@ -453,7 +572,11 @@ export default function PrivateView({
                   target="_blank"
                   rel="noopener noreferrer"
                   download
-                  className="inline-flex items-center gap-3 bg-cyan-400 text-neutral-950 px-8 py-4 rounded-full text-base font-bold shadow-[0_0_30px_rgba(6,182,212,0.3)] hover:shadow-[0_0_40px_rgba(6,182,212,0.5)] hover:scale-105 transition-all duration-200"
+                  className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-base font-bold text-neutral-950 transition-all duration-200 hover:scale-105 hover:shadow-[0_0_40px_rgba(6,182,212,0.6)]"
+                  style={{
+                    background: 'linear-gradient(135deg, #22d3ee, #06b6d4)',
+                    boxShadow: '0 0 30px rgba(6,182,212,0.35)',
+                  }}
                 >
                   <Download className="w-5 h-5" />
                   {d.name}
@@ -463,13 +586,25 @@ export default function PrivateView({
           </motion.div>
         )}
 
-        {/* CONTACTO */}
-        <div className="text-center border-t border-white/10 pt-12">
-          <p className="text-neutral-400 text-sm mb-2">¿Tienes preguntas? Escríbeme directamente.</p>
-          <p className="font-bold text-white">
-            claudioegdiaz@gmail.com · <span className="text-cyan-400">+56 9 5105 6018</span>
+        {/* ── CONTACTO ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center border-t border-white/10 pt-12"
+        >
+          <p className="text-neutral-400 text-sm mb-3">
+            ¿Tiene preguntas sobre la propuesta?
           </p>
-        </div>
+          <p className="font-bold text-white text-lg">
+            claudioegdiaz@gmail.com{' '}
+            <span className="text-neutral-500 font-normal mx-2">·</span>{' '}
+            <span className="text-cyan-300">+56 9 5105 6018</span>
+          </p>
+          <p className="text-xs text-neutral-500 mt-3">
+            Claudio González Díaz · Especialista en IA Generativa Aplicada · Relator
+          </p>
+        </motion.div>
 
       </div>
     </motion.div>
