@@ -91,9 +91,16 @@ export default function AdminPanel({ onClose }: { onClose: () => void }) {
   };
 
   const handleLogin = async () => {
-    try { await signInWithPopup(auth, new GoogleAuthProvider()); }
-    catch { setErrorMsg('Error al iniciar sesión.'); }
-  };
+  try {
+    const result = await signInWithPopup(auth, new GoogleAuthProvider());
+    if (result.user.email !== 'claudioegdiaz@gmail.com') {
+      await signOut(auth);
+      setErrorMsg('Acceso no autorizado.');
+    }
+  } catch {
+    setErrorMsg('Error al iniciar sesión.');
+  }
+};
 
   const handleLogout = async () => { await signOut(auth); setView('list'); };
 
