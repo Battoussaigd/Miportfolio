@@ -13,7 +13,7 @@ import PrivateView from './components/PrivateView';
 
 const content = {
   es: {
-    nav: { about: "Sobre mí", certs: "Certificaciones", projects: "Proyectos", purpose: "Propósito", contact: "Contacto", municipal: "Acceso Municipal" },
+    nav: { about: "Sobre mí", certs: "Certificaciones", projects: "Proyectos", purpose: "Propósito", contact: "Contacto", municipal: "Acceso" },
     hero: {
       badge: "Colaborador CCHIA · La Araucanía, Chile",
       role: "Técnico Programador · IA Generativa Aplicada · Relator",
@@ -111,7 +111,7 @@ const content = {
     }
   },
   en: {
-    nav: { about: "About", certs: "Certifications", projects: "Projects", purpose: "Purpose", contact: "Contact", municipal: "Municipal Access" },
+    nav: { about: "About", certs: "Certifications", projects: "Projects", purpose: "Purpose", contact: "Contact", municipal: "Access" },
     hero: {
       badge: "CCHIA Collaborator · La Araucanía, Chile",
       role: "Programmer · Applied Generative AI · Instructor",
