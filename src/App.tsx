@@ -750,7 +750,6 @@ export default function App() {
       {/* Footer */}
       <footer className={`py-12 text-center border-t text-sm relative ${isDark ? 'border-white/10 text-neutral-500' : 'border-neutral-200 text-neutral-500'}`}>
         <p>© 2026 <span className="text-cyan-400 font-medium">Claudio González Díaz</span> · Pillanlelbún, La Araucanía · <span className="text-cyan-400">claudioegdiaz@gmail.com</span> · +56 9 5105 6018</p>
-        <button onClick={() => setIsAdminOpen(true)} className="absolute bottom-4 left-6 text-xs text-neutral-600 hover:text-cyan-400 transition-colors">Admin</button>
       </footer>
 
       {/* WhatsApp */}
@@ -850,11 +849,6 @@ export default function App() {
       {/* Private View */}
       <AnimatePresence>
         {privateData && <PrivateView privateData={privateData} onClose={closePrivate} isDark={isDark} />}
-      </AnimatePresence>
-
-      {/* Admin Panel */}
-      <AnimatePresence>
-        {isAdminOpen && <AdminPanel onClose={() => setIsAdminOpen(false)} />}
       </AnimatePresence>
     </div>
   );
