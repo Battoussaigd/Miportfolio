@@ -768,7 +768,7 @@ export default function App() {
                 <div className={`p-4 flex items-center justify-between border-b ${isDark ? 'border-white/10 bg-neutral-800/50' : 'border-neutral-200 bg-neutral-50'}`}>
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full overflow-hidden">
-                      <img src="/demian.png" alt="Demian" className="w-full h-full object-cover scale-110" onError={(e) => { e.currentTarget.src = 'https://api.dicebear.com/7.x/bottts/svg?seed=Demian&backgroundColor=transparent'; }} />
+                      <img src="/demian.png" alt="Demian" className="w-full h-full object-cover scale-110" onContextMenu={(e) => e.preventDefault()} onError={(e) => { e.currentTarget.src = 'https://api.dicebear.com/7.x/bottts/svg?seed=Demian&backgroundColor=transparent'; }} />
                     </div>
                     <div>
                       <h3 className={`font-semibold text-sm ${isDark ? 'text-white' : 'text-neutral-900'}`}>Demian</h3>
@@ -813,7 +813,7 @@ export default function App() {
           <button onClick={() => setIsChatOpen(!isChatOpen)}
             className={`w-14 h-14 rounded-full flex items-center justify-center shadow-[0_4px_20px_rgba(6,182,212,0.4)] transition-all duration-300 hover:scale-110 hover:shadow-[0_6px_30px_rgba(6,182,212,0.6)] active:scale-95 overflow-hidden ${isChatOpen ? 'bg-neutral-800 text-white' : 'bg-transparent'}`}>
             {isChatOpen ? <X className="w-6 h-6 text-white" /> : (
-              <img src="/demian.png" alt="Demian" className="w-full h-full object-cover scale-110" onError={(e) => { e.currentTarget.src = 'https://api.dicebear.com/7.x/bottts/svg?seed=Demian&backgroundColor=transparent'; }} />
+              <img src="/demian.png" alt="Demian" className="w-full h-full object-cover scale-110" onContextMenu={(e) => e.preventDefault()} onError={(e) => { e.currentTarget.src = 'https://api.dicebear.com/7.x/bottts/svg?seed=Demian&backgroundColor=transparent'; }} />
             )}
           </button>
         </div>
