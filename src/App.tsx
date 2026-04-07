@@ -40,6 +40,31 @@ const content = {
     certs: {
       label: "Formación", title: "Mis ", titleEm: "certificaciones",
       sub: "Validación continua de habilidades técnicas y desarrollo profesional.",
+      googleCerts: {
+        label: "NUEVAS CERTIFICACIONES · 2026",
+        title: "Google Career Certificates",
+        sub: "Coursera · Google Career Certificates",
+        items: [
+          {
+            title: "AI for Brainstorming and Planning",
+            desc: "Aplicación práctica de IA generativa para ideación estructurada, planificación de proyectos y toma de decisiones asistida.",
+            link: "https://coursera.org/share/c1532647f4c75bc7a6a69d172329f75e",
+            verify: "Verificar credencial"
+          },
+          {
+            title: "AI for Data Analysis",
+            desc: "Uso de herramientas de IA para análisis exploratorio de datos, visualización inteligente e interpretación de resultados.",
+            link: "https://coursera.org/share/fd03698f6ec1bc7cc74eb5e6eeb88dda",
+            verify: "Verificar credencial"
+          },
+          {
+            title: "AI for App Building",
+            desc: "Construcción de aplicaciones potenciadas por IA: integración de modelos, diseño de flujos y desarrollo de productos inteligentes.",
+            link: "https://coursera.org/share/0619f7331d9cd15b39e1444cbb487f51",
+            verify: "Verificar credencial"
+          }
+        ]
+      },
       ai: {
         title: "Inteligencia Artificial & Tecnología",
         items: [
@@ -138,6 +163,31 @@ const content = {
     certs: {
       label: "Education", title: "My ", titleEm: "certifications",
       sub: "Continuous validation of technical skills and professional development.",
+      googleCerts: {
+        label: "NEW CERTIFICATIONS · 2026",
+        title: "Google Career Certificates",
+        sub: "Coursera · Google Career Certificates",
+        items: [
+          {
+            title: "AI for Brainstorming and Planning",
+            desc: "Practical application of generative AI for structured ideation, project planning and AI-assisted decision making.",
+            link: "https://coursera.org/share/c1532647f4c75bc7a6a69d172329f75e",
+            verify: "Verify credential"
+          },
+          {
+            title: "AI for Data Analysis",
+            desc: "Using AI tools for exploratory data analysis, intelligent visualization and results interpretation.",
+            link: "https://coursera.org/share/fd03698f6ec1bc7cc74eb5e6eeb88dda",
+            verify: "Verify credential"
+          },
+          {
+            title: "AI for App Building",
+            desc: "Building AI-powered applications: model integration, workflow design and intelligent product development.",
+            link: "https://coursera.org/share/0619f7331d9cd15b39e1444cbb487f51",
+            verify: "Verify credential"
+          }
+        ]
+      },
       ai: {
         title: "Artificial Intelligence & Technology",
         items: [
@@ -555,6 +605,112 @@ export default function App() {
             <span>{t.certs.title}</span><span className="text-5xl md:text-7xl text-gradient uppercase tracking-tighter">{t.certs.titleEm}</span>
           </h2>
           <p className={`text-lg max-w-2xl mb-16 leading-relaxed ${isDark ? 'text-neutral-400' : 'text-neutral-600'}`}>{t.certs.sub}</p>
+
+          {/* ══════ Google Career Certificates — SECCIÓN DESTACADA ══════ */}
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="mb-16">
+            {/* Header con badge NEW */}
+            <div className="flex items-center gap-4 mb-8">
+              <div className="flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-black tracking-[0.2em] uppercase"
+                style={{ background: 'linear-gradient(135deg, rgba(66,133,244,0.2), rgba(52,168,83,0.15), rgba(251,188,5,0.15), rgba(234,67,53,0.15))', border: '1px solid rgba(66,133,244,0.4)', color: '#4285F4' }}>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#4285F4] animate-pulse inline-block" />
+                {t.certs.googleCerts.label}
+              </div>
+            </div>
+
+            {/* Panel principal glassmorphism */}
+            <div className="relative overflow-hidden rounded-[2rem] p-8 md:p-10"
+              style={{
+                background: isDark
+                  ? 'linear-gradient(135deg, rgba(66,133,244,0.08) 0%, rgba(10,10,20,0.6) 40%, rgba(52,168,83,0.06) 100%)'
+                  : 'linear-gradient(135deg, rgba(66,133,244,0.06) 0%, rgba(255,255,255,0.95) 40%, rgba(52,168,83,0.04) 100%)',
+                border: isDark ? '1px solid rgba(66,133,244,0.25)' : '1px solid rgba(66,133,244,0.2)',
+                boxShadow: isDark
+                  ? '0 0 60px rgba(66,133,244,0.08), 0 0 120px rgba(52,168,83,0.04), inset 0 1px 0 rgba(255,255,255,0.05)'
+                  : '0 4px 40px rgba(66,133,244,0.1), 0 0 0 1px rgba(66,133,244,0.05), inset 0 1px 0 rgba(255,255,255,0.9)'
+              }}>
+
+              {/* Shimmer top line con colores Google */}
+              <div className="absolute top-0 left-0 right-0 h-[2px]"
+                style={{ background: 'linear-gradient(90deg, #4285F4, #34A853, #FBBC05, #EA4335, #4285F4)' }} />
+
+              {/* Logo Google + título */}
+              <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-8">
+                {/* Logo Google — letras de colores */}
+                <div className="flex items-center gap-1 font-black text-3xl tracking-tight select-none" style={{ fontFamily: 'Georgia, serif' }}>
+                  <span style={{ color: '#4285F4' }}>G</span>
+                  <span style={{ color: '#EA4335' }}>o</span>
+                  <span style={{ color: '#FBBC05' }}>o</span>
+                  <span style={{ color: '#4285F4' }}>g</span>
+                  <span style={{ color: '#34A853' }}>l</span>
+                  <span style={{ color: '#EA4335' }}>e</span>
+                </div>
+                <div className={`h-6 w-px hidden sm:block ${isDark ? 'bg-white/20' : 'bg-neutral-300'}`} />
+                <div>
+                  <h3 className={`font-heading font-extrabold text-xl ${isDark ? 'text-white' : 'text-neutral-900'}`}>
+                    {t.certs.googleCerts.title}
+                  </h3>
+                  <p className={`text-xs font-medium mt-0.5 ${isDark ? 'text-neutral-400' : 'text-neutral-500'}`}>
+                    {t.certs.googleCerts.sub}
+                  </p>
+                </div>
+              </div>
+
+              {/* 3 tarjetas de certificados */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {t.certs.googleCerts.items.map((cert, i) => {
+                  const accentColors = ['#4285F4', '#34A853', '#FBBC05'];
+                  const accentColor = accentColors[i];
+                  return (
+                    <motion.div key={i}
+                      initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }} transition={{ delay: i * 0.12, duration: 0.4 }}
+                      className="relative group rounded-2xl p-5 flex flex-col gap-3 transition-all duration-300"
+                      style={{
+                        background: isDark ? `rgba(255,255,255,0.03)` : `rgba(255,255,255,0.8)`,
+                        border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.07)'}`,
+                      }}
+                      whileHover={{ y: -3, transition: { duration: 0.2 } }}>
+                      {/* Accent top bar */}
+                      <div className="absolute top-0 left-6 right-6 h-[2px] rounded-full opacity-70 group-hover:opacity-100 transition-opacity"
+                        style={{ background: accentColor }} />
+
+                      {/* Número + icono */}
+                      <div className="flex items-center justify-between">
+                        <div className="w-9 h-9 rounded-xl flex items-center justify-center font-black text-sm"
+                          style={{ background: `${accentColor}18`, color: accentColor }}>
+                          0{i + 1}
+                        </div>
+                        <div className={`px-2 py-0.5 rounded-full text-[10px] font-black tracking-widest uppercase`}
+                          style={{ background: `${accentColor}15`, color: accentColor }}>
+                          2026
+                        </div>
+                      </div>
+
+                      {/* Título */}
+                      <h4 className={`font-heading font-bold text-base leading-tight ${isDark ? 'text-white' : 'text-neutral-900'}`}>
+                        {cert.title}
+                      </h4>
+
+                      {/* Descripción */}
+                      <p className={`text-xs leading-relaxed flex-grow ${isDark ? 'text-neutral-400' : 'text-neutral-600'}`}>
+                        {cert.desc}
+                      </p>
+
+                      {/* Link verificación */}
+                      <a href={cert.link} target="_blank" rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-xs font-semibold mt-1 transition-all group/link"
+                        style={{ color: accentColor }}>
+                        <BadgeCheck className="w-3.5 h-3.5" />
+                        <span className="group-hover/link:underline">{cert.verify}</span>
+                        <ExternalLink className="w-3 h-3 opacity-60 group-hover/link:opacity-100 transition-opacity" />
+                      </a>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
+          </motion.div>
+          {/* ══════════════════════════════════════════════════════════════ */}
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* IA Column */}
