@@ -50,12 +50,15 @@ export default function MagikaAnalyzer({ isDark, lang }: MagikaAnalyzerProps) {
       const buffer = await file.arrayBuffer();
       const result = await magikaRef.current.identifyBytes(new Uint8Array(buffer));
 
+      // Magika 1.0.0 estructura de respuesta
+      const output = result.output || result.dl || result;
+      
       const analysis: FileAnalysis = {
         filename: file.name,
-        label: result.output.label,
-        description: result.output.description,
-        mimeType: result.output.mime_type,
-        score: result.output.score,
+        label: output.label || 'unknown',
+        description: output.description || output.label || 'Unknown type',
+        mimeType: output.mime_type || output.mimeType || 'unknown',
+        score: output.score || 0,
         status: 'ok'
       };
 
