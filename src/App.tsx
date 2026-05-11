@@ -12,7 +12,7 @@ import AdminPanel from './components/AdminPanel';
 
 const content = {
   es: {
-    nav: { about: "Sobre mí", certs: "Certificaciones", projects: "Proyectos", purpose: "Propósito", contact: "Contacto", municipal: "Acceso Municipal" },
+    nav: { about: "Sobre mí", certs: "Certificaciones", projects: "Proyectos", purpose: "Propósito", security: "Seguridad", contact: "Contacto", municipal: "Acceso Municipal" },
     hero: {
       badge: "Colaborador CCHIA · La Araucanía, Chile",
       role: "Técnico Programador · IA Generativa Aplicada · Relator",
@@ -109,6 +109,24 @@ const content = {
         { icon: "🏢", title: "Alcance", val: "Público y Privado" }
       ]
     },
+    security: {
+      label: "Seguridad", title: "Seguridad ", titleEm: "Digital",
+      sub: "Herramientas gratuitas para proteger tus datos y analizar archivos. Porque la seguridad es responsabilidad de todos.",
+      tools: [
+        { 
+          title: "Analiza tus Archivos", 
+          desc: "Magika usa IA para identificar si un archivo es realmente lo que aparenta ser. Detecta malware disfrazado en extensiones falsas.",
+          icon: "🔍",
+          note: "Desarrollado por Google • 99% precisión • Gratis"
+        },
+        { 
+          title: "¿Han Expuesto tus Datos?", 
+          desc: "Verifica si tu correo o datos aparecen en breaches públicos conocidos. Actúa rápido si tu información fue comprometida.",
+          icon: "🔐",
+          note: "Have I Been Pwned • Búsqueda instantánea • Completamente seguro"
+        }
+      ]
+    },
     contact: {
       label: "Contacto", title: "Hablemos", sub: "¿Tienes un proyecto o quieres saber más? Escríbeme.",
       name: "Tu nombre", email: "Tu correo", msg: "Tu mensaje", send: "Enviar mensaje"
@@ -127,7 +145,7 @@ const content = {
     }
   },
   en: {
-    nav: { about: "About", certs: "Certifications", projects: "Projects", purpose: "Purpose", contact: "Contact", municipal: "Municipal Access" },
+    nav: { about: "About", certs: "Certifications", projects: "Projects", purpose: "Purpose", security: "Security", contact: "Contact", municipal: "Municipal Access" },
     hero: {
       badge: "CCHIA Collaborator · La Araucanía, Chile",
       role: "Programmer · Applied Generative AI · Instructor",
@@ -222,6 +240,24 @@ const content = {
         { icon: "⚡", title: "Technology", val: "AI & Web Dev" },
         { icon: "🤝", title: "Focus", val: "People-centered" },
         { icon: "🏢", title: "Scope", val: "Public & Private" }
+      ]
+    },
+    security: {
+      label: "Security", title: "Digital ", titleEm: "Safety",
+      sub: "Free tools to protect your data and analyze files. Because security is everyone's responsibility.",
+      tools: [
+        { 
+          title: "Analyze Your Files", 
+          desc: "Magika uses AI to identify if a file is really what it appears to be. Detects malware disguised with fake extensions.",
+          icon: "🔍",
+          note: "Built by Google • 99% accuracy • Free"
+        },
+        { 
+          title: "Have You Been Pwned?", 
+          desc: "Check if your email or data appears in known public breaches. Act fast if your information was compromised.",
+          icon: "🔐",
+          note: "Have I Been Pwned • Instant search • Completely safe"
+        }
       ]
     },
     contact: {
@@ -460,6 +496,7 @@ export default function App() {
           <a href="#certificaciones" className="text-sm font-medium text-neutral-400 hover:text-neutral-50 transition-colors">{t.nav.certs}</a>
           <a href="#proyectos" className="text-sm font-medium text-neutral-400 hover:text-neutral-50 transition-colors">{t.nav.projects}</a>
           <a href="#tecnologia" className="text-sm font-medium text-neutral-400 hover:text-neutral-50 transition-colors">{t.nav.purpose}</a>
+          <a href="#seguridad" className="text-sm font-medium text-neutral-400 hover:text-neutral-50 transition-colors">{t.nav.security}</a>
           <a href="#contacto" className="text-sm font-medium text-neutral-400 hover:text-neutral-50 transition-colors">{t.nav.contact}</a>
         </div>
         <div className="flex items-center gap-3">
@@ -501,6 +538,7 @@ export default function App() {
                 <a href="#certificaciones" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${isDark ? 'text-neutral-200 hover:text-cyan-400' : 'text-neutral-800 hover:text-cyan-600'}`}>{t.nav.certs}</a>
                 <a href="#proyectos" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${isDark ? 'text-neutral-200 hover:text-cyan-400' : 'text-neutral-800 hover:text-cyan-600'}`}>{t.nav.projects}</a>
                 <a href="#tecnologia" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${isDark ? 'text-neutral-200 hover:text-cyan-400' : 'text-neutral-800 hover:text-cyan-600'}`}>{t.nav.purpose}</a>
+                <a href="#seguridad" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${isDark ? 'text-neutral-200 hover:text-cyan-400' : 'text-neutral-800 hover:text-cyan-600'}`}>{t.nav.security}</a>
                 <a href="#contacto" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${isDark ? 'text-neutral-200 hover:text-cyan-400' : 'text-neutral-800 hover:text-cyan-600'}`}>{t.nav.contact}</a>
                 <div className={`h-px w-full ${isDark ? 'bg-neutral-700' : 'bg-neutral-200'}`}></div>
                 <button onClick={() => { setIsMobileMenuOpen(false); setIsModalOpen(true); }} className="text-lg font-medium text-cyan-500 flex items-center gap-2">
@@ -835,6 +873,88 @@ export default function App() {
             ))}
           </div>
         </div>
+      </section>
+
+      {/* Security */}
+      <section id="seguridad" className="py-24 px-6 max-w-6xl mx-auto">
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
+          <div className="text-xs font-bold tracking-[0.2em] uppercase text-cyan-400 mb-4">{t.security.label}</div>
+          <h2 className="font-heading font-extrabold text-3xl md:text-4xl tracking-tight mb-8 flex flex-col sm:flex-row sm:items-baseline gap-2">
+            <span>{t.security.title}</span><span className="text-5xl md:text-6xl text-gradient uppercase tracking-tighter">{t.security.titleEm}</span>
+          </h2>
+          <p className="text-neutral-400 text-lg max-w-3xl mb-16 leading-relaxed">{t.security.sub}</p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 gap-12">
+          {t.security.tools.map((tool, i) => (
+            <motion.div
+              key={i}
+              initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} transition={{ delay: i * 0.1 }}
+              className={`rounded-[2rem] overflow-hidden ${isDark ? 'bg-white/5 border border-white/10' : 'bg-white border border-neutral-200'}`}
+            >
+              {/* Tool Header */}
+              <div className={`p-8 pb-6 ${isDark ? 'bg-gradient-to-r from-cyan-950/30 to-blue-950/30 border-b border-white/10' : 'bg-gradient-to-r from-cyan-50 to-blue-50 border-b border-neutral-200'}`}>
+                <div className="text-4xl mb-4">{tool.icon}</div>
+                <h3 className={`font-heading font-bold text-2xl mb-3 ${isDark ? 'text-white' : 'text-neutral-900'}`}>{tool.title}</h3>
+                <p className={`text-sm ${isDark ? 'text-neutral-400' : 'text-neutral-600'}`}>{tool.note}</p>
+              </div>
+
+              {/* Tool Description */}
+              <div className="p-8">
+                <p className={`${isDark ? 'text-neutral-300' : 'text-neutral-700'} leading-relaxed mb-8`}>{tool.desc}</p>
+                
+                {/* Tool Embed Container */}
+                <div className={`rounded-xl overflow-hidden ${isDark ? 'bg-neutral-900/50 border border-neutral-800' : 'bg-neutral-50 border border-neutral-200'} min-h-[500px]`}>
+                  {i === 0 ? (
+                    // Magika Embed
+                    <iframe
+                      src="https://magika.google/webui/"
+                      title="Magika - File Analysis"
+                      className="w-full h-full border-0"
+                      style={{ minHeight: '600px' }}
+                      sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                    />
+                  ) : (
+                    // Have I Been Pwned Embed
+                    <div className="p-8 flex flex-col items-center justify-center h-full">
+                      <div className="text-center space-y-6">
+                        <div className="text-5xl">🔐</div>
+                        <div>
+                          <h4 className={`font-heading font-bold text-xl mb-2 ${isDark ? 'text-white' : 'text-neutral-900'}`}>Have I Been Pwned</h4>
+                          <p className={`${isDark ? 'text-neutral-400' : 'text-neutral-600'} mb-6`}>{lang === 'es' ? 'Abre el sitio en una nueva pestaña para verificar tu información' : 'Open the site in a new tab to check your information'}</p>
+                          <a
+                            href="https://haveibeenpwned.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 px-6 py-3 bg-cyan-500 hover:bg-cyan-600 text-white font-bold rounded-lg transition-all duration-200"
+                          >
+                            {lang === 'es' ? 'Verificar ahora' : 'Check now'} <ExternalLink className="w-4 h-4" />
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Security Tips */}
+        <motion.div
+          initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
+          className={`mt-16 p-8 rounded-[2rem] border ${isDark ? 'bg-gradient-to-r from-cyan-950/20 to-blue-950/20 border-cyan-500/30' : 'bg-gradient-to-r from-cyan-50 to-blue-50 border-cyan-200'}`}
+        >
+          <h3 className={`font-heading font-bold text-xl mb-4 flex items-center gap-2 ${isDark ? 'text-white' : 'text-neutral-900'}`}>
+            <Shield className="w-5 h-5 text-cyan-400" />
+            {lang === 'es' ? 'Buenas prácticas de seguridad' : 'Security Best Practices'}
+          </h3>
+          <div className={`grid md:grid-cols-3 gap-6 text-sm ${isDark ? 'text-neutral-300' : 'text-neutral-700'}`}>
+            <div>✓ {lang === 'es' ? 'Usa contraseñas únicas y fuertes para cada sitio' : 'Use unique and strong passwords for each site'}</div>
+            <div>✓ {lang === 'es' ? 'Habilita autenticación de dos factores (2FA) siempre que puedas' : 'Enable two-factor authentication (2FA) whenever possible'}</div>
+            <div>✓ {lang === 'es' ? 'Mantén tu navegador y SO actualizados constantemente' : 'Keep your browser and OS updated constantly'}</div>
+          </div>
+        </motion.div>
       </section>
 
       {/* Contact */}
