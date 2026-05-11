@@ -6,7 +6,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Moon, Sun, Globe, Lock, ArrowRight, Download, MessageCircle, CheckCircle2, ChevronRight, MapPin, Clock, Shield, Zap, BookOpen, Users, GraduationCap, Heart, DollarSign, ShieldCheck, Menu, X, Bot, Send, Award, ExternalLink, BadgeCheck, Upload, FileText, AlertCircle } from 'lucide-react';
-import { Magika } from 'magika';
 import { db } from './firebase';
 import { doc, getDoc, addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import AdminPanel from './components/AdminPanel';
