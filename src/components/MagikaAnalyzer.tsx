@@ -49,19 +49,43 @@ export default function MagikaAnalyzer({ isDark, lang }: MagikaAnalyzerProps) {
     try {
       const buffer = await file.arrayBuffer();
       const result = await magikaRef.current.identifyBytes(new Uint8Array(buffer));
+      
+      console.log('Magika raw result:', result); // Debug
+      
+      // Magika 1.0.0 devuelve un objeto con estructura específica
+      let label = 'unknown';
+      let description = 'Unknown type';
+      let mimeType = 'unknown';
+      let score = 0;
 
-      // Magika 1.0.0 estructura de respuesta
-      const output = result.output || result.dl || result;
+      // Intentar extraer de diferentes ubicaciones posibles
+      if (result?.output?.label) {
+        label = result.output.label;
+        description = result.output.description || label;
+        mimeType = result.output.mime_type || 'unknown';
+        score = result.output.score || 0;
+      } else if (result?.dl?.label) {
+        label = result.dl.label;
+        description = result.dl.description || label;
+        mimeType = result.dl.mime_type || 'unknown';
+        score = result.dl.score || 0;
+      } else if (result?.label) {
+        label = result.label;
+        description = result.description || label;
+        mimeType = result.mime_type || 'unknown';
+        score = result.score || 0;
+      }
       
       const analysis: FileAnalysis = {
         filename: file.name,
-        label: output.label || 'unknown',
-        description: output.description || output.label || 'Unknown type',
-        mimeType: output.mime_type || output.mimeType || 'unknown',
-        score: output.score || 0,
+        label,
+        description,
+        mimeType,
+        score: typeof score === 'number' ? score : parseFloat(score) || 0,
         status: 'ok'
       };
 
+      console.log('Parsed analysis:', analysis); // Debug
       setFiles(prev => [analysis, ...prev]);
     } catch (error) {
       console.error('Error analyzing file:', error);
