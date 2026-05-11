@@ -5,10 +5,12 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Moon, Sun, Globe, Lock, ArrowRight, Download, MessageCircle, CheckCircle2, ChevronRight, MapPin, Clock, Shield, Zap, BookOpen, Users, GraduationCap, Heart, DollarSign, ShieldCheck, Menu, X, Bot, Send, Award, ExternalLink, BadgeCheck } from 'lucide-react';
+import { Moon, Sun, Globe, Lock, ArrowRight, Download, MessageCircle, CheckCircle2, ChevronRight, MapPin, Clock, Shield, Zap, BookOpen, Users, GraduationCap, Heart, DollarSign, ShieldCheck, Menu, X, Bot, Send, Award, ExternalLink, BadgeCheck, Upload, FileText, AlertCircle } from 'lucide-react';
+import { Magika } from 'magika';
 import { db } from './firebase';
 import { doc, getDoc, addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import AdminPanel from './components/AdminPanel';
+import MagikaAnalyzer from './components/MagikaAnalyzer';
 
 const content = {
   es: {
@@ -904,25 +906,11 @@ export default function App() {
                 <p className={`${isDark ? 'text-neutral-300' : 'text-neutral-700'} leading-relaxed mb-8`}>{tool.desc}</p>
                 
                 {/* Tool Embed Container */}
-                <div className={`rounded-xl overflow-hidden ${isDark ? 'bg-neutral-900/50 border border-neutral-800' : 'bg-neutral-50 border border-neutral-200'} min-h-[500px]`}>
+                <div className={`rounded-xl overflow-hidden ${isDark ? 'bg-neutral-900/50 border border-neutral-800' : 'bg-neutral-50 border border-neutral-200'}`}>
                   {i === 0 ? (
-                    // Magika - Button approach
-                    <div className="p-8 flex flex-col items-center justify-center h-full">
-                      <div className="text-center space-y-6">
-                        <div className="text-5xl">🔍</div>
-                        <div>
-                          <h4 className={`font-heading font-bold text-xl mb-2 ${isDark ? 'text-white' : 'text-neutral-900'}`}>Magika</h4>
-                          <p className={`${isDark ? 'text-neutral-400' : 'text-neutral-600'} mb-6`}>{lang === 'es' ? 'Abre la herramienta en una nueva pestaña para analizar tus archivos' : 'Open the tool in a new tab to analyze your files'}</p>
-                          <a
-                            href="https://magika.google/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 px-6 py-3 bg-cyan-500 hover:bg-cyan-600 text-white font-bold rounded-lg transition-all duration-200"
-                          >
-                            {lang === 'es' ? 'Ir a Magika' : 'Go to Magika'} <ExternalLink className="w-4 h-4" />
-                          </a>
-                        </div>
-                      </div>
+                    // Magika Component
+                    <div className="p-8">
+                      <MagikaAnalyzer isDark={isDark} lang={lang} />
                     </div>
                   ) : (
                     // Have I Been Pwned - Button approach
