@@ -9,7 +9,6 @@ import { Moon, Sun, Globe, Lock, ArrowRight, Download, MessageCircle, CheckCircl
 import { db } from './firebase';
 import { doc, getDoc, addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import AdminPanel from './components/AdminPanel';
-import MagikaAnalyzer from './components/MagikaAnalyzer';
 
 const content = {
   es: {
@@ -907,9 +906,39 @@ export default function App() {
                 {/* Tool Embed Container */}
                 <div className={`rounded-xl overflow-hidden ${isDark ? 'bg-neutral-900/50 border border-neutral-800' : 'bg-neutral-50 border border-neutral-200'}`}>
                   {i === 0 ? (
-                    // Magika Component
-                    <div className="p-8">
-                      <MagikaAnalyzer isDark={isDark} lang={lang} />
+                    // Magika - Botón con explicación
+                    <div className="p-8 flex flex-col items-center justify-center text-center space-y-6">
+                      <div className="text-5xl">🔍</div>
+                      <div className="space-y-4 max-w-sm">
+                        <h4 className={`font-heading font-bold text-xl ${isDark ? 'text-white' : 'text-neutral-900'}`}>Magika by Google</h4>
+                        <p className={`text-sm leading-relaxed ${isDark ? 'text-neutral-400' : 'text-neutral-600'}`}>
+                          {lang === 'es'
+                            ? 'La herramienta se abre en una nueva pestaña. Una vez ahí, elige:'
+                            : 'The tool opens in a new tab. Once there, choose:'}
+                        </p>
+                        <div className={`text-left text-sm space-y-3 p-4 rounded-xl ${isDark ? 'bg-white/5 border border-white/10' : 'bg-neutral-100 border border-neutral-200'}`}>
+                          <div className="flex items-start gap-3">
+                            <span className={`font-bold px-2 py-0.5 rounded text-xs shrink-0 ${isDark ? 'bg-cyan-500/20 text-cyan-300' : 'bg-cyan-100 text-cyan-700'}`}>Text input</span>
+                            <span className={isDark ? 'text-neutral-300' : 'text-neutral-700'}>
+                              {lang === 'es' ? 'Pega contenido de texto (código, configuraciones, datos) para identificar su tipo.' : 'Paste text content (code, configs, data) to identify its type.'}
+                            </span>
+                          </div>
+                          <div className="flex items-start gap-3">
+                            <span className={`font-bold px-2 py-0.5 rounded text-xs shrink-0 ${isDark ? 'bg-blue-500/20 text-blue-300' : 'bg-blue-100 text-blue-700'}`}>File upload</span>
+                            <span className={isDark ? 'text-neutral-300' : 'text-neutral-700'}>
+                              {lang === 'es' ? 'Sube un archivo directamente para detectar si su contenido real coincide con su extensión.' : 'Upload a file to detect if its real content matches its extension.'}
+                            </span>
+                          </div>
+                        </div>
+                        <a
+                          href="https://securityresearch.google/magika/demo/magika-demo/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-6 py-3 bg-cyan-500 hover:bg-cyan-600 text-white font-bold rounded-lg transition-all duration-200"
+                        >
+                          {lang === 'es' ? 'Abrir Magika' : 'Open Magika'} <ExternalLink className="w-4 h-4" />
+                        </a>
+                      </div>
                     </div>
                   ) : (
                     // Have I Been Pwned - Button approach
