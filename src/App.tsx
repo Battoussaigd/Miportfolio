@@ -552,7 +552,7 @@ export default function App() {
 
       {/* Hero */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-        <video key={isDark ? 'dark' : 'light'} className="absolute inset-0 w-full h-full object-cover z-0" autoPlay muted loop playsInline>
+        <video key={isDark ? 'dark' : 'light'} className="absolute inset-0 w-full h-full object-cover z-0" autoPlay muted loop playsInline preload="metadata">
           <source src={isDark ? "https://res.cloudinary.com/dyejf2wmt/video/upload/v1774651181/01_gfbhc6.mp4" : "https://res.cloudinary.com/dyejf2wmt/video/upload/v1774679464/02_d%C3%ADa_final_zslffq.mp4"} type="video/mp4" />
         </video>
         <div className={`absolute inset-0 z-10 ${isDark ? 'bg-gradient-to-b from-neutral-950/40 via-neutral-950/60 to-neutral-950' : 'bg-gradient-to-b from-neutral-50/40 via-neutral-50/60 to-neutral-50'}`}></div>
