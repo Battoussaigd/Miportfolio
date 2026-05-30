@@ -12,13 +12,62 @@ import AdminPanel from './components/AdminPanel';
 
 const content = {
   es: {
-    nav: { about: "Sobre mí", certs: "Certificaciones", projects: "Proyectos", purpose: "Propósito", security: "Seguridad", contact: "Contacto", municipal: "Acceso Municipal" },
+    nav: { services: "Servicios", about: "Sobre mí", certs: "Certificaciones", projects: "Proyectos", purpose: "Propósito", security: "Seguridad", contact: "Contacto", municipal: "Acceso Municipal" },
     hero: {
-      badge: "Colaborador CCHIA · La Araucanía, Chile",
-      role: "Técnico Programador · IA Generativa Aplicada · Relator",
-      phrase: "El futuro también se construye desde La Araucanía.",
-      viewProjects: "Ver proyectos",
+      badge: "Colaborador CCHIA · Google Certified Educator · La Araucanía",
+      role: "Desarrollo de Apps con IA · Automatización · Talleres · Consultoría",
+      headline1: "Resuelvo problemas reales",
+      headline2: "con Inteligencia Artificial.",
+      sub: "Soy Claudio González Díaz — Técnico Programador con 13+ años de experiencia. Construyo PWAs, chatbots, automatizaciones y doy talleres de IA para empresas, municipios y comunidades en Chile.",
+      cta1: "Ver mis servicios",
+      cta2: "Contactar ahora",
       contact: "Contactar"
+    },
+    services: {
+      label: "Servicios", title: "¿En qué puedo ", titleEm: "ayudarte?",
+      sub: "Soluciones concretas con IA para empresas, municipios, PYMEs y organizaciones. Sin tecnicismos, con resultados medibles.",
+      items: [
+        {
+          icon: "📱",
+          title: "Desarrollo de PWAs y Apps Web",
+          desc: "Aplicaciones web progresivas (PWA) que funcionan en cualquier dispositivo, sin necesidad de App Store. Diseño, desarrollo y despliegue completo.",
+          tags: ["React", "Firebase", "Netlify / Vercel"],
+          cta: "Consultar",
+          color: "cyan"
+        },
+        {
+          icon: "⚡",
+          title: "Automatización con IA",
+          desc: "Transformo procesos manuales repetitivos en flujos automáticos usando Google Apps Script, Gemini y APIs. Casos reales: 6 horas → 10 minutos.",
+          tags: ["Apps Script", "Gemini API", "Google Sheets"],
+          cta: "Consultar",
+          color: "amber"
+        },
+        {
+          icon: "🤖",
+          title: "Chatbots con Gemini y Claude",
+          desc: "Asistentes virtuales inteligentes para tu web, negocio o municipio. Con contexto personalizado, respuestas en lenguaje natural y sin código del cliente.",
+          tags: ["Gemini", "Claude", "RAG"],
+          cta: "Consultar",
+          color: "purple"
+        },
+        {
+          icon: "🎓",
+          title: "Relatorías y Talleres de IA",
+          desc: "Talleres prácticos de IA Generativa para equipos de trabajo, municipios y comunidades. Desde fundamentos hasta aplicaciones reales con Gemini y Google Workspace.",
+          tags: ["IA Generativa", "Google Workspace", "Capacitación"],
+          cta: "Consultar",
+          color: "green"
+        },
+        {
+          icon: "🏛️",
+          title: "Consultoría IA para Empresas y Municipios",
+          desc: "Diagnóstico de procesos, hoja de ruta de adopción de IA y acompañamiento en la implementación. Sector público y privado, desde PYMEs hasta grandes organizaciones.",
+          tags: ["Diagnóstico", "Hoja de ruta", "Acompañamiento"],
+          cta: "Agendar llamada",
+          color: "blue"
+        }
+      ]
     },
     stats: [
       { n: "13+", l: "años experiencia" },
@@ -146,13 +195,62 @@ const content = {
     }
   },
   en: {
-    nav: { about: "About", certs: "Certifications", projects: "Projects", purpose: "Purpose", security: "Security", contact: "Contact", municipal: "Municipal Access" },
+    nav: { services: "Services", about: "About", certs: "Certifications", projects: "Projects", purpose: "Purpose", security: "Security", contact: "Contact", municipal: "Municipal Access" },
     hero: {
-      badge: "CCHIA Collaborator · La Araucanía, Chile",
-      role: "Programmer · Applied Generative AI · Instructor",
-      phrase: "The future is also built from La Araucanía.",
-      viewProjects: "View projects",
+      badge: "CCHIA Collaborator · Google Certified Educator · La Araucanía",
+      role: "AI-Powered Apps · Automation · Workshops · Consulting",
+      headline1: "I solve real problems",
+      headline2: "with Artificial Intelligence.",
+      sub: "I'm Claudio González Díaz — Programming Technician with 13+ years of experience. I build PWAs, chatbots, automations and run AI workshops for businesses, municipalities and communities in Chile.",
+      cta1: "See my services",
+      cta2: "Contact now",
       contact: "Contact"
+    },
+    services: {
+      label: "Services", title: "How can I ", titleEm: "help you?",
+      sub: "Concrete AI solutions for companies, municipalities, SMEs and organizations. No jargon, measurable results.",
+      items: [
+        {
+          icon: "📱",
+          title: "PWA & Web App Development",
+          desc: "Progressive Web Apps that work on any device, no App Store needed. Full design, development and deployment.",
+          tags: ["React", "Firebase", "Netlify / Vercel"],
+          cta: "Inquire",
+          color: "cyan"
+        },
+        {
+          icon: "⚡",
+          title: "AI-Powered Automation",
+          desc: "I transform repetitive manual processes into automated flows using Google Apps Script, Gemini and APIs. Real cases: 6 hours → 10 minutes.",
+          tags: ["Apps Script", "Gemini API", "Google Sheets"],
+          cta: "Inquire",
+          color: "amber"
+        },
+        {
+          icon: "🤖",
+          title: "Chatbots with Gemini & Claude",
+          desc: "Intelligent virtual assistants for your website, business or municipality. Custom context, natural language responses.",
+          tags: ["Gemini", "Claude", "RAG"],
+          cta: "Inquire",
+          color: "purple"
+        },
+        {
+          icon: "🎓",
+          title: "AI Workshops & Training",
+          desc: "Practical Generative AI workshops for work teams, municipalities and communities. From fundamentals to real applications.",
+          tags: ["Generative AI", "Google Workspace", "Training"],
+          cta: "Inquire",
+          color: "green"
+        },
+        {
+          icon: "🏛️",
+          title: "AI Consulting for Business & Government",
+          desc: "Process diagnosis, AI adoption roadmap and implementation support. Public and private sector, from SMEs to large organizations.",
+          tags: ["Diagnosis", "Roadmap", "Support"],
+          cta: "Schedule a call",
+          color: "blue"
+        }
+      ]
     },
     stats: [
       { n: "13+", l: "years experience" },
@@ -488,6 +586,7 @@ export default function App() {
         </div>
 
         <div className={`hidden md:flex items-center gap-8 px-8 py-3 rounded-full transition-all duration-300 ${!isDark ? 'bg-white/80 backdrop-blur-xl border border-neutral-200 shadow-md' : 'bg-white/5 backdrop-blur-xl border border-white/10'}`}>
+          <a href="#servicios" className="text-sm font-medium text-neutral-400 hover:text-neutral-50 transition-colors">{t.nav.services}</a>
           <a href="#sobre-mi" className="text-sm font-medium text-neutral-400 hover:text-neutral-50 transition-colors">{t.nav.about}</a>
           <a href="#certificaciones" className="text-sm font-medium text-neutral-400 hover:text-neutral-50 transition-colors">{t.nav.certs}</a>
           <a href="#proyectos" className="text-sm font-medium text-neutral-400 hover:text-neutral-50 transition-colors">{t.nav.projects}</a>
@@ -526,6 +625,7 @@ export default function App() {
                 exit={{ opacity: 0, y: -10 }}
                 className={`absolute top-full left-6 w-64 mt-2 p-6 rounded-2xl border shadow-2xl flex flex-col gap-6 md:hidden z-50 ${isDark ? 'bg-neutral-900/95 border-white/10' : 'bg-white/95 border-neutral-200'} backdrop-blur-xl`}
               >
+                <a href="#servicios" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${isDark ? 'text-neutral-200 hover:text-cyan-400' : 'text-neutral-800 hover:text-cyan-600'}`}>{t.nav.services}</a>
                 <a href="#sobre-mi" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${isDark ? 'text-neutral-200 hover:text-cyan-400' : 'text-neutral-800 hover:text-cyan-600'}`}>{t.nav.about}</a>
                 <a href="#certificaciones" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${isDark ? 'text-neutral-200 hover:text-cyan-400' : 'text-neutral-800 hover:text-cyan-600'}`}>{t.nav.certs}</a>
                 <a href="#proyectos" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${isDark ? 'text-neutral-200 hover:text-cyan-400' : 'text-neutral-800 hover:text-cyan-600'}`}>{t.nav.projects}</a>
@@ -547,41 +647,121 @@ export default function App() {
         <video key={isDark ? 'dark' : 'light'} className="absolute inset-0 w-full h-full object-cover z-0" autoPlay muted loop playsInline preload="metadata">
           <source src={isDark ? "https://res.cloudinary.com/dyejf2wmt/video/upload/v1774651181/01_gfbhc6.mp4" : "https://res.cloudinary.com/dyejf2wmt/video/upload/v1774679464/02_d%C3%ADa_final_zslffq.mp4"} type="video/mp4" />
         </video>
-        <div className={`absolute inset-0 z-10 ${isDark ? 'bg-gradient-to-b from-neutral-950/20 via-neutral-950/30 to-neutral-950/50' : 'bg-gradient-to-b from-neutral-50/20 via-neutral-50/30 to-neutral-50/50'}`}></div>
+        <div className={`absolute inset-0 z-10 ${isDark ? 'bg-gradient-to-b from-neutral-950/40 via-neutral-950/50 to-neutral-950/80' : 'bg-gradient-to-b from-neutral-50/40 via-neutral-50/50 to-neutral-50/80'}`}></div>
         
-        <div className="relative z-20 max-w-4xl mx-auto px-6 text-center pb-32">
-          <motion.h1 initial="hidden" animate="visible" variants={fadeUp} transition={{ delay: 0.1 }} className={`font-heading font-medium text-5xl md:text-7xl lg:text-8xl tracking-tight leading-none mb-6 ${isDark ? 'text-white' : 'text-neutral-900'}`}>
-            Claudio<br />
-            González Díaz
+        <div className="relative z-20 max-w-5xl mx-auto px-6 text-center pb-32">
+          {/* Badge */}
+          <motion.div initial="hidden" animate="visible" variants={fadeUp} transition={{ delay: 0.1 }} className="inline-flex items-center gap-2 glass-panel px-4 py-2 rounded-full mb-8">
+            <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
+            <span className="text-xs font-semibold text-cyan-400 tracking-wide">{t.hero.badge}</span>
+          </motion.div>
+
+          {/* Headline */}
+          <motion.h1 initial="hidden" animate="visible" variants={fadeUp} transition={{ delay: 0.2 }} className={`font-heading font-extrabold text-5xl md:text-7xl lg:text-8xl tracking-tight leading-[1.05] mb-6 ${isDark ? 'text-white' : 'text-neutral-900'}`}>
+            {t.hero.headline1}<br />
+            <span className="text-gradient">{t.hero.headline2}</span>
           </motion.h1>
-          
-          <motion.p initial="hidden" animate="visible" variants={fadeUp} transition={{ delay: 0.2 }} className="text-lg md:text-xl text-neutral-300 font-light max-w-2xl mx-auto mb-4">
+
+          {/* Sub */}
+          <motion.p initial="hidden" animate="visible" variants={fadeUp} transition={{ delay: 0.3 }} className={`text-lg md:text-xl font-light max-w-2xl mx-auto mb-4 leading-relaxed ${isDark ? 'text-neutral-300' : 'text-neutral-700'}`}>
+            {t.hero.sub}
+          </motion.p>
+
+          {/* Role tags */}
+          <motion.p initial="hidden" animate="visible" variants={fadeUp} transition={{ delay: 0.35 }} className="text-sm font-medium text-cyan-400/80 mb-4 tracking-wide">
             {t.hero.role}
           </motion.p>
-          
-          <motion.p initial="hidden" animate="visible" variants={fadeUp} transition={{ delay: 0.3 }} className="font-serif italic text-xl md:text-2xl text-neutral-200 mb-8">
-            {t.hero.phrase}
-          </motion.p>
-          
-          <motion.div initial="hidden" animate="visible" variants={fadeUp} transition={{ delay: 0.4 }} className="inline-flex items-center gap-2 glass-panel px-5 py-2 rounded-full mb-4">
-            <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
-            <span className="text-sm font-medium text-cyan-400">{t.hero.badge}</span>
+
+          <motion.div initial="hidden" animate="visible" variants={fadeUp} transition={{ delay: 0.4 }} className="flex items-center justify-center gap-2 text-neutral-400 text-sm mb-10">
+            <MapPin className="w-4 h-4 text-cyan-400" />
+            Pillanlelbún, Lautaro · La Araucanía, Chile
           </motion.div>
           
-          <motion.div initial="hidden" animate="visible" variants={fadeUp} transition={{ delay: 0.5 }} className="flex items-center justify-center gap-2 text-cyan-400/80 text-sm mb-12">
-            <MapPin className="w-4 h-4" />
-            Pillanlelbún, Lautaro · La Araucanía
-          </motion.div>
-          
-          <motion.div initial="hidden" animate="visible" variants={fadeUp} transition={{ delay: 0.6 }} className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="#proyectos" className="btn-primary flex items-center gap-2 w-full sm:w-auto justify-center">
-              {t.hero.viewProjects} <ArrowRight className="w-4 h-4" />
+          {/* CTAs */}
+          <motion.div initial="hidden" animate="visible" variants={fadeUp} transition={{ delay: 0.5 }} className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="#servicios" className="btn-primary flex items-center gap-2 w-full sm:w-auto justify-center text-base px-8 py-3">
+              {t.hero.cta1} <ArrowRight className="w-4 h-4" />
             </a>
-            <a href="#contacto" className="btn-secondary w-full sm:w-auto text-center">
-              {t.hero.contact}
+            <a href="#contacto" className="btn-secondary w-full sm:w-auto text-center text-base px-8 py-3">
+              {t.hero.cta2}
             </a>
           </motion.div>
         </div>
+      </section>
+
+
+      {/* Services */}
+      <section id="servicios" className="py-24 px-6 max-w-6xl mx-auto">
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
+          <div className="text-xs font-bold tracking-[0.2em] uppercase text-cyan-400 mb-4">{t.services.label}</div>
+          <h2 className="font-heading font-extrabold text-3xl md:text-5xl tracking-tight mb-4">
+            {t.services.title}<em className="font-serif font-normal italic text-gradient">{t.services.titleEm}</em>
+          </h2>
+          <p className="text-neutral-400 text-lg max-w-2xl mb-16 leading-relaxed">{t.services.sub}</p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {t.services.items.map((s, i) => {
+            const colorMap: Record<string, string> = {
+              cyan:   isDark ? 'bg-cyan-950/20 border-cyan-500/30 hover:bg-cyan-950/35' : 'bg-cyan-50 border-cyan-200 hover:border-cyan-400',
+              amber:  isDark ? 'bg-amber-950/20 border-amber-500/30 hover:bg-amber-950/35' : 'bg-amber-50 border-amber-200 hover:border-amber-400',
+              purple: isDark ? 'bg-purple-950/20 border-purple-500/30 hover:bg-purple-950/35' : 'bg-purple-50 border-purple-200 hover:border-purple-400',
+              green:  isDark ? 'bg-green-950/20 border-green-500/30 hover:bg-green-950/35' : 'bg-green-50 border-green-200 hover:border-green-400',
+              blue:   isDark ? 'bg-blue-950/20 border-blue-500/30 hover:bg-blue-950/35' : 'bg-blue-50 border-blue-200 hover:border-blue-400',
+            };
+            const tagColorMap: Record<string, string> = {
+              cyan:   'bg-cyan-400/10 text-cyan-400 border-cyan-400/20',
+              amber:  'bg-amber-400/10 text-amber-400 border-amber-400/20',
+              purple: 'bg-purple-400/10 text-purple-400 border-purple-400/20',
+              green:  'bg-green-400/10 text-green-400 border-green-400/20',
+              blue:   'bg-blue-400/10 text-blue-400 border-blue-400/20',
+            };
+            const btnColorMap: Record<string, string> = {
+              cyan:   'bg-cyan-500 hover:bg-cyan-600',
+              amber:  'bg-amber-500 hover:bg-amber-600',
+              purple: 'bg-purple-500 hover:bg-purple-600',
+              green:  'bg-green-500 hover:bg-green-600',
+              blue:   'bg-blue-500 hover:bg-blue-600',
+            };
+            return (
+              <motion.div
+                key={i}
+                initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} transition={{ delay: i * 0.08 }}
+                className={`p-8 rounded-[2rem] border flex flex-col transition-all duration-300 ${colorMap[s.color]}`}
+              >
+                <div className="text-4xl mb-5">{s.icon}</div>
+                <h3 className={`font-heading font-bold text-xl mb-3 ${isDark ? 'text-white' : 'text-neutral-900'}`}>{s.title}</h3>
+                <p className={`text-sm leading-relaxed mb-6 flex-grow ${isDark ? 'text-neutral-400' : 'text-neutral-600'}`}>{s.desc}</p>
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {s.tags.map(tag => (
+                    <span key={tag} className={`text-[10px] font-medium px-2.5 py-1 rounded-md border ${tagColorMap[s.color]}`}>{tag}</span>
+                  ))}
+                </div>
+                <a
+                  href="#contacto"
+                  className={`inline-flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-sm font-bold text-white transition-all duration-200 hover:scale-[1.02] ${btnColorMap[s.color]}`}
+                >
+                  {s.cta} <ArrowRight className="w-4 h-4" />
+                </a>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* Social proof strip */}
+        <motion.div
+          initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
+          className={`mt-16 p-6 rounded-[2rem] border flex flex-col md:flex-row items-center justify-between gap-6 ${isDark ? 'bg-white/5 border-white/10' : 'bg-neutral-100 border-neutral-200'}`}
+        >
+          <p className={`text-sm text-center md:text-left ${isDark ? 'text-neutral-400' : 'text-neutral-600'}`}>
+            {lang === 'es'
+              ? '¿No sabes por dónde empezar? Escríbeme y conversamos sin compromiso.'
+              : "Not sure where to start? Write to me and let's talk, no commitment."}
+          </p>
+          <a href="#contacto" className="btn-primary flex items-center gap-2 shrink-0 text-sm px-6 py-2.5">
+            {lang === 'es' ? 'Escribir ahora' : 'Write now'} <ArrowRight className="w-4 h-4" />
+          </a>
+        </motion.div>
       </section>
 
       {/* Stats */}
