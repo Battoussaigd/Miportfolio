@@ -53,6 +53,7 @@ const content = {
       googleEducation: {
         title: "Google Certified Educator",
         items: [
+          { year: "2026", title: "Educador Certificado de Gemini", issuer: "Google for Education", desc: "Certificación oficial en uso educativo de Gemini", link: "https://edu.google.accredible.com/3ffc5bbf-f2b1-475d-b935-c8702911e5ff" },
           { year: "2026", title: "Google Certified Educator Level 2", issuer: "Google for Education", desc: "Validado 05/09/2026 - 05/09/2029", link: "https://edu.google.accredible.com/4b75ca09-f18a-4cc2-83af-199dc62f0e7e" },
           { year: "2026", title: "Google Certified Educator Level 1", issuer: "Google for Education", desc: "Validado 04/26/2026 - 04/26/2029", link: "https://edu.google.accredible.com/13749b47-7b15-43d0-b7f2-d34ea6ebfcfe" }
         ]
@@ -186,6 +187,7 @@ const content = {
       googleEducation: {
         title: "Google Certified Educator",
         items: [
+          { year: "2026", title: "Gemini Certified Educator", issuer: "Google for Education", desc: "Official certification for educational use of Gemini", link: "https://edu.google.accredible.com/3ffc5bbf-f2b1-475d-b935-c8702911e5ff" },
           { year: "2026", title: "Google Certified Educator Level 2", issuer: "Google for Education", desc: "Valid 05/09/2026 - 05/09/2029", link: "https://edu.google.accredible.com/4b75ca09-f18a-4cc2-83af-199dc62f0e7e" },
           { year: "2026", title: "Google Certified Educator Level 1", issuer: "Google for Education", desc: "Valid 04/26/2026 - 04/26/2029", link: "https://edu.google.accredible.com/13749b47-7b15-43d0-b7f2-d34ea6ebfcfe" }
         ]
@@ -217,7 +219,7 @@ const content = {
       sub: "Real solutions for real problems. Built with AI, for people.",
       items: [
         { icon: <Shield className="w-8 h-8 text-cyan-400" />, name: "HADES 2.1", desc: "Local-first PWA with AES-GCM encryption. No servers, no cloud. Data never leaves the device.", tags: ["PWA", "Web Crypto API", "AES-GCM"], impact: "🔒 Maximum security · Cost: $0" },
-        { icon: <Zap className="w-8 h-8 text-cyan-400" />, name: "CCU Automation", desc: "Automates customer onboarding in Roadnet with Google Maps API validation, regional organization and CCU format export.", tags: ["Apps Script", "Maps API", "Sheets"], impact: "📉 6 hours → 10 minutes · ROI +10%" },
+        { icon: <Zap className="w-8 h-8 text-cyan-400" />, name: "CCU Automation", desc: "Automates customer onboarding in Roadnet with Google Maps API validation, regional organization and CCU format export.", tags: ["Apps Script", "Maps API", "Sheets"], impact: "📉 6 horas → 10 minutos · ROI +10%" },
         { icon: <MessageCircle className="w-8 h-8 text-cyan-400" />, name: "Polaris", desc: "Text and voice chatbot created to provide medical advice (non-diagnostic) and moral support to patients with autoimmune diseases.", tags: ["Chatbot", "Voice AI", "Health"], impact: "💙 24/7 Support · AI Empathy" },
         { icon: <Clock className="w-8 h-8 text-cyan-400" />, name: "Milagrito", desc: "Pregnancy PWA. Records, transcribes and summarizes medical appointments. Includes health chatbot, calendar and wellness tips.", tags: ["PWA", "Speech-to-Text", "Health"], impact: "👶 Full pregnancy tracking" },
         { icon: <BookOpen className="w-8 h-8 text-cyan-400" />, name: "Pillanlelbún Digital 2026", desc: "Free tech education for rural community: School, Impulse and Heart Tracks. PWAs, AI and RAG architectures.", tags: ["Generative AI", "RAG", "PWA"], impact: "🌱 AI for rural areas · $0" },
@@ -321,13 +323,11 @@ export default function App() {
     setIsBotTyping(true);
     
     try {
-      // Construir el historial de mensajes para el contexto
       const history = chatMessages.map(msg => ({
         role: msg.role === 'bot' ? 'model' : 'user',
         parts: [{ text: msg.text }]
       }));
 
-      // Llamada segura a la función Serverless de Vercel
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: {
@@ -424,7 +424,6 @@ export default function App() {
     if (!contactForm.name || !contactForm.email || !contactForm.message) return;
     setIsSending(true);
     try {
-      // Save to Firestore as backup (fire and forget so it doesn't block mobile browsers)
       addDoc(collection(db, 'messages'), {
         name: contactForm.name,
         email: contactForm.email,
@@ -432,7 +431,6 @@ export default function App() {
         createdAt: serverTimestamp()
       }).catch(err => console.error("Firestore backup failed:", err));
 
-      // Send email via Formsubmit
       const response = await fetch("https://formsubmit.co/ajax/claudioegdiaz@gmail.com", {
         method: "POST",
         headers: {
@@ -471,7 +469,6 @@ export default function App() {
     <div className="min-h-screen font-sans selection:bg-cyan-500/30 relative">
       {/* Ambient Background Glows */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
-        {/* Dark Theme Glows */}
         <div className={`absolute inset-0 transition-opacity duration-1000 ${isDark ? 'opacity-100' : 'opacity-0'}`}>
           <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-cyan-600/30 blur-[100px] animate-float-1"></div>
           <div className="absolute top-[40%] right-[-10%] w-[40vw] h-[40vw] rounded-full bg-blue-600/20 blur-[100px] animate-float-2"></div>
@@ -481,7 +478,6 @@ export default function App() {
 
       {/* Navbar */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-6 py-4 md:px-12 flex items-center justify-between ${isScrolled ? 'bg-black/80 backdrop-blur-xl' : 'bg-transparent'} ${!isDark && isScrolled ? 'bg-white/80' : ''}`}>
-        {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center">
           <button 
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -512,11 +508,9 @@ export default function App() {
           </button>
         </div>
 
-        {/* Mobile Menu Dropdown */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <>
-              {/* Overlay for clicking outside */}
               <motion.div
                 key="overlay"
                 initial={{ opacity: 0 }}
@@ -525,8 +519,6 @@ export default function App() {
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="fixed inset-0 z-40 md:hidden bg-black/20 backdrop-blur-sm"
               />
-              
-              {/* Menu Card */}
               <motion.div 
                 key="menu"
                 initial={{ opacity: 0, y: -10 }}
@@ -892,21 +884,17 @@ export default function App() {
               initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} transition={{ delay: i * 0.1 }}
               className={`rounded-[2rem] overflow-hidden ${isDark ? 'bg-white/5 border border-white/10' : 'bg-white border border-neutral-200'}`}
             >
-              {/* Tool Header */}
               <div className={`p-8 pb-6 ${isDark ? 'bg-gradient-to-r from-cyan-950/30 to-blue-950/30 border-b border-white/10' : 'bg-gradient-to-r from-cyan-50 to-blue-50 border-b border-neutral-200'}`}>
                 <div className="text-4xl mb-4">{tool.icon}</div>
                 <h3 className={`font-heading font-bold text-2xl mb-3 ${isDark ? 'text-white' : 'text-neutral-900'}`}>{tool.title}</h3>
                 <p className={`text-sm ${isDark ? 'text-neutral-400' : 'text-neutral-600'}`}>{tool.note}</p>
               </div>
 
-              {/* Tool Description */}
               <div className="p-8">
                 <p className={`${isDark ? 'text-neutral-300' : 'text-neutral-700'} leading-relaxed mb-8`}>{tool.desc}</p>
                 
-                {/* Tool Embed Container */}
                 <div className={`rounded-xl overflow-hidden ${isDark ? 'bg-neutral-900/50 border border-neutral-800' : 'bg-neutral-50 border border-neutral-200'}`}>
                   {i === 0 ? (
-                    // Magika - Botón con explicación
                     <div className="p-8 flex flex-col items-center justify-center text-center space-y-6">
                       <div className="text-5xl">🔍</div>
                       <div className="space-y-4 max-w-sm">
@@ -941,7 +929,6 @@ export default function App() {
                       </div>
                     </div>
                   ) : (
-                    // Have I Been Pwned - Button approach
                     <div className="p-8 flex flex-col items-center justify-center h-full">
                       <div className="text-center space-y-6">
                         <div className="text-5xl">🔐</div>
@@ -966,7 +953,6 @@ export default function App() {
           ))}
         </div>
 
-        {/* Security Tips */}
         <motion.div
           initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
           className={`mt-16 p-8 rounded-[2rem] border ${isDark ? 'bg-gradient-to-r from-cyan-950/20 to-blue-950/20 border-cyan-500/30' : 'bg-gradient-to-r from-cyan-50 to-blue-50 border-cyan-200'}`}
@@ -1048,7 +1034,6 @@ export default function App() {
                 exit={{ opacity: 0, y: 20, scale: 0.9 }}
                 className={`mb-4 w-[calc(100vw-4rem)] sm:w-96 h-[500px] max-h-[70vh] flex flex-col rounded-2xl shadow-2xl overflow-hidden border ${isDark ? 'bg-neutral-900/95 border-white/10' : 'bg-white/95 border-neutral-200'} backdrop-blur-xl`}
               >
-                {/* Chat Header */}
                 <div className={`p-4 flex items-center justify-between border-b ${isDark ? 'border-white/10 bg-neutral-800/50' : 'border-neutral-200 bg-neutral-50/50'}`}>
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-transparent flex items-center justify-center shadow-lg overflow-hidden">
@@ -1064,7 +1049,6 @@ export default function App() {
                   </button>
                 </div>
 
-                {/* Chat Messages */}
                 <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-4 chat-scroll">
                   {chatMessages.map((msg, idx) => (
                     <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
@@ -1093,7 +1077,6 @@ export default function App() {
                   <div ref={messagesEndRef} />
                 </div>
 
-                {/* Chat Input */}
                 <div className={`p-4 border-t ${isDark ? 'border-white/10 bg-neutral-800/50' : 'border-neutral-200 bg-neutral-50/50'}`}>
                   <form onSubmit={handleSendMessage} className="flex gap-2">
                     <input
@@ -1121,7 +1104,6 @@ export default function App() {
             )}
           </AnimatePresence>
 
-          {/* Floating Button */}
           <button
             onClick={() => setIsChatOpen(!isChatOpen)}
             className={`w-14 h-14 rounded-full flex items-center justify-center shadow-[0_4px_20px_rgba(6,182,212,0.4)] transition-all duration-300 hover:scale-110 hover:shadow-[0_6px_30px_rgba(6,182,212,0.6)] active:scale-95 overflow-hidden ${
@@ -1214,9 +1196,7 @@ export default function App() {
               </button>
               
               {privateData.authorityName ? (
-                // Nuevo Diseño: Bento Grid
                 <div className="space-y-8">
-                  {/* 1. Hero */}
                   <div className="glass-panel p-10 md:p-16 rounded-[3rem] relative overflow-hidden border-cyan-400/20">
                     <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/10 blur-[100px] rounded-full"></div>
                     <h2 className="font-heading font-extrabold text-4xl md:text-6xl mb-4 relative z-10">
@@ -1227,14 +1207,12 @@ export default function App() {
                     </p>
                   </div>
 
-                  {/* 2. Pain Point */}
                   <div className="bg-cyan-500/10 border border-cyan-500/20 p-8 md:p-10 rounded-[2rem]">
                     <p className="text-xl md:text-2xl font-medium text-cyan-50 leading-relaxed text-center">
                       "{privateData.painPointText || 'Sabemos que el tiempo de los dirigentes es invaluable. Nuestro objetivo es simplificar los procesos administrativos con tecnología, devolviéndoles ese tiempo para el desarrollo de su comunidad.'}"
                     </p>
                   </div>
 
-                  {/* 3. Ecosistema de Soluciones (Bento Grid) */}
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div className="glass-panel p-8 rounded-[2rem] hover:-translate-y-2 transition-transform duration-300">
                       <div className="w-12 h-12 rounded-2xl bg-cyan-500/20 flex items-center justify-center mb-6">
@@ -1260,7 +1238,6 @@ export default function App() {
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* 4. Diferenciador Técnico */}
                     <div className="glass-panel p-8 rounded-[2rem] flex items-center gap-6">
                       <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center shrink-0">
                         <DollarSign className="w-8 h-8 text-green-400" />
@@ -1271,7 +1248,6 @@ export default function App() {
                       </div>
                     </div>
 
-                    {/* 5. Respaldo Institucional */}
                     <div className="glass-panel p-8 rounded-[2rem] flex items-center gap-6">
                       <div className="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center shrink-0">
                         <ShieldCheck className="w-8 h-8 text-blue-400" />
@@ -1283,7 +1259,6 @@ export default function App() {
                     </div>
                   </div>
 
-                  {/* 6. Call to Action */}
                   <div className="mt-12 text-center">
                     <a href={privateData.pdfUrl || '#'} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 bg-cyan-400 text-neutral-950 px-8 py-4 rounded-full text-lg font-bold hover:scale-105 transition-transform shadow-[0_0_30px_rgba(34,211,238,0.3)]">
                       <Download className="w-5 h-5" />
@@ -1293,7 +1268,6 @@ export default function App() {
 
                 </div>
               ) : (
-                // Diseño Antiguo (Fallback)
                 <div className="max-w-3xl mx-auto">
                   <h2 className="font-heading font-extrabold text-4xl md:text-5xl mb-3">
                     {t.private.welcome}<span className="text-gradient">{privateData.display}</span>
