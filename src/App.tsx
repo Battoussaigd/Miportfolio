@@ -14,8 +14,8 @@ const content = {
   es: {
     nav: { services: "Servicios", about: "Sobre mí", certs: "Certificaciones", projects: "Proyectos", purpose: "Propósito", security: "Seguridad", contact: "Contacto", municipal: "Acceso Municipal" },
     hero: {
-      badge: "Colaborador CCHIA · Google Certified Educator · La Araucanía",
-      role: "Claridad digital · Automatización · IA aplicada",
+      badge: "Google Certified Educator",
+      role: "Colaborador CCHIA · Google Certified Educator · La Araucanía",
       headline1: "Haz que la tecnología",
       headline2: "juegue a tu favor.",
       sub: "Diseño soluciones web, automatizaciones y experiencias con IA para que empresas, municipios y comunidades trabajen con más claridad, menos fricción y más confianza.",
