@@ -15,10 +15,10 @@ const content = {
     nav: { services: "Servicios", about: "Sobre mí", certs: "Certificaciones", projects: "Proyectos", purpose: "Propósito", security: "Seguridad", contact: "Contacto", municipal: "Acceso Municipal" },
     hero: {
       badge: "Google Certified Educator",
-      role: "Colaborador CCHIA · Google Certified Educator · La Araucanía",
+      role: "Colaborador CCHIA · La Araucanía",
       headline1: "Haz que la tecnología",
       headline2: "juegue a tu favor.",
-      sub: "Diseño soluciones web, automatizaciones y experiencias con IA para que empresas, municipios y comunidades trabajen con más claridad, menos fricción y más confianza.",
+      sub: "Diseño sitios web, automatizaciones y talleres de IA para empresas, municipios y comunidades en Chile.",
       cta1: "Solicita un diagnóstico",
       cta2: "Ver casos reales",
       contact: "Contactar"
@@ -529,23 +529,25 @@ export default function App() {
         createdAt: serverTimestamp()
       }).catch(err => console.error("Firestore backup failed:", err));
 
-      const response = await fetch("https://formsubmit.co/ajax/claudioegdiaz@gmail.com", {
+      const formData = new FormData();
+      formData.append("name", contactForm.name);
+      formData.append("email", contactForm.email);
+      formData.append("message", contactForm.message);
+      formData.append("_subject", `Nuevo mensaje de portfolio de ${contactForm.name}`);
+      formData.append("_captcha", "false");
+      formData.append("_template", "table");
+
+      const response = await fetch("https://formsubmit.co/claudioegdiaz@gmail.com", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
           "Accept": "application/json"
         },
-        body: JSON.stringify({
-          name: contactForm.name,
-          email: contactForm.email,
-          message: contactForm.message,
-          _replyto: contactForm.email,
-          _subject: `Nuevo mensaje de portfolio de ${contactForm.name}`
-        })
+        body: formData
       });
 
-      if (!response.ok) {
-        throw new Error("Error sending email via Formsubmit");
+      const result = await response.json().catch(() => null);
+      if (!response.ok || (result && result.success === false)) {
+        throw new Error(result?.message || "Error sending email via FormSubmit");
       }
 
       setSendSuccess(true);
