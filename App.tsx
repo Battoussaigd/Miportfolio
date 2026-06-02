@@ -15,30 +15,30 @@ const content = {
     nav: { services: "Servicios", about: "Sobre mí", certs: "Certificaciones", projects: "Proyectos", purpose: "Propósito", security: "Seguridad", contact: "Contacto", municipal: "Acceso Municipal" },
     hero: {
       badge: "Colaborador CCHIA · Google Certified Educator · La Araucanía",
-      role: "Sitios web · Automatización · Talleres de IA",
-      headline1: "Soluciones para",
-      headline2: "trabajar mejor.",
-      sub: "Diseño sitios web, automatizaciones y talleres de IA para empresas, municipios y comunidades en Chile.",
+      role: "Claridad digital · Automatización · IA aplicada",
+      headline1: "Haz que la tecnología",
+      headline2: "juegue a tu favor.",
+      sub: "Diseño soluciones web, automatizaciones y experiencias con IA para que empresas, municipios y comunidades trabajen con más claridad, menos fricción y más confianza.",
       cta1: "Solicita un diagnóstico",
       cta2: "Ver casos reales",
       contact: "Contactar"
     },
     services: {
-      label: "Servicios", title: "Cómo puedo ", titleEm: "ayudarte",
-      sub: "Servicios pensados para resolver necesidades reales con más claridad, eficiencia y acompañamiento." ,
+      label: "Servicios", title: "Servicios para ", titleEm: "avanzar con claridad",
+      sub: "Diseñados para que tu organización se vea mejor, funcione mejor y transmita más confianza desde el primer contacto.",
       items: [
         {
           icon: "📱",
-          title: "Desarrollo de PWAs y Apps Web",
-          desc: "Aplicaciones web progresivas (PWA) que funcionan en cualquier dispositivo, sin necesidad de App Store. Diseño, desarrollo y despliegue completo.",
+          title: "Sitios web y experiencias digitales",
+          desc: "Sitios y aplicaciones web pensados para verse profesionales, cargar rápido y dar una mejor experiencia a quienes confían en tu organización.",
           tags: ["React", "Firebase", "Netlify / Vercel"],
           cta: "Consultar",
           color: "cyan"
         },
         {
           icon: "⚡",
-          title: "Automatización con IA",
-          desc: "Transformo procesos manuales repetitivos en flujos automáticos usando Google Apps Script, Gemini y APIs. Casos reales: 6 horas → 10 minutos.",
+          title: "Automatización de procesos",
+          desc: "Convierto tareas repetitivas y desordenadas en flujos más simples, rápidos y sostenibles, para que tu tiempo se use donde realmente importa.",
           tags: ["Apps Script", "Gemini API", "Google Sheets"],
           cta: "Consultar",
           color: "amber"
@@ -46,23 +46,23 @@ const content = {
         {
           icon: "🤖",
           title: "Chatbots con Gemini y Claude",
-          desc: "Asistentes virtuales inteligentes para tu web, negocio o municipio. Con contexto personalizado, respuestas en lenguaje natural y sin código del cliente.",
+          desc: "Asistentes digitales que orientan, responden y acompañan mejor a tus usuarios, sin hacer que la experiencia se sienta fría o impersonal.",
           tags: ["Gemini", "Claude", "RAG"],
           cta: "Consultar",
           color: "purple"
         },
         {
           icon: "🎓",
-          title: "Relatorías y Talleres de IA",
-          desc: "Talleres prácticos de IA Generativa para equipos de trabajo, municipios y comunidades. Desde fundamentos hasta aplicaciones reales con Gemini y Google Workspace.",
+          title: "Talleres de IA aplicados",
+          desc: "Capacitaciones claras, cercanas y útiles para que equipos, municipios y comunidades incorporen IA con criterio y aplicaciones reales.",
           tags: ["IA Generativa", "Google Workspace", "Capacitación"],
           cta: "Consultar",
           color: "green"
         },
         {
           icon: "🏛️",
-          title: "Consultoría IA para Empresas y Municipios",
-          desc: "Diagnóstico de procesos, hoja de ruta de adopción de IA y acompañamiento en la implementación. Sector público y privado, desde PYMEs hasta grandes organizaciones.",
+          title: "Diagnóstico y acompañamiento",
+          desc: "Analizo tu contexto, detecto oportunidades y te ayudo a tomar decisiones tecnológicas con más seguridad, sin presión ni tecnicismos innecesarios.",
           tags: ["Diagnóstico", "Hoja de ruta", "Acompañamiento"],
           cta: "Agendar llamada",
           color: "blue"
@@ -755,11 +755,11 @@ export default function App() {
         >
           <p className={`text-sm text-center md:text-left ${isDark ? 'text-neutral-400' : 'text-neutral-600'}`}>
             {lang === 'es'
-              ? '¿Si no tienes claro qué necesitas, conversemos y te ayudo a ordenarlo.'
+              ? '¿Si aún no tienes claro qué necesitas, conversemos. Muchas veces el primer paso no es comprar algo, sino entender bien el problema.'
               : "If you're not sure what you need yet, let's talk and I'll help you clarify it."}
           </p>
           <a href="#contacto" className="btn-primary flex items-center gap-2 shrink-0 text-sm px-6 py-2.5">
-            {lang === 'es' ? 'Solicitar diagnóstico' : 'Request diagnosis'} <ArrowRight className="w-4 h-4" />
+            {lang === 'es' ? 'Hablar de mi caso' : 'Discuss my case'} <ArrowRight className="w-4 h-4" />
           </a>
         </motion.div>
       </section>
