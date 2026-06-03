@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Magika } from 'magika';
 import { Upload, FileText, AlertCircle, CheckCircle2, Loader } from 'lucide-react';
 

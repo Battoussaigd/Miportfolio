@@ -12,6 +12,7 @@ interface Municipality {
   commune: string;
   names: string[];
   docs: DocItem[];
+  type?: 'municipio' | 'liceo';
   painPointText?: string;
   cardA_title?: string; cardA_desc?: string;
   cardB_title?: string; cardB_desc?: string;
@@ -135,6 +136,7 @@ export default function AdminPanel({ onClose }: { onClose: () => void }) {
       const docsFormatted = newForm.docs.filter(d => d.name.trim() && d.url.trim())
         .map(d => ({ name: d.name.trim(), url: toDriveDownload(d.url.trim()) }));
       await setDoc(doc(db, 'municipalities', newForm.key.trim()), {
+        type: newForm.type,
         authorityName: newForm.authorityName.trim(),
         commune: newForm.commune.trim(),
         names: namesArray, docs: docsFormatted,
@@ -205,6 +207,7 @@ export default function AdminPanel({ onClose }: { onClose: () => void }) {
         .map(d => ({ name: d.name.trim(), url: toDriveDownload(d.url.trim()) }));
 
       const dataToSave = {
+        type: editTarget.type || 'municipio',
         authorityName: editAuthorityName.trim(),
         commune: editTarget.commune,
         names: editNames,

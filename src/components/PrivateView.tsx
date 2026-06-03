@@ -3,7 +3,7 @@
  * Digitales 2026 · Claudio González Díaz
  */
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, Download, ChevronDown, GraduationCap, Zap, Heart, Clock, CheckCircle, Shield, Award, Cpu } from 'lucide-react';
 
@@ -178,7 +178,9 @@ const COLORS = {
 };
 
 // ─── Tarjeta de Track ─────────────────────────────────────────────────────────
-function TrackCard({ track, index }: { track: typeof TRACKS.escolar; index: number }) {
+type TrackData = typeof TRACKS.escolar | typeof TRACKS.impulso | typeof TRACKS.corazon;
+interface TrackCardProps { track: TrackData; index: number; }
+const TrackCard: React.FC<TrackCardProps> = ({ track, index }) => {
   const [expanded, setExpanded] = useState<number | null>(null);
   const [hovered, setHovered] = useState(false);
   const c = COLORS[track.color];
@@ -326,7 +328,7 @@ function TrackCard({ track, index }: { track: typeof TRACKS.escolar; index: numb
       </div>
     </motion.div>
   );
-}
+};
 
 // ─── Componente principal ─────────────────────────────────────────────────────
 export default function PrivateView({

@@ -9,6 +9,7 @@ import { Moon, Sun, Globe, Lock, ArrowRight, Download, MessageCircle, CheckCircl
 import { db } from './firebase';
 import { doc, getDoc, addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import AdminPanel from './components/AdminPanel';
+import PrivateView from './components/PrivateView';
 
 const content = {
   es: {
@@ -529,20 +530,19 @@ export default function App() {
         createdAt: serverTimestamp()
       }).catch(err => console.error("Firestore backup failed:", err));
 
-      const formData = new FormData();
-      formData.append("name", contactForm.name);
-      formData.append("email", contactForm.email);
-      formData.append("message", contactForm.message);
-      formData.append("_subject", `Nuevo mensaje de portfolio de ${contactForm.name}`);
-      formData.append("_captcha", "false");
-      formData.append("_template", "table");
-
-      const response = await fetch("https://formsubmit.co/claudioegdiaz@gmail.com", {
+      const response = await fetch("https://formsubmit.co/ajax/claudioegdiaz@gmail.com", {
         method: "POST",
         headers: {
+          "Content-Type": "application/json",
           "Accept": "application/json"
         },
-        body: formData
+        body: JSON.stringify({
+          name: contactForm.name,
+          email: contactForm.email,
+          message: contactForm.message,
+          _replyto: contactForm.email,
+          _subject: `Nuevo mensaje de portfolio de ${contactForm.name}`
+        })
       });
 
       const result = await response.json().catch(() => null);
@@ -1365,120 +1365,11 @@ export default function App() {
       {/* Private View */}
       <AnimatePresence>
         {privateData && (
-          <motion.div 
-            initial={{ opacity: 0, y: '100%' }} 
-            animate={{ opacity: 1, y: 0 }} 
-            exit={{ opacity: 0, y: '100%' }} 
-            transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className={`fixed inset-0 z-[150] overflow-y-auto p-6 md:p-12 ${isDark ? 'bg-black' : 'bg-neutral-50'}`}
-          >
-            <div className="max-w-5xl mx-auto pt-10 pb-20">
-              <button onClick={closePrivate} className="btn-secondary flex items-center gap-2 mb-12 text-sm">
-                <ArrowRight className="w-4 h-4 rotate-180" /> {t.private.back}
-              </button>
-              
-              {privateData.authorityName ? (
-                <div className="space-y-8">
-                  <div className="glass-panel p-10 md:p-16 rounded-[3rem] relative overflow-hidden border-cyan-400/20">
-                    <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/10 blur-[100px] rounded-full"></div>
-                    <h2 className="font-heading font-extrabold text-4xl md:text-6xl mb-4 relative z-10">
-                      Bienvenido, <span className="text-gradient">{privateData.authorityName}</span>.
-                    </h2>
-                    <p className="text-xl md:text-2xl text-neutral-400 relative z-10 max-w-2xl">
-                      Esta es la hoja de ruta para transformar <strong className="text-neutral-200">{privateData.commune}</strong> con Inteligencia Artificial.
-                    </p>
-                  </div>
-
-                  <div className="bg-cyan-500/10 border border-cyan-500/20 p-8 md:p-10 rounded-[2rem]">
-                    <p className="text-xl md:text-2xl font-medium text-cyan-50 leading-relaxed text-center">
-                      "{privateData.painPointText || 'Sabemos que el tiempo de los dirigentes es invaluable. Nuestro objetivo es simplificar los procesos administrativos con tecnología, devolviéndoles ese tiempo para el desarrollo de su comunidad.'}"
-                    </p>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="glass-panel p-8 rounded-[2rem] hover:-translate-y-2 transition-transform duration-300">
-                      <div className="w-12 h-12 rounded-2xl bg-cyan-500/20 flex items-center justify-center mb-6">
-                        <Users className="w-6 h-6 text-cyan-400" />
-                      </div>
-                      <h3 className="font-heading font-bold text-xl mb-3">{privateData.cardA_title || 'Gestión Dirigencial 2.0'}</h3>
-                      <p className="text-neutral-400 text-sm leading-relaxed">{privateData.cardA_desc || 'Resumen del Nivel I y II. Herramientas de IA para optimizar la gestión de líderes comunitarios.'}</p>
-                    </div>
-                    <div className="glass-panel p-8 rounded-[2rem] hover:-translate-y-2 transition-transform duration-300">
-                      <div className="w-12 h-12 rounded-2xl bg-purple-500/20 flex items-center justify-center mb-6">
-                        <GraduationCap className="w-6 h-6 text-purple-400" />
-                      </div>
-                      <h3 className="font-heading font-bold text-xl mb-3">{privateData.cardB_title || 'Talento Joven y PWA'}</h3>
-                      <p className="text-neutral-400 text-sm leading-relaxed">{privateData.cardB_desc || 'Resumen del Track Escolar. Preparando a las nuevas generaciones con tecnología de punta.'}</p>
-                    </div>
-                    <div className="glass-panel p-8 rounded-[2rem] hover:-translate-y-2 transition-transform duration-300">
-                      <div className="w-12 h-12 rounded-2xl bg-pink-500/20 flex items-center justify-center mb-6">
-                        <Heart className="w-6 h-6 text-pink-400" />
-                      </div>
-                      <h3 className="font-heading font-bold text-xl mb-3">{privateData.cardC_title || 'Empoderamiento y Superpoderes'}</h3>
-                      <p className="text-neutral-400 text-sm leading-relaxed">{privateData.cardC_desc || 'Resumen del Track Mujeres. Reduciendo la brecha digital y potenciando el liderazgo femenino.'}</p>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="glass-panel p-8 rounded-[2rem] flex items-center gap-6">
-                      <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center shrink-0">
-                        <DollarSign className="w-8 h-8 text-green-400" />
-                      </div>
-                      <div>
-                        <h4 className="font-heading font-bold text-lg mb-1">Costo de Licencias: $0 CLP</h4>
-                        <p className="text-neutral-400 text-sm">Implementación sobre infraestructura gratuita de Google. Inversión en software a costo cero.</p>
-                      </div>
-                    </div>
-
-                    <div className="glass-panel p-8 rounded-[2rem] flex items-center gap-6">
-                      <div className="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center shrink-0">
-                        <ShieldCheck className="w-8 h-8 text-blue-400" />
-                      </div>
-                      <div>
-                        <h4 className="font-heading font-bold text-lg mb-1">Respaldo Institucional</h4>
-                        <p className="text-neutral-400 text-sm">Colaborador CCHIA y Relator Especialista en IA Generativa Aplicada.</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="mt-12 text-center">
-                    <a href={privateData.pdfUrl || '#'} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 bg-cyan-400 text-neutral-950 px-8 py-4 rounded-full text-lg font-bold hover:scale-105 transition-transform shadow-[0_0_30px_rgba(34,211,238,0.3)]">
-                      <Download className="w-5 h-5" />
-                      Descargar Propuesta Técnica Completa (PDF)
-                    </a>
-                  </div>
-
-                </div>
-              ) : (
-                <div className="max-w-3xl mx-auto">
-                  <h2 className="font-heading font-extrabold text-4xl md:text-5xl mb-3">
-                    {t.private.welcome}<span className="text-gradient">{privateData.display}</span>
-                  </h2>
-                  <p className="text-neutral-400 text-lg mb-12">{lang === 'es' ? privateData.subEs : privateData.subEn}</p>
-                  
-                  <div className="glass-panel p-8 rounded-[2rem] mb-12 border-cyan-400/20">
-                    <div className="font-heading font-bold text-xl mb-2">{t.private.prog} {privateData.program}</div>
-                    <p className="text-neutral-400 text-sm">{t.private.cost}</p>
-                  </div>
-                  
-                  <h3 className="font-heading font-bold text-2xl text-cyan-400 mb-6">{t.private.docs}</h3>
-                  <div className="space-y-4">
-                    {privateData.docs.map((d: any, i: number) => (
-                      <div key={i} className="glass-panel p-6 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:-translate-y-1 transition-transform">
-                        <div>
-                          <div className="font-medium mb-1">{d.n}</div>
-                          <div className="text-sm text-neutral-400">{d.d}</div>
-                        </div>
-                        <a href={d.f} download className="btn-primary text-sm py-2 px-5 flex items-center justify-center gap-2 shrink-0">
-                          {t.private.dl} <Download className="w-4 h-4" />
-                        </a>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-          </motion.div>
+          <PrivateView 
+            privateData={privateData} 
+            onClose={closePrivate} 
+            isDark={isDark} 
+          />
         )}
       </AnimatePresence>
 

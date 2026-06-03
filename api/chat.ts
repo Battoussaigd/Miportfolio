@@ -92,7 +92,7 @@ CURSOS QUE IMPARTE:
 Si preguntan por propuestas municipales o documentos oficiales, indica que usen el botón "Acceso Municipal".`;
 
     const chat = ai.chats.create({
-      model: "gemini-3-flash-preview",
+      model: "gemini-2.0-flash",
       history: history || [],
       config: {
         systemInstruction: systemInstruction,
