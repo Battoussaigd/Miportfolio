@@ -197,7 +197,7 @@ const content = {
     }
   },
   en: {
-    nav: { services: "Services", about: "About", certs: "Certifications", projects: "Projects", purpose: "Purpose", security: "Security", contact: "Contact", municipal: "Municipal Access" },
+    nav: { services: "Services", about: "About", certs: "Certifications", courses: "Courses", projects: "Projects", purpose: "Purpose", security: "Security", contact: "Contact", municipal: "Municipal Access" },
     hero: {
       badge: "CCHIA Collaborator · Google Certified Educator · La Araucanía",
       role: "AI-Powered Apps · Automation · Workshops · Consulting",
@@ -592,6 +592,7 @@ export default function App() {
           <a href="#servicios" className="text-sm font-medium text-neutral-400 hover:text-neutral-50 transition-colors">{t.nav.services}</a>
           <a href="#sobre-mi" className="text-sm font-medium text-neutral-400 hover:text-neutral-50 transition-colors">{t.nav.about}</a>
           <a href="#certificaciones" className="text-sm font-medium text-neutral-400 hover:text-neutral-50 transition-colors">{t.nav.certs}</a>
+          <a href="#cursos" className="text-sm font-medium text-neutral-400 hover:text-neutral-50 transition-colors">{t.nav.courses}</a>
           <a href="#proyectos" className="text-sm font-medium text-neutral-400 hover:text-neutral-50 transition-colors">{t.nav.projects}</a>
           <a href="#tecnologia" className="text-sm font-medium text-neutral-400 hover:text-neutral-50 transition-colors">{t.nav.purpose}</a>
           <a href="#seguridad" className="text-sm font-medium text-neutral-400 hover:text-neutral-50 transition-colors">{t.nav.security}</a>
@@ -631,6 +632,7 @@ export default function App() {
                 <a href="#servicios" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${isDark ? 'text-neutral-200 hover:text-cyan-400' : 'text-neutral-800 hover:text-cyan-600'}`}>{t.nav.services}</a>
                 <a href="#sobre-mi" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${isDark ? 'text-neutral-200 hover:text-cyan-400' : 'text-neutral-800 hover:text-cyan-600'}`}>{t.nav.about}</a>
                 <a href="#certificaciones" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${isDark ? 'text-neutral-200 hover:text-cyan-400' : 'text-neutral-800 hover:text-cyan-600'}`}>{t.nav.certs}</a>
+                <a href="#cursos" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${isDark ? 'text-neutral-200 hover:text-cyan-400' : 'text-neutral-800 hover:text-cyan-600'}`}>{t.nav.courses}</a>
                 <a href="#proyectos" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${isDark ? 'text-neutral-200 hover:text-cyan-400' : 'text-neutral-800 hover:text-cyan-600'}`}>{t.nav.projects}</a>
                 <a href="#tecnologia" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${isDark ? 'text-neutral-200 hover:text-cyan-400' : 'text-neutral-800 hover:text-cyan-600'}`}>{t.nav.purpose}</a>
                 <a href="#seguridad" onClick={() => setIsMobileMenuOpen(false)} className={`text-lg font-medium transition-colors ${isDark ? 'text-neutral-200 hover:text-cyan-400' : 'text-neutral-800 hover:text-cyan-600'}`}>{t.nav.security}</a>
@@ -956,6 +958,8 @@ export default function App() {
           </div>
         </motion.div>
       </section>
+
+      <CoursesSection isDark={isDark} />
 
       {/* Projects */}
       <section id="proyectos" className="py-24 px-6 max-w-6xl mx-auto">
