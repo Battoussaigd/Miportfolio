@@ -14,6 +14,58 @@ interface CoursesSectionProps {
   isDark: boolean;
 }
 
+const submitToGoogleScript = (url: string, fields: CourseFormData) =>
+  new Promise<void>((resolve, reject) => {
+    const iframeName = `course-form-submit-${Date.now()}`;
+    const iframe = document.createElement('iframe');
+    const form = document.createElement('form');
+    let settled = false;
+
+    const cleanup = () => {
+      window.setTimeout(() => {
+        iframe.remove();
+        form.remove();
+      }, 500);
+    };
+
+    const finish = () => {
+      if (settled) return;
+      settled = true;
+      cleanup();
+      resolve();
+    };
+
+    iframe.name = iframeName;
+    iframe.style.display = 'none';
+
+    form.method = 'POST';
+    form.action = url;
+    form.target = iframeName;
+    form.style.display = 'none';
+
+    Object.entries(fields).forEach(([name, value]) => {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = name;
+      input.value = value;
+      form.appendChild(input);
+    });
+
+    iframe.onload = finish;
+    iframe.onerror = () => {
+      if (settled) return;
+      settled = true;
+      cleanup();
+      reject(new Error('No se pudo enviar el formulario.'));
+    };
+
+    document.body.appendChild(iframe);
+    document.body.appendChild(form);
+    form.submit();
+
+    window.setTimeout(finish, 3000);
+  });
+
 const CourseCard = ({ 
   title, 
   isMainCourse, 
@@ -97,14 +149,7 @@ export const CoursesSection = ({ isDark }: CoursesSectionProps) => {
       // IMPORTANTE: Reemplaza esta URL con la URL de tu Google Apps Script
       const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzzD9gEFi30QfTcdqc5VVsZmL0UsSXyLeOP6kAYK3X2SWMskMHUdHv7MlDRnOMPtyF6oA/exec';
 
-      const body = new FormData();
-      body.append('nombre', formData.nombre);
-      body.append('email', formData.email);
-      body.append('emprendimiento', formData.emprendimiento);
-      body.append('servicio', formData.servicio);
-      body.append('desafio', formData.desafio);
-
-      await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body });
+      await submitToGoogleScript(SCRIPT_URL, formData);
 
       setSubmitSuccess(true);
       setFormData({ nombre: '', email: '', emprendimiento: '', servicio: '', desafio: '' });
@@ -339,7 +384,7 @@ export const CoursesSection = ({ isDark }: CoursesSectionProps) => {
                           Enviando...
                         </>
                       ) : (
-                        'Reservar mi cupo →'
+                        'Enviar'
                       )}
                     </button>
                   </form>
