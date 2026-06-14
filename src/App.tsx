@@ -1,3 +1,4 @@
+import { CoursesSection } from './components/CoursesSection';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -13,7 +14,7 @@ import PrivateView from './components/PrivateView';
 
 const content = {
   es: {
-    nav: { services: "Servicios", about: "Sobre mí", certs: "Certificaciones", projects: "Proyectos", purpose: "Propósito", security: "Seguridad", contact: "Contacto", municipal: "Acceso Municipal" },
+    nav: { services: "Servicios", about: "Sobre mí", certs: "Certificaciones", courses: "Cursos", projects: "Proyectos", purpose: "Propósito", security: "Seguridad", contact: "Contacto", municipal: "Acceso Municipal" },
     hero: {
       badge: "Google Certified Educator",
       role: "Colaborador CCHIA · La Araucanía",
