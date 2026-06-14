@@ -1,9 +1,9 @@
-import { CoursesSection } from './components/CoursesSection';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { CoursesSection } from './components/CoursesSection';
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Moon, Sun, Globe, Lock, ArrowRight, Download, MessageCircle, CheckCircle2, ChevronRight, MapPin, Clock, Shield, Zap, BookOpen, Users, GraduationCap, Heart, DollarSign, ShieldCheck, Menu, X, Bot, Send, Award, ExternalLink, BadgeCheck, Upload, FileText, AlertCircle } from 'lucide-react';
