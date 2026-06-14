@@ -12,7 +12,7 @@ import AdminPanel from './components/AdminPanel';
 
 const content = {
   es: {
-    nav: { services: "Servicios", about: "Sobre mí", certs: "Certificaciones", projects: "Proyectos", purpose: "Propósito", security: "Seguridad", contact: "Contacto", municipal: "Acceso Municipal" },
+    nav: { services: "Servicios", about: "Sobre mí", certs: "Certificaciones", courses: "Cursos", projects: "Proyectos", purpose: "Propósito", security: "Seguridad", contact: "Contacto", municipal: "Acceso Municipal" },
     hero: {
       badge: "Colaborador CCHIA · Google Certified Educator · La Araucanía",
       role: "Claridad digital · Automatización · IA aplicada",
