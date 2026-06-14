@@ -142,7 +142,7 @@ export const CoursesSection = ({ isDark }: CoursesSectionProps) => {
 
   return (
     <>
-      <section className={`py-20 px-4 md:px-8 ${isDark ? 'bg-black/40' : 'bg-neutral-50/40'}`}>
+      <section id="cursos" className={`py-20 px-4 md:px-8 ${isDark ? 'bg-black/40' : 'bg-neutral-50/40'}`}>
         <div className="max-w-7xl mx-auto">
 
           {/* Header */}
