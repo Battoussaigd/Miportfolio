@@ -1,4 +1,4 @@
-import OpenAI from "openai";
+import { GoogleGenAI } from "@google/genai";
 
 const rateLimit = new Map<string, { count: number; resetTime: number }>();
 const LIMIT = 20;
@@ -81,38 +81,28 @@ export default async function handler(req: any, res: any) {
       return res.status(400).json({ error: 'Message is required' });
     }
 
-    const apiKey = process.env.DEEPSEEK_API_KEY;
+    const apiKey = process.env.GEMINI_API_KEY;
 
     if (!apiKey) {
-      console.error('DEEPSEEK_API_KEY is missing in Vercel environment');
+      console.error('GEMINI_API_KEY is missing in Vercel environment');
       return res.status(500).json({ error: 'La llave de inteligencia artificial no está configurada en el servidor.' });
     }
 
-    const client = new OpenAI({
-      apiKey,
-      baseURL: 'https://api.deepseek.com',
+    const ai = new GoogleGenAI({ apiKey });
+
+    const chat = ai.chats.create({
+      model: "gemini-3.5-flash",
+      history: history || [],
+      config: {
+        systemInstruction,
+      },
     });
 
-    const messages: OpenAI.ChatCompletionMessageParam[] = [
-      { role: 'system', content: systemInstruction },
-      ...(history || []).map((turn: any) => ({
-        role: turn.role === 'model' ? 'assistant' : 'user',
-        content: turn.parts?.[0]?.text ?? turn.content ?? '',
-      })),
-      { role: 'user', content: message },
-    ];
-
-    const response = await client.chat.completions.create({
-      model: 'deepseek-chat',
-      messages,
-      max_tokens: 1024,
-    });
-
-    const text = response.choices[0]?.message?.content ?? '';
-    return res.status(200).json({ text });
+    const response = await chat.sendMessage({ message });
+    return res.status(200).json({ text: response.text });
 
   } catch (error: any) {
-    console.error("Error in DeepSeek API:", error);
+    console.error("Error in Gemini API:", error);
     return res.status(500).json({ error: error.message || 'Internal server error' });
   }
 }
