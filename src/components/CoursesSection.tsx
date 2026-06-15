@@ -97,17 +97,16 @@ export const CoursesSection = ({ isDark }: CoursesSectionProps) => {
       // IMPORTANTE: Reemplaza esta URL con la URL de tu Google Apps Script
       const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzzD9gEFi30QfTcdqc5VVsZmL0UsSXyLeOP6kAYK3X2SWMskMHUdHv7MlDRnOMPtyF6oA/exec';
 
-      const body = new URLSearchParams();
-      body.append('nombre', formData.nombre);
-      body.append('email', formData.email);
-      body.append('emprendimiento', formData.emprendimiento);
-      body.append('servicio', formData.servicio);
-      body.append('desafio', formData.desafio);
+      const params = new URLSearchParams();
+      params.append('nombre', formData.nombre);
+      params.append('email', formData.email);
+      params.append('emprendimiento', formData.emprendimiento);
+      params.append('servicio', formData.servicio);
+      params.append('desafio', formData.desafio);
 
-      await fetch(SCRIPT_URL, {
-        method: 'POST',
+      await fetch(`${SCRIPT_URL}?${params.toString()}`, {
+        method: 'GET',
         mode: 'no-cors',
-        body,
       });
 
       setSubmitSuccess(true);
