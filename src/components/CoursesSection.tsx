@@ -1,6 +1,7 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, CheckCircle2, Loader } from 'lucide-react';
+import { X, CheckCircle2, Loader, ArrowRight } from 'lucide-react';
 
 interface EmprendedoresFormData {
   nombre: string;
@@ -27,21 +28,22 @@ const CourseCard = ({
   title,
   isMainCourse,
   onEnroll,
+  onDetails,
   isDark
 }: {
   title: string,
   isMainCourse: boolean,
   onEnroll: () => void,
+  onDetails: () => void,
   isDark: boolean
 }) => (
   <motion.div
     whileHover={{ y: isMainCourse ? -5 : 0 }}
     className={`rounded-2xl p-6 h-full flex flex-col items-center justify-center text-center transition-all ${
       isMainCourse
-        ? `cursor-pointer bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border border-cyan-500/40 hover:border-cyan-500/70`
+        ? `bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border border-cyan-500/40 hover:border-cyan-500/70`
         : `${isDark ? 'bg-neutral-800/40 border border-neutral-700/40' : 'bg-neutral-100/60 border border-neutral-200/60'}`
     }`}
-    onClick={isMainCourse ? onEnroll : undefined}
   >
     {isMainCourse && (
       <div className="mb-4">
@@ -58,9 +60,20 @@ const CourseCard = ({
     </h3>
 
     {isMainCourse && (
-      <p className="text-xs text-neutral-400 mt-3">
-        Haz clic para inscribirte →
-      </p>
+      <div className="mt-4 flex flex-col gap-2 w-full">
+        <button
+          onClick={onEnroll}
+          className="w-full py-2 rounded-lg text-xs font-semibold bg-cyan-500 text-neutral-950 hover:bg-cyan-400 transition-colors"
+        >
+          Inscribirme
+        </button>
+        <button
+          onClick={onDetails}
+          className="w-full py-2 rounded-lg text-xs font-medium text-cyan-400 border border-cyan-500/40 hover:bg-cyan-500/10 transition-colors flex items-center justify-center gap-1"
+        >
+          Ver detalles <ArrowRight className="w-3 h-3" />
+        </button>
+      </div>
     )}
 
     {!isMainCourse && (
@@ -72,6 +85,7 @@ const CourseCard = ({
 );
 
 export const CoursesSection = ({ isDark }: CoursesSectionProps) => {
+  const navigate = useNavigate();
   const [activeForm, setActiveForm] = useState<'emprendedores' | 'mujeres' | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
@@ -164,11 +178,11 @@ export const CoursesSection = ({ isDark }: CoursesSectionProps) => {
   };
 
   const courses = [
-    { id: 1, title: 'Taller IA Emprendedores Pillanlelbún', isMain: true, form: 'emprendedores' as const },
-    { id: 2, title: 'Taller IAgen Mujeres Pillanlelbún', isMain: true, form: 'mujeres' as const },
-    { id: 3, title: 'Próximamente', isMain: false, form: null },
-    { id: 4, title: 'Próximamente', isMain: false, form: null },
-    { id: 5, title: 'Próximamente', isMain: false, form: null }
+    { id: 1, title: 'Taller IA Emprendedores Pillanlelbún', isMain: true, form: 'emprendedores' as const, route: '/cursos/emprendedores' },
+    { id: 2, title: 'Taller IAgen Mujeres Pillanlelbún', isMain: true, form: 'mujeres' as const, route: '/cursos/mujeres' },
+    { id: 3, title: 'Próximamente', isMain: false, form: null, route: null },
+    { id: 4, title: 'Próximamente', isMain: false, form: null, route: null },
+    { id: 5, title: 'Próximamente', isMain: false, form: null, route: null }
   ];
 
   const inputClass = `w-full px-4 py-2.5 rounded-lg outline-none transition-all text-sm ${
@@ -221,6 +235,7 @@ export const CoursesSection = ({ isDark }: CoursesSectionProps) => {
                   title={course.title}
                   isMainCourse={course.isMain}
                   onEnroll={() => course.form && setActiveForm(course.form)}
+                  onDetails={() => course.route && navigate(course.route)}
                   isDark={isDark}
                 />
               </motion.div>
