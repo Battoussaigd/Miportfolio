@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import { Shield, Zap, MessageCircle, Clock, BookOpen, Users } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { fadeUp } from '../utils/animations';
+import { CoursesSection } from '../components/CoursesSection';
 
 const icons = [
   <Shield className="w-8 h-8 text-cyan-400" />,
@@ -46,7 +47,9 @@ export default function Proyectos() {
   const t = content[lang];
 
   return (
-    <section className="py-32 px-6 max-w-6xl mx-auto">
+    <div className="pt-20">
+      <CoursesSection isDark={isDark} />
+    <section className="py-16 px-6 max-w-6xl mx-auto">
       <motion.div initial="hidden" animate="visible" variants={fadeUp}>
         <div className="text-xs font-bold tracking-[0.2em] uppercase text-cyan-400 mb-4">{t.label}</div>
         <h2 className="font-heading font-extrabold text-3xl md:text-4xl tracking-tight mb-4 flex flex-col sm:flex-row sm:items-baseline gap-2">
@@ -88,5 +91,6 @@ export default function Proyectos() {
         <p className="text-neutral-400 text-lg max-w-2xl mx-auto leading-relaxed">{t.cchia.desc}</p>
       </motion.div>
     </section>
+    </div>
   );
 }

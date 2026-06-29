@@ -41,6 +41,10 @@
   50%       { opacity: 1;   transform: scale(1.03); }
 }
 
+/* ── scrollbar-hide ── */
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+
 /* ── BASE ── */
 @layer base {
   html { scroll-behavior: smooth; }

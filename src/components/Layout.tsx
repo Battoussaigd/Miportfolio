@@ -22,7 +22,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
       <Navbar />
 
-      <main>{children}</main>
+      {/* pt-24 en móvil (barra doble fila) / pt-0 en desktop (nav flotante) */}
+      <main className="pt-24 md:pt-0">{children}</main>
 
       {/* Footer */}
       <footer className="py-12 text-center border-t border-white/10 text-sm text-neutral-500 relative">
